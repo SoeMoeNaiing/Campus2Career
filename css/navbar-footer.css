@@ -1,0 +1,159 @@
+/* RESET & CORE VARIABLES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+:root {
+  --primary-color: #2563eb;       /* Modern vibrant blue */
+  --primary-hover: #1d4ed8;
+  --text-main: #0f172a;           /* Deep slate */
+  --text-muted: #475569;          /* Muted slate */
+  --bg-glass: rgba(255, 255, 255, 0.85);
+  --border-color: #e2e8f0;
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* NAVBAR CONTAINER */
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  z-index: 1000;
+}
+
+.navContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* IMAGE LOGO STYLING */
+.navContainer > a[href="#"] {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.navContainer > a[href="#"] img {
+  height: 40px;             /* Standard professional logo height */
+  width: auto;              /* Maintains image proportions */
+  max-width: 180px;         /* Prevents overly wide logos from breaking layout */
+  object-fit: contain;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.navContainer > a[href="#"]:hover img {
+  transform: scale(1.02);   /* Subtle hover scale effect */
+}
+
+/* NAVIGATION LINKS */
+.navbar nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar nav a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  position: relative;
+  padding: 0.25rem 0;
+}
+
+.navbar nav a:hover {
+  color: var(--text-main);
+}
+
+/* Hover Underline Animation */
+.navbar nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: var(--transition);
+  border-radius: 2px;
+}
+
+.navbar nav a:hover::after {
+  width: 100%;
+}
+
+/* AUTHENTICATION BUTTONS */
+.auth {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.auth a[href="login.html"] {
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: var(--transition);
+}
+
+.auth a[href="login.html"]:hover {
+  background-color: #f1f5f9;
+  color: var(--primary-color);
+}
+
+.auth a[href="register.html"] {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.55rem 1.25rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
+}
+
+.auth a[href="register.html"]:hover {
+  background-color: var(--primary-hover);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  transform: translateY(-1px);
+}
+
+/* RESPONSIVE DESIGN FOR MOBILE */
+@media (max-width: 768px) {
+  .navContainer {
+    padding: 0.625rem 1rem;
+  }
+
+  .navContainer > a[href="#"] img {
+    height: 32px;            /* Slightly smaller logo on mobile screens */
+  }
+
+  .navbar nav {
+    display: none;            /* Hides main nav on small screens */
+  }
+
+  .auth a[href="login.html"] {
+    padding: 0.4rem 0.6rem;
+  }
+
+  .auth a[href="register.html"] {
+    padding: 0.4rem 0.85rem;
+  }
+}

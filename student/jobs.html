@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explore Internships | Campus2Career</title>
+  
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/navbar-footer.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/jobs.css" /> <!-- Premium Job Board CSS -->
+  <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="brand-logo"><img src="../assets/logo1.webp" alt="Logo" /></a>
+      <nav class="nav-links">
+        <a href="jobs.html" class="active">Browse Jobs</a>
+        <a href="dashboard.html">My Portal</a>
+      </nav>
+      <div class="nav-auth" id="navAuthContainer">
+        <!-- Replaced via JS -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Changed to job-board-wrapper and job-board-layout for the premium grid -->
+  <main class="job-board-wrapper">
+    <div class="job-board-layout">
+      
+      <!-- Filter Sidebar -->
+      <aside class="filter-sidebar">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+          <h3 style="margin: 0; border: none; padding: 0;">Filters</h3>
+          <button id="resetFilters" class="btn btn-outline btn-sm" style="border: none; padding: 0; color: var(--text-muted);">Reset All</button>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-group-title">Domain</div>
+          <select id="filterDomain" class="form-control">
+            <option value="all">All Domains</option>
+            <option value="Web Development">Web Development</option>
+            <option value="Data Science">Data Science</option>
+            <option value="UI/UX Design">UI/UX Design</option>
+            <option value="Marketing">Marketing</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-group-title">Job Type</div>
+          <!-- Changed to use the premium .filter-label class -->
+          <label class="filter-label"><input type="checkbox" value="Remote" class="filter-type" /> Remote</label>
+          <label class="filter-label"><input type="checkbox" value="On-site" class="filter-type" /> On-site</label>
+          <label class="filter-label"><input type="checkbox" value="Hybrid" class="filter-type" /> Hybrid</label>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-group-title">Minimum Stipend ($/mo)</div>
+          <input type="range" id="filterStipend" min="0" max="5000" step="500" value="0" style="width: 100%; margin-bottom: 0.5rem;" />
+          <div id="stipendValue" class="text-muted" style="font-size: 0.9rem;">$0/mo</div>
+        </div>
+      </aside>
+
+      <!-- Main Job Feed -->
+      <section>
+        <div class="jobs-header">
+          <input type="text" id="jobSearchInput" placeholder="Search by role, skill, or company..." class="form-control" style="max-width: 400px;" />
+        </div>
+
+        <!-- Changed from jobs-grid to jobs-list to match the premium flex layout -->
+        <div class="jobs-list" id="jobsContainer">
+          <!-- JS injects dynamic .job-card elements here -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Application Modal (Updated with premium overlay classes) -->
+  <div class="modal-overlay" id="applyModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalJobTitle">Apply for Internship</h3>
+        <button class="modal-close-btn" id="closeModal">&times;</button>
+      </div>
+      
+      <form id="applyForm">
+        <input type="hidden" id="modalJobId" />
+        
+        <div class="form-group">
+          <label>Student Profile Summary</label>
+          <div id="modalStudentInfo" class="form-control form-control-disabled" style="height: auto;">Loading profile...</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="coverNote">Why are you a good fit for this role?</label>
+          <textarea id="coverNote" class="form-control" rows="4" placeholder="Mention relevant projects or skills..." required></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">Submit Application</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

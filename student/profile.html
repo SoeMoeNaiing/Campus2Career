@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Profile | Campus2Career</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/navbar-footer.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="brand-logo"><img src="../assets/logo1.webp" alt="Logo" /></a>
+      <nav class="nav-links">
+        <a href="jobs.html">Browse Jobs</a>
+        <a href="dashboard.html">My Dashboard</a>
+        <a href="profile.html" class="active">My Profile</a>
+      </nav>
+      <div class="nav-auth" id="navAuthContainer"></div>
+    </div>
+  </header>
+
+  <main class="section-container">
+    <div class="panel-card max-width-800">
+      <div class="panel-header">
+        <h2>Student Profile & Resume</h2>
+        <p>Keep your profile updated so recruiters can evaluate your applications</p>
+      </div>
+
+      <form id="profileForm" class="auth-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="profName">Full Name</label>
+            <input type="text" id="profName" required />
+          </div>
+
+          <div class="form-group">
+            <label for="profEmail">University Email</label>
+            <input type="email" id="profEmail" readonly class="form-control-disabled" />
+          </div>
+
+          <div class="form-group">
+            <label for="profMajor">Major / Program</label>
+            <input type="text" id="profMajor" placeholder="e.g. Computer Science" required />
+          </div>
+
+          <div class="form-group">
+            <label for="profGPA">Current GPA</label>
+            <input type="number" step="0.01" id="profGPA" placeholder="3.80" min="0" max="4.0" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="profSkills">Skills (comma separated)</label>
+          <input type="text" id="profSkills" placeholder="JavaScript, React, HTML, CSS, Git" required />
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="profGithub">GitHub / Portfolio URL</label>
+            <input type="url" id="profGithub" placeholder="https://github.com/yourusername" />
+          </div>
+
+          <div class="form-group">
+            <label for="profResume">Resume Link (Google Drive / PDF)</label>
+            <input type="url" id="profResume" placeholder="https://drive.google.com/..." required />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Save Profile Updates</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,91 +1,77 @@
-/* ==========================================================================
-   1. CSS VARIABLES / DESIGN TOKENS
-   ========================================================================== */
+/* Core Variables & Theme Reset */
 :root {
-  /* Brand Colors */
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
-  --primary-light: #eef2ff;
-  
-  --secondary: #10b981;
-  --secondary-hover: #059669;
-  --secondary-light: #ecfdf5;
-
-  /* Neutral Spectrum */
-  --bg-main: #f8fafc;
-  --bg-surface: #ffffff;
-  --text-main: #0f172a;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+  --text-dark: #0f172a;
   --text-muted: #64748b;
+  --bg-light: #f8fafc;
+  --card-bg: #ffffff;
   --border-color: #e2e8f0;
-
-  /* Status Colors */
-  --status-pending: #f59e0b;
-  --status-approved: #10b981;
-  --status-rejected: #ef4444;
-
-  /* Typography Stack */
-  --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-
-  /* Elevation Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-
-  /* Geometry & Motion */
+  --border-hover: #cbd5e1;
+  --success: #10b981;
+  --success-bg: #d1fae5;
+  --warning: #f59e0b;
+  --warning-bg: #fef3c7;
+  --danger: #ef4444;
+  --danger-bg: #fee2e2;
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
-  --radius-full: 9999px;
-  --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* ==========================================================================
-   2. GLOBAL RESET & BASE TYPOGRAPHY
-   ========================================================================== */
-*, *::before, *::after {
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: var(--font-family);
-  background-color: var(--bg-main);
-  color: var(--text-main);
+  font-family: var(--font-sans);
+  background-color: var(--bg-light);
+  color: var(--text-dark);
   line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-
-h1, h2, h3, h4 {
-  color: var(--text-main);
-  font-weight: 700;
-  line-height: 1.25;
-}
-
-h1 { font-size: 2.75rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.25rem; }
 
 a {
-  color: inherit;
+  color: var(--primary);
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-/* Utility Layout Containers */
+a:hover {
+  color: var(--primary-hover);
+}
+
 .section-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 4rem 1.5rem;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  flex: 1;
 }
 
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
+/* Typography & Utilities */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-dark);
 }
 
-header>div>a>img{
-    height: 50px;
-    width: 55%;
+.text-muted {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.max-width-800 {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }

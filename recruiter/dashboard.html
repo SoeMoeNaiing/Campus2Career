@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recruiter Portal | Campus2Career</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/navbar-footer.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="brand-logo"><img src="../assets/logo1.webp" alt="Logo" /></a>
+      <nav class="nav-links">
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="post-job.html">Post New Job</a>
+        <a href="applicants.html">Review Applicants</a>
+      </nav>
+      <div class="nav-auth" id="navAuthContainer"></div>
+    </div>
+  </header>
+
+  <main class="section-container">
+    <div class="dashboard-header">
+      <div>
+        <h2 id="recruiterWelcome">Company Dashboard</h2>
+        <p class="text-muted">Manage active listings and incoming student applications</p>
+      </div>
+      <a href="post-job.html" class="btn btn-primary">+ Post New Internship</a>
+    </div>
+
+    <!-- Recruiter Key Stats -->
+    <div class="metrics-row">
+      <div class="metric-card">
+        <span class="metric-num" id="statActiveJobs">0</span>
+        <span class="metric-label">Active Listings</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-num" id="statTotalApplicants">0</span>
+        <span class="metric-label">Total Candidates</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-num" id="statShortlisted">0</span>
+        <span class="metric-label">Shortlisted Candidates</span>
+      </div>
+    </div>
+
+    <!-- Active Job Listings Table -->
+    <div class="panel-card">
+      <h3>Your Active Internship Postings</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Role Title</th>
+            <th>Domain</th>
+            <th>Type</th>
+            <th>Applicants</th>
+            <th>Deadline</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="recruiterJobsTable">
+          <!-- Populated dynamically via JS -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>

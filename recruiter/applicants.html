@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Candidate Applicants | Recruiter Portal</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/navbar-footer.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="brand-logo"><img src="../assets/logo1.webp" alt="Logo" /></a>
+      <nav class="nav-links">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="post-job.html">Post New Job</a>
+        <a href="applicants.html" class="active">Review Applicants</a>
+      </nav>
+      <div class="nav-auth" id="navAuthContainer"></div>
+    </div>
+  </header>
+
+  <main class="section-container">
+    <div class="dashboard-header">
+      <h2>Candidate Applications</h2>
+      <div class="filter-group-horizontal">
+        <select id="filterByJob" class="form-control">
+          <option value="all">All Posted Positions</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="panel-card">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Candidate Name</th>
+            <th>Applied Role</th>
+            <th>Major / Skills</th>
+            <th>Resume</th>
+            <th>Status</th>
+            <th>Change Status</th>
+          </tr>
+        </thead>
+        <tbody id="applicantsTableBody">
+          <!-- Populated dynamically via JS -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>

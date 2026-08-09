@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | Campus2Career</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/navbar-footer.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+</head>
+<body>
+  
+  <!-- Navbar goes here -->
+
+  <!-- THE AUTH CONTAINER -->
+  <main class="auth-page">
+    <div class="auth-card" style="max-width: 520px;"> <!-- Slightly wider for the grid layout -->
+      
+      <div class="auth-header">
+        <h2>Create an Account</h2>
+        <p>Join Campus2Career to jumpstart your future</p>
+      </div>
+
+      <!-- THE ROLE SELECTOR BUTTONS -->
+      <div class="role-switch">
+        <button type="button" class="role-btn active" id="regRoleStudent" onclick="selectRole('student')">Student</button>
+        <button type="button" class="role-btn" id="regRoleRecruiter" onclick="selectRole('recruiter')">Recruiter</button>
+      </div>
+
+      <!-- THE REGISTRATION FORM -->
+      <form id="registerForm">
+        
+        <!-- Side-by-side name fields -->
+        <div class="auth-form-grid">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" class="form-control" placeholder="John" required />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" class="form-control" placeholder="Doe" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" class="form-control" placeholder="you@example.com" required />
+        </div>
+
+        <!-- Dynamic Fields: STUDENT ONLY -->
+        <div class="form-group" id="studentFields">
+          <label for="university">University / College</label>
+          <input type="text" id="university" class="form-control" placeholder="e.g. Stanford University" />
+        </div>
+
+        <!-- Dynamic Fields: RECRUITER ONLY (Hidden by default) -->
+        <div class="form-group hidden-field" id="recruiterFields">
+          <label for="companyName">Company Name</label>
+          <input type="text" id="companyName" class="form-control" placeholder="e.g. Google, TechCorp" />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="Create a strong password" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">Sign Up</button>
+      </form>
+
+      <div class="auth-footer">
+        Already have an account? <a href="login.html">Sign in instead</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Quick inline script just to make the UI toggle work for now -->
+  <script>
+    function selectRole(role) {
+      // Toggle buttons
+      document.getElementById('regRoleStudent').classList.toggle('active', role === 'student');
+      document.getElementById('regRoleRecruiter').classList.toggle('active', role === 'recruiter');
+      
+      // Toggle fields
+      if(role === 'student') {
+        document.getElementById('studentFields').classList.remove('hidden-field');
+        document.getElementById('recruiterFields').classList.add('hidden-field');
+      } else {
+        document.getElementById('studentFields').classList.add('hidden-field');
+        document.getElementById('recruiterFields').classList.remove('hidden-field');
+      }
+    }
+  </script>
+</body>
+</html>

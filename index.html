@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Campus2Career — Discover internships and start your career journey."
+    >
+
+    <title>Campus2Career | Find Your Next Opportunity</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="site-header">
+
+        <div class="container navbar">
+
+            <a href="index.html" class="logo">
+                Campus<span>2</span>Career
+            </a>
+
+
+            <button
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                type="button"
+                aria-label="Open navigation menu"
+            >
+                ☰
+            </button>
+
+
+            <nav class="main-nav" id="mainNav">
+
+                <a href="#home">Home</a>
+
+                <a href="#internships">
+                    Internships
+                </a>
+
+                <a href="#how-it-works">
+                    How It Works
+                </a>
+
+                <a href="#about">
+                    About
+                </a>
+
+                <div class="nav-auth">
+
+                    <a
+                        href="pages/auth/login.html"
+                        class="btn btn-outline"
+                    >
+                        Login
+                    </a>
+
+                    <a
+                        href="pages/auth/register.html"
+                        class="btn btn-primary"
+                    >
+                        Register
+                    </a>
+
+                </div>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- ================= HERO ================= -->
+
+        <section class="hero" id="home">
+
+            <div class="container hero-content">
+
+                <div class="hero-text">
+
+                    <span class="hero-label">
+                        YOUR CAREER STARTS HERE
+                    </span>
+
+
+                    <h1>
+                        Find internships.
+                        <span>Build your future.</span>
+                    </h1>
+
+
+                    <p>
+                        Campus2Career connects university students
+                        with internship opportunities that match
+                        their skills, interests, and career goals.
+                    </p>
+
+
+                    <div class="hero-actions">
+
+                        <a
+                            href="#internships"
+                            class="btn btn-primary btn-large"
+                        >
+                            Browse Internships
+                        </a>
+
+                        <a
+                            href="pages/auth/register.html"
+                            class="btn btn-secondary btn-large"
+                        >
+                            Create Account
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-visual">
+
+                    <div class="hero-card">
+
+                        <div class="hero-card-header">
+
+                            <div>
+                                <span>Internship Search</span>
+                                <strong>Find your opportunity</strong>
+                            </div>
+
+                            <div class="hero-card-icon">
+                                🔎
+                            </div>
+
+                        </div>
+
+
+                        <div class="search-preview">
+
+                            <div class="search-preview-field">
+                                <span>⌕</span>
+                                <span>Software Engineering</span>
+                            </div>
+
+                            <div class="search-preview-field">
+                                <span>⌖</span>
+                                <span>Yangon</span>
+                            </div>
+
+                            <button type="button">
+                                Search
+                            </button>
+
+                        </div>
+
+
+                        <div class="opportunity-preview">
+
+                            <div class="opportunity-logo">
+                                T
+                            </div>
+
+                            <div class="opportunity-info">
+
+                                <strong>
+                                    Software Engineering Intern
+                                </strong>
+
+                                <span>
+                                    Technology Company
+                                </span>
+
+                                <small>
+                                    Yangon · Full-time
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="opportunity-preview">
+
+                            <div class="opportunity-logo">
+                                D
+                            </div>
+
+                            <div class="opportunity-info">
+
+                                <strong>
+                                    Web Development Intern
+                                </strong>
+
+                                <span>
+                                    Digital Solutions
+                                </span>
+
+                                <small>
+                                    Remote · Part-time
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= QUICK SEARCH ================= -->
+
+        <section class="search-section" id="internships">
+
+            <div class="container">
+
+                <div class="search-heading">
+
+                    <span class="section-label">
+                        OPPORTUNITIES
+                    </span>
+
+                    <h2>
+                        Find the right internship
+                    </h2>
+
+                    <p>
+                        Search opportunities based on your
+                        interests and career goals.
+                    </p>
+
+                </div>
+
+
+                <form class="internship-search" id="internshipSearch">
+
+                    <div class="search-input">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="text"
+                            id="searchKeyword"
+                            placeholder="Job title, skill or keyword"
+                        >
+
+                    </div>
+
+
+                    <div class="search-input">
+
+                        <span>⌖</span>
+
+                        <input
+                            type="text"
+                            id="searchLocation"
+                            placeholder="Location"
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Search Internships
+                    </button>
+
+                </form>
+
+                <p
+                    class="search-message"
+                    id="searchMessage"
+                ></p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= WHY CAMPUS2CAREER ================= -->
+
+        <section class="section" id="about">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        WHY CAMPUS2CAREER
+                    </span>
+
+                    <h2>
+                        Everything you need to
+                        start your career.
+                    </h2>
+
+                    <p>
+                        A simple platform designed around the
+                        internship journey of university students.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-grid">
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            🔎
+                        </div>
+
+                        <h3>
+                            Discover Opportunities
+                        </h3>
+
+                        <p>
+                            Browse internship opportunities
+                            from companies looking for students
+                            like you.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            📄
+                        </div>
+
+                        <h3>
+                            Apply Easily
+                        </h3>
+
+                        <p>
+                            Submit your applications and keep
+                            your career information organized.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            📊
+                        </div>
+
+                        <h3>
+                            Track Applications
+                        </h3>
+
+                        <p>
+                            Keep track of your applications and
+                            know where you are in the process.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= HOW IT WORKS ================= -->
+
+        <section class="section how-it-works" id="how-it-works">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        HOW IT WORKS
+                    </span>
+
+                    <h2>
+                        Three steps to your
+                        next opportunity.
+                    </h2>
+
+                </div>
+
+
+                <div class="steps">
+
+                    <article class="step">
+
+                        <div class="step-number">
+                            01
+                        </div>
+
+                        <h3>
+                            Create Your Profile
+                        </h3>
+
+                        <p>
+                            Register and create a student
+                            profile with your education,
+                            skills and interests.
+                        </p>
+
+                    </article>
+
+
+                    <article class="step">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <h3>
+                            Find & Apply
+                        </h3>
+
+                        <p>
+                            Search internships and apply
+                            to opportunities that match
+                            your career goals.
+                        </p>
+
+                    </article>
+
+
+                    <article class="step">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <h3>
+                            Start Your Journey
+                        </h3>
+
+                        <p>
+                            Track your applications and
+                            move closer to your first
+                            professional experience.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= STUDENTS ================= -->
+
+        <section class="section audience-section">
+
+            <div class="container audience-card">
+
+                <div class="audience-content">
+
+                    <span class="section-label">
+                        FOR STUDENTS
+                    </span>
+
+                    <h2>
+                        Your first opportunity
+                        is closer than you think.
+                    </h2>
+
+                    <p>
+                        Discover internships, create your
+                        professional profile, apply to
+                        opportunities and track your progress
+                        from one place.
+                    </p>
+
+                    <a
+                        href="pages/auth/register.html"
+                        class="btn btn-primary"
+                    >
+                        Find an Internship
+                    </a>
+
+                </div>
+
+
+                <div class="audience-list">
+
+                    <div>
+                        <span>✓</span>
+                        Personalized internship discovery
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Simple application process
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Application tracking
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Student profile
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RECRUITERS ================= -->
+
+        <section class="section recruiter-section">
+
+            <div class="container recruiter-content">
+
+                <div>
+
+                    <span class="section-label">
+                        FOR RECRUITERS
+                    </span>
+
+                    <h2>
+                        Find the next generation
+                        of talent.
+                    </h2>
+
+                    <p>
+                        Reach university students, publish
+                        internship opportunities and manage
+                        applications from one platform.
+                    </p>
+
+                    <a
+                        href="pages/auth/register.html"
+                        class="btn btn-primary"
+                    >
+                        Join as a Recruiter
+                    </a>
+
+                </div>
+
+
+                <div class="recruiter-features">
+
+                    <div>
+                        <strong>01</strong>
+                        <span>Publish internships</span>
+                    </div>
+
+                    <div>
+                        <strong>02</strong>
+                        <span>Receive applications</span>
+                    </div>
+
+                    <div>
+                        <strong>03</strong>
+                        <span>Manage candidates</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+
+        <div class="container footer-content">
+
+            <div>
+
+                <a href="index.html" class="logo footer-logo">
+                    Campus<span>2</span>Career
+                </a>
+
+                <p>
+                    Connecting university students with
+                    career opportunities.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <div>
+
+                    <h4>Platform</h4>
+
+                    <a href="#internships">
+                        Internships
+                    </a>
+
+                    <a href="#how-it-works">
+                        How It Works
+                    </a>
+
+                </div>
+
+
+                <div>
+
+                    <h4>Account</h4>
+
+                    <a href="pages/auth/login.html">
+                        Login
+                    </a>
+
+                    <a href="pages/auth/register.html">
+                        Register
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="container footer-bottom">
+
+            <p>
+                © <span id="currentYear"></span>
+                Campus2Career. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>

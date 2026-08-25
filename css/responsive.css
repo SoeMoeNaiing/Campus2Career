@@ -1,0 +1,147 @@
+/* =========================================================
+   CAMPUS2CAREER
+   RESPONSIVE STYLES
+   ========================================================= */
+
+
+@media (max-width: 950px) {
+
+    .hero-content {
+        grid-template-columns: 1fr;
+
+        gap: 50px;
+    }
+
+    .hero-text {
+        text-align: center;
+    }
+
+    .hero-text p {
+        margin: 0 auto;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .feature-grid,
+    .steps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .audience-card,
+    .recruiter-content {
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+    }
+
+}
+
+
+@media (max-width: 750px) {
+
+    .mobile-menu-button {
+        display: block;
+    }
+
+    .main-nav {
+        position: absolute;
+
+        top: 72px;
+
+        left: 0;
+        right: 0;
+
+        display: none;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 0;
+
+        padding: 20px;
+
+        background: #ffffff;
+
+        border-bottom: 1px solid var(--border);
+    }
+
+    .main-nav.active {
+        display: flex;
+    }
+
+    .main-nav > a {
+        padding: 12px 0;
+    }
+
+    .nav-auth {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        margin: 10px 0 0;
+    }
+
+    .nav-auth .btn {
+        width: 100%;
+    }
+
+    .internship-search {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-grid,
+    .steps {
+        grid-template-columns: 1fr;
+    }
+
+    .audience-card {
+        padding: 40px 30px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+    }
+
+    .footer-links {
+        gap: 50px;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .hero {
+        padding: 80px 0;
+    }
+
+    .hero-text h1 {
+        font-size: 2.7rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    .hero-card {
+        padding: 20px;
+    }
+
+    .section {
+        padding: 70px 0;
+    }
+
+    .footer-links {
+        flex-direction: column;
+
+        gap: 30px;
+    }
+
+}

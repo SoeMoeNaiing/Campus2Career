@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Register | Campus2Career</title>
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+
+<body class="auth-page">
+
+    <main class="auth-container">
+
+        <section class="auth-card">
+
+            <!-- Logo -->
+
+            <a href="../../index.html" class="logo">
+                Campus<span>2</span>Career
+            </a>
+
+
+            <div class="auth-heading">
+
+                <h1>Create your account</h1>
+
+                <p>
+                    Start your journey from campus to career.
+                </p>
+
+            </div>
+
+
+            <!-- Registration Form -->
+
+            <form id="registerForm" novalidate>
+
+                <!-- Name -->
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                    >
+
+                    <small
+                        class="form-error"
+                        id="nameError"
+                    ></small>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                    >
+
+                    <small
+                        class="form-error"
+                        id="emailError"
+                    ></small>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a password"
+                        autocomplete="new-password"
+                    >
+
+                    <small
+                        class="form-error"
+                        id="passwordError"
+                    ></small>
+
+                </div>
+
+
+                <!-- Confirm Password -->
+
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Confirm your password"
+                        autocomplete="new-password"
+                    >
+
+                    <small
+                        class="form-error"
+                        id="confirmPasswordError"
+                    ></small>
+
+                </div>
+
+
+                <!-- Role -->
+
+                <div class="form-group">
+
+                    <label>
+                        I am a
+                    </label>
+
+
+                    <div class="role-options">
+
+                        <label class="role-option">
+
+                            <input
+                                type="radio"
+                                name="role"
+                                value="student"
+                                checked
+                            >
+
+                            <span>
+                                🎓 Student
+                            </span>
+
+                        </label>
+
+
+                        <label class="role-option">
+
+                            <input
+                                type="radio"
+                                name="role"
+                                value="recruiter"
+                            >
+
+                            <span>
+                                💼 Recruiter
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                    <small
+                        class="form-error"
+                        id="roleError"
+                    ></small>
+
+                </div>
+
+
+                <!-- General Error -->
+
+                <div
+                    class="auth-message"
+                    id="registerMessage"
+                ></div>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary auth-submit"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <p class="auth-switch">
+
+                Already have an account?
+
+                <a href="login.html">
+                    Login
+                </a>
+
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- Storage must load BEFORE auth -->
+
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+
+</body>
+
+</html>

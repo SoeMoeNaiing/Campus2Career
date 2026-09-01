@@ -145,3 +145,202 @@
     }
 
 }
+
+
+
+/* =========================================================
+   STUDENT DASHBOARD RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .dashboard-nav {
+        min-height: 65px;
+    }
+
+
+    .dashboard-nav nav {
+        gap: 14px;
+    }
+
+
+    .dashboard-nav nav a {
+        font-size: 0.75rem;
+    }
+
+
+    .dashboard-stats {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .internship-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .dashboard-header {
+        position: relative;
+    }
+
+
+    .dashboard-nav {
+        width: 92%;
+
+        padding: 15px 0;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+
+    .dashboard-nav nav {
+        width: 100%;
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 10px 16px;
+    }
+
+
+    .dashboard-container {
+        padding-top: 35px;
+    }
+
+
+    .dashboard-stats {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 12px;
+    }
+
+
+    .stat-card {
+        padding: 18px;
+    }
+
+
+    .stat-card strong {
+        font-size: 1.5rem;
+    }
+
+
+    .quick-actions {
+        grid-template-columns: 1fr;
+    }
+
+
+    .internship-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .section-heading {
+        align-items: flex-start;
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+
+    .dashboard-welcome h1 {
+        font-size: 1.7rem;
+    }
+
+}
+
+
+
+
+
+
+/* =========================================================
+   INTERNSHIP DETAILS RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .details-layout {
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+    }
+
+
+    .details-sidebar {
+        position: static;
+    }
+
+
+    .details-action-card {
+        flex-direction: row;
+    }
+
+
+    .details-action-card .btn {
+        width: 50%;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .details-container {
+        padding-top: 30px;
+    }
+
+
+    .details-header {
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+
+    .details-company-logo {
+        width: 55px;
+        height: 55px;
+
+        font-size: 1rem;
+    }
+
+
+    .details-title h1 {
+        font-size: 1.5rem;
+    }
+
+
+    .details-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .details-action-card {
+        flex-direction: column;
+    }
+
+
+    .details-action-card .btn {
+        width: 100%;
+    }
+
+}

@@ -1,19 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard</title>
-</head>
-<body>
-    <button type="button" onclick="logout()">
-    Logout
-</button>
-    <script src="../../js/storage.js"></script>
-<script src="../../js/auth.js"></script>
 
-<script>
-    requireRole("student");
-</script>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Dashboard | Campus2Career</title>
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body>
+
+    <header class="dashboard-header">
+
+        <div class="dashboard-nav">
+
+            <a href="dashboard.html" class="logo">
+                Campus<span>2</span>Career
+            </a>
+
+            <nav>
+
+                <a href="dashboard.html" class="active">
+                    Dashboard
+                </a>
+
+                <a href="internships.html">
+                    Internships
+                </a>
+
+                <a href="applications.html">
+                    Applications
+                </a>
+
+                <a href="saved.html">
+                    Saved
+                </a>
+
+                <a href="profile.html">
+                    Profile
+                </a>
+
+                <button
+                    type="button"
+                    onclick="logout()"
+                    class="logout-btn"
+                >
+                    Logout
+                </button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main class="dashboard-container">
+
+        <!-- Welcome -->
+
+        <section class="dashboard-welcome">
+
+            <div>
+
+                <p class="dashboard-label">
+                    Student Dashboard
+                </p>
+
+                <h1>
+                    Welcome back,
+                    <span id="studentName">
+                        Student
+                    </span>
+                </h1>
+
+                <p>
+                    Discover opportunities and manage your
+                    internship journey.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Statistics -->
+
+        <section class="dashboard-stats">
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Applications
+                </span>
+
+                <strong id="applicationCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Pending
+                </span>
+
+                <strong id="pendingCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Accepted
+                </span>
+
+                <strong id="acceptedCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Saved
+                </span>
+
+                <strong id="savedCount">
+                    0
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- Quick Actions -->
+
+        <section class="dashboard-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="dashboard-label">
+                        Quick Actions
+                    </p>
+
+                    <h2>
+                        Continue your journey
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="quick-actions">
+
+                <a
+                    href="internships.html"
+                    class="quick-action-card"
+                >
+
+                    <h3>
+                        Browse Internships
+                    </h3>
+
+                    <p>
+                        Find opportunities that match
+                        your skills and interests.
+                    </p>
+
+                    <span>
+                        Explore →
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="applications.html"
+                    class="quick-action-card"
+                >
+
+                    <h3>
+                        My Applications
+                    </h3>
+
+                    <p>
+                        Track the progress of your
+                        internship applications.
+                    </p>
+
+                    <span>
+                        View Applications →
+                    </span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- Recommended Internships -->
+
+        <section class="dashboard-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="dashboard-label">
+                        Opportunities
+                    </p>
+
+                    <h2>
+                        Recommended Internships
+                    </h2>
+
+                </div>
+
+                <a href="internships.html">
+                    View all
+                </a>
+
+            </div>
+
+
+            <div
+                id="recommendedInternships"
+                class="internship-grid"
+            >
+
+                <!-- JavaScript will populate this -->
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+   <script src="../../data/seed.js"></script>
+<script src="../../js/storage.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/student/dashboard.js"></script>
+
 </body>
+
 </html>

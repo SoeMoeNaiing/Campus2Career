@@ -129,3 +129,52 @@ function isLoggedIn() {
 
     return getCurrentUser() !== null;
 }
+
+
+
+/* ================= INTERNSHIPS ================= */
+
+
+/**
+ * Get all internships.
+ */
+function getInternships() {
+
+    const internships =
+        localStorage.getItem("campus2career_internships");
+
+    return internships
+        ? JSON.parse(internships)
+        : [];
+}
+
+
+/**
+ * Save internships.
+ */
+function saveInternships(internships) {
+
+    localStorage.setItem(
+        "campus2career_internships",
+        JSON.stringify(internships)
+    );
+}
+
+
+/**
+ * Initialize internship data.
+ *
+ * Only seed data if internships don't already exist.
+ */
+function initializeInternships() {
+
+    const existingInternships =
+        getInternships();
+
+    if (existingInternships.length === 0) {
+
+        saveInternships(seedInternships);
+
+    }
+
+}

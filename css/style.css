@@ -1925,3 +1925,149 @@ html {
 
     color: var(--muted);
 }
+
+
+
+/* =========================================================
+   INTERNSHIP LISTING
+   ========================================================= */
+
+.internships-container {
+    width: min(1200px, 92%);
+
+    margin: 0 auto;
+
+    padding: 50px 0 80px;
+}
+
+
+/* ================= HEADING ================= */
+
+.internships-heading {
+    margin-bottom: 35px;
+}
+
+
+.internships-heading h1 {
+    margin-bottom: 10px;
+
+    color: var(--dark);
+
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+
+.internships-heading > p:last-child {
+    max-width: 650px;
+
+    color: var(--muted);
+
+    font-size: 0.9rem;
+
+    line-height: 1.7;
+}
+
+
+/* ================= FILTERS ================= */
+
+.internship-filters {
+    display: grid;
+
+    grid-template-columns:
+        2fr 1fr 1fr 1fr;
+
+    gap: 15px;
+
+    margin-bottom: 45px;
+
+    padding: 20px;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-lg);
+
+    background: #ffffff;
+}
+
+
+.search-box,
+.filter-box {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.search-box label,
+.filter-box label {
+    color: var(--dark);
+
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+
+.search-box input,
+.filter-box select {
+    width: 100%;
+
+    height: 42px;
+
+    padding: 0 12px;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-sm);
+
+    background: #ffffff;
+
+    color: var(--dark);
+
+    font-family: inherit;
+
+    font-size: 0.8rem;
+
+    outline: none;
+}
+
+
+.search-box input:focus,
+.filter-box select:focus {
+    border-color: var(--primary);
+}
+
+
+/* ================= RESULTS ================= */
+
+.internship-results {
+    width: 100%;
+}
+
+
+.results-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+
+.results-header h2 {
+    color: var(--dark);
+
+    font-size: 1.3rem;
+}
+
+
+.results-header span {
+    color: var(--muted);
+
+    font-size: 0.8rem;
+}

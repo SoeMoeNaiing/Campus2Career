@@ -344,3 +344,42 @@
     }
 
 }
+
+
+/* =========================================================
+   INTERNSHIP LISTING RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .internship-filters {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .internships-container {
+        padding-top: 35px;
+    }
+
+
+    .internship-filters {
+        grid-template-columns: 1fr;
+
+        padding: 16px;
+    }
+
+
+    .results-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 5px;
+    }
+
+}

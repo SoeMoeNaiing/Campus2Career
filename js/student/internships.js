@@ -323,3 +323,352 @@ function handleSaveClick(internshipId) {
     );
 
 }
+
+
+/* =========================================================
+   INTERNSHIP LISTING
+   ========================================================= */
+
+const internshipList =
+    document.getElementById("internshipList");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const categoryFilter =
+    document.getElementById("categoryFilter");
+
+const locationFilter =
+    document.getElementById("locationFilter");
+
+const typeFilter =
+    document.getElementById("typeFilter");
+
+const resultsCount =
+    document.getElementById("resultsCount");
+
+const noResults =
+    document.getElementById("noResults");
+
+
+/* ================= INITIALIZE LISTING ================= */
+
+if (internshipList) {
+
+    initializeInternshipListing();
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+function initializeInternshipListing() {
+
+    const internships =
+        getInternships()
+            .filter(
+                internship =>
+                    internship.status === "active"
+            );
+
+
+    populateFilters(internships);
+
+    renderInternshipList(internships);
+
+
+    searchInput.addEventListener(
+        "input",
+        applyFilters
+    );
+
+
+    categoryFilter.addEventListener(
+        "change",
+        applyFilters
+    );
+
+
+    locationFilter.addEventListener(
+        "change",
+        applyFilters
+    );
+
+
+    typeFilter.addEventListener(
+        "change",
+        applyFilters
+    );
+
+}
+
+
+/* =========================================================
+   FILTER OPTIONS
+   ========================================================= */
+
+function populateFilters(internships) {
+
+    const categories =
+        [...new Set(
+            internships.map(
+                internship => internship.category
+            )
+        )];
+
+
+    const locations =
+        [...new Set(
+            internships.map(
+                internship => internship.location
+            )
+        )];
+
+
+    const types =
+        [...new Set(
+            internships.map(
+                internship => internship.type
+            )
+        )];
+
+
+    categories.forEach(category => {
+
+        categoryFilter.innerHTML += `
+            <option value="${category}">
+                ${category}
+            </option>
+        `;
+
+    });
+
+
+    locations.forEach(location => {
+
+        locationFilter.innerHTML += `
+            <option value="${location}">
+                ${location}
+            </option>
+        `;
+
+    });
+
+
+    types.forEach(type => {
+
+        typeFilter.innerHTML += `
+            <option value="${type}">
+                ${type}
+            </option>
+        `;
+
+    });
+
+}
+
+
+/* =========================================================
+   APPLY FILTERS
+   ========================================================= */
+
+function applyFilters() {
+
+    const searchTerm =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+    const selectedCategory =
+        categoryFilter.value;
+
+
+    const selectedLocation =
+        locationFilter.value;
+
+
+    const selectedType =
+        typeFilter.value;
+
+
+    const internships =
+        getInternships()
+            .filter(
+                internship =>
+                    internship.status === "active"
+            );
+
+
+    const filtered =
+        internships.filter(internship => {
+
+            const matchesSearch =
+                internship.title
+                    .toLowerCase()
+                    .includes(searchTerm)
+
+                ||
+
+                internship.company
+                    .toLowerCase()
+                    .includes(searchTerm);
+
+
+            const matchesCategory =
+                selectedCategory === "all"
+                ||
+                internship.category ===
+                    selectedCategory;
+
+
+            const matchesLocation =
+                selectedLocation === "all"
+                ||
+                internship.location ===
+                    selectedLocation;
+
+
+            const matchesType =
+                selectedType === "all"
+                ||
+                internship.type ===
+                    selectedType;
+
+
+            return (
+                matchesSearch
+                &&
+                matchesCategory
+                &&
+                matchesLocation
+                &&
+                matchesType
+            );
+
+        });
+
+
+    renderInternshipList(filtered);
+
+}
+
+
+/* =========================================================
+   RENDER LIST
+   ========================================================= */
+
+function renderInternshipList(internships) {
+
+    if (!internshipList) {
+        return;
+    }
+
+
+    resultsCount.textContent =
+        `${internships.length} ${
+            internships.length === 1
+                ? "internship"
+                : "internships"
+        }`;
+
+
+    if (internships.length === 0) {
+
+        internshipList.innerHTML = "";
+
+        noResults.hidden = false;
+
+        return;
+    }
+
+
+    noResults.hidden = true;
+
+
+    internshipList.innerHTML =
+        internships
+            .map(createListingCard)
+            .join("");
+
+}
+
+
+/* =========================================================
+   LISTING CARD
+   ========================================================= */
+
+function createListingCard(internship) {
+
+    return `
+        <article class="internship-card">
+
+            <div class="internship-card-header">
+
+                <div class="company-placeholder">
+                    ${internship.company.charAt(0)}
+                </div>
+
+                <span class="internship-type">
+                    ${internship.type}
+                </span>
+
+            </div>
+
+
+            <div class="internship-card-body">
+
+                <h3>
+                    ${internship.title}
+                </h3>
+
+                <p class="company-name">
+                    ${internship.company}
+                </p>
+
+
+                <div class="internship-meta">
+
+                    <span>
+                        📍 ${internship.location}
+                    </span>
+
+                    <span>
+                        ⏱ ${internship.duration}
+                    </span>
+
+                </div>
+
+
+                <div class="internship-skills">
+
+                    ${internship.skills
+                        .slice(0, 4)
+                        .map(
+                            skill =>
+                                `<span>${skill}</span>`
+                        )
+                        .join("")}
+
+                </div>
+
+            </div>
+
+
+            <div class="internship-card-footer">
+
+                <a
+                    href="internship-details.html?id=${internship.id}"
+                    class="btn btn-outline"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+        </article>
+    `;
+
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Saved Internships | Campus2Career</title>
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body>
+
+    <header class="dashboard-header">
+
+        <div class="dashboard-nav">
+
+            <a href="dashboard.html" class="logo">
+                Campus<span>2</span>Career
+            </a>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="internships.html">
+                    Internships
+                </a>
+
+                <a href="applications.html">
+                    Applications
+                </a>
+
+                <a href="saved.html" class="active">
+                    Saved
+                </a>
+
+                <a href="profile.html">
+                    Profile
+                </a>
+
+                <button
+                    type="button"
+                    onclick="logout()"
+                    class="logout-btn"
+                >
+                    Logout
+                </button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main class="internships-container">
+
+        <section class="internships-heading">
+
+            <p class="dashboard-label">
+                Your Opportunities
+            </p>
+
+            <h1>
+                Saved Internships
+            </h1>
+
+            <p>
+                Keep track of internships you're interested in
+                and come back to them later.
+            </p>
+
+        </section>
+
+
+        <section class="internship-results">
+
+            <div class="results-header">
+
+                <h2>
+                    Your Saved Internships
+                </h2>
+
+                <span id="savedCount">
+                    0 internships
+                </span>
+
+            </div>
+
+
+            <div
+                id="savedInternshipList"
+                class="internship-grid"
+            >
+                <!-- JavaScript renders saved internships -->
+            </div>
+
+
+            <div
+                id="noSavedInternships"
+                class="empty-state"
+                hidden
+            >
+
+                <h3>
+                    No saved internships
+                </h3>
+
+                <p>
+                    Browse internships and save the ones
+                    you're interested in.
+                </p>
+
+                <a
+                    href="internships.html"
+                    class="btn btn-primary"
+                >
+                    Browse Internships
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="../../data/seed.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/student/internships.js"></script>
+
+</body>
+
+</html>

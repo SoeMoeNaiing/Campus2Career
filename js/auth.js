@@ -548,3 +548,31 @@ function requireRole(role) {
 
     return true;
 }
+
+function updateCurrentUserName(name) {
+
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+        return;
+    }
+
+    const users = getUsers();
+
+    const userIndex = users.findIndex(
+        user => user.id === currentUser.id
+    );
+
+    if (userIndex === -1) {
+        return;
+    }
+
+    users[userIndex].name = name;
+
+    localStorage.setItem(
+        "campus2career_users",
+        JSON.stringify(users)
+    );
+
+    setCurrentUser(users[userIndex]);
+}

@@ -9,6 +9,7 @@
 const seedInternships = [
     {
         id: "INT001",
+        recruiterId: "76e9a695-fbb2-44f7-9a94-f4958ce1759b",
         title: "Software Engineering Intern",
         company: "Tech Solutions Myanmar",
         location: "Yangon",
@@ -29,6 +30,7 @@ const seedInternships = [
 
     {
         id: "INT002",
+        recruiterId: "76e9a695-fbb2-44f7-9a94-f4958ce1759b",
         title: "Frontend Developer Intern",
         company: "Digital Works",
         location: "Mandalay",
@@ -49,6 +51,7 @@ const seedInternships = [
 
     {
         id: "INT003",
+        recruiterId: "76e9a695-fbb2-44f7-9a94-f4958ce1759b",
         title: "Network Engineering Intern",
         company: "Myanmar Network Systems",
         location: "Yangon",
@@ -69,6 +72,7 @@ const seedInternships = [
 
     {
         id: "INT004",
+        recruiterId: "76e9a695-fbb2-44f7-9a94-f4958ce1759b",
         title: "UI/UX Design Intern",
         company: "Creative Studio",
         location: "Remote",
@@ -88,6 +92,7 @@ const seedInternships = [
 
     {
         id: "INT005",
+        recruiterId: "76e9a695-fbb2-44f7-9a94-f4958ce1759b",
         title: "Data Analyst Intern",
         company: "Insight Myanmar",
         location: "Yangon",
@@ -108,6 +113,7 @@ const seedInternships = [
 
     {
         id: "INT006",
+        recruiterId: "76e9a695-fbb2-44f7-9a94-f4958ce1759b",
         title: "IT Support Intern",
         company: "Business Technology Co.",
         location: "Mawlamyine",

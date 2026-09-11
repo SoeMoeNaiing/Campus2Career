@@ -45,40 +45,41 @@ if (studentName && currentUser) {
     For now, the dashboard starts with zero values.
 */
 
-const dashboardStats = {
+const applications =
+    getStudentApplications(currentUser.id);
 
-    applications: 0,
+const applicationCount =
+    applications.length;
 
-    pending: 0,
+const pendingCount =
+    applications.filter(
+        application =>
+            application.status === "pending"
+    ).length;
 
-    accepted: 0,
+const acceptedCount =
+    applications.filter(
+        application =>
+            application.status === "accepted"
+    ).length;
 
-    saved: 0
-
-};
+const savedCount =
+    getSavedInternships().length;
 
 
 /* ================= DISPLAY STATS ================= */
 
-document.getElementById("applicationCount")
-    .textContent =
-    dashboardStats.applications;
+document.getElementById("applicationCount").textContent =
+    applicationCount;
 
+document.getElementById("pendingCount").textContent =
+    pendingCount;
 
-document.getElementById("pendingCount")
-    .textContent =
-    dashboardStats.pending;
+document.getElementById("acceptedCount").textContent =
+    acceptedCount;
 
-
-document.getElementById("acceptedCount")
-    .textContent =
-    dashboardStats.accepted;
-
-
-document.getElementById("savedCount")
-    .textContent =
-    dashboardStats.saved;
-
+document.getElementById("savedCount").textContent =
+    savedCount;
 
 
     

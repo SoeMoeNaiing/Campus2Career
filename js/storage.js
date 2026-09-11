@@ -178,3 +178,294 @@ function initializeInternships() {
     }
 
 }
+function updateInternshipSeedData() {
+
+    const internships = getInternships();
+
+    if (internships.length === 0) {
+        return;
+    }
+
+    const updatedInternships = internships.map(internship => {
+
+        const seedInternship =
+            seedInternships.find(
+                seed => seed.id === internship.id
+            );
+
+        if (!seedInternship) {
+            return internship;
+        }
+
+        return {
+            ...internship,
+            recruiterId: seedInternship.recruiterId,
+            status: seedInternship.status
+        };
+    });
+
+    saveInternships(updatedInternships);
+}
+
+
+
+/* =========================================================
+   SAVED INTERNSHIPS
+   ========================================================= */
+
+function getSavedInternships() {
+
+    const saved = localStorage.getItem(
+        "campus2career_saved_internships"
+    );
+
+    return saved ? JSON.parse(saved) : [];
+}
+
+
+function saveSavedInternships(savedInternships) {
+
+    localStorage.setItem(
+        "campus2career_saved_internships",
+        JSON.stringify(savedInternships)
+    );
+
+}
+
+
+function isInternshipSaved(internshipId) {
+
+    const savedInternships = getSavedInternships();
+
+    return savedInternships.includes(internshipId);
+
+}
+
+
+function toggleSavedInternship(internshipId) {
+
+    let savedInternships = getSavedInternships();
+
+
+    if (savedInternships.includes(internshipId)) {
+
+        savedInternships =
+            savedInternships.filter(
+                id => id !== internshipId
+            );
+
+    } else {
+
+        savedInternships.push(internshipId);
+
+    }
+
+
+    saveSavedInternships(savedInternships);
+
+    return savedInternships.includes(internshipId);
+
+}
+
+
+/* =========================================================
+   APPLICATIONS
+   ========================================================= */
+
+function getApplications() {
+
+    const applications = localStorage.getItem(
+        "campus2career_applications"
+    );
+
+    return applications
+        ? JSON.parse(applications)
+        : [];
+}
+
+
+function saveApplications(applications) {
+
+    localStorage.setItem(
+        "campus2career_applications",
+        JSON.stringify(applications)
+    );
+
+}
+
+
+function createApplication(internshipId, studentId) {
+
+    const applications = getApplications();
+
+
+    // Prevent duplicate applications
+    const alreadyApplied = applications.some(
+        application =>
+            application.internshipId === internshipId &&
+            application.studentId === studentId
+    );
+
+
+    if (alreadyApplied) {
+
+        return {
+            success: false,
+            message: "You have already applied for this internship."
+        };
+
+    }
+
+
+    const application = {
+
+        id: "APP" + Date.now(),
+
+        internshipId: internshipId,
+
+        studentId: studentId,
+
+        status: "pending",
+
+        appliedDate: new Date().toISOString()
+
+    };
+
+
+    applications.push(application);
+
+    saveApplications(applications);
+
+
+    return {
+        success: true,
+        message: "Application submitted successfully."
+    };
+
+}
+
+
+function getStudentApplications(studentId) {
+
+    return getApplications().filter(
+        application =>
+            application.studentId === studentId
+    );
+
+}
+
+
+function hasApplied(internshipId, studentId) {
+
+    return getApplications().some(
+        application =>
+            application.internshipId === internshipId &&
+            application.studentId === studentId
+    );
+
+}
+
+
+/* =========================================================
+   STUDENT PROFILES
+   ========================================================= */
+
+function getStudentProfiles() {
+
+    const profiles = localStorage.getItem(
+        "campus2career_student_profiles"
+    );
+
+    return profiles
+        ? JSON.parse(profiles)
+        : {};
+}
+
+
+function saveStudentProfiles(profiles) {
+
+    localStorage.setItem(
+        "campus2career_student_profiles",
+        JSON.stringify(profiles)
+    );
+
+}
+
+
+function getStudentProfile(studentId) {
+
+    const profiles = getStudentProfiles();
+
+    return profiles[studentId] || null;
+
+}
+
+
+function createDefaultStudentProfile(user) {
+
+    const profiles = getStudentProfiles();
+
+
+    if (profiles[user.id]) {
+        return profiles[user.id];
+    }
+
+
+    const profile = {
+
+        studentId: user.id,
+
+        name: user.name || "",
+
+        email: user.email || "",
+
+        phone: "",
+
+        university: "",
+
+        major: "",
+
+        year: "",
+
+        skills: "",
+
+        bio: ""
+
+    };
+
+
+    profiles[user.id] = profile;
+
+    saveStudentProfiles(profiles);
+
+
+    return profile;
+
+}
+
+
+function updateStudentProfile(
+    studentId,
+    profileData
+) {
+
+    const profiles = getStudentProfiles();
+
+
+    profiles[studentId] = {
+
+        ...profiles[studentId],
+
+        ...profileData,
+
+        studentId: studentId
+
+    };
+
+
+    saveStudentProfiles(profiles);
+
+
+    return profiles[studentId];
+
+}

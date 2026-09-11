@@ -138,11 +138,11 @@ function renderInternshipDetails(internship) {
                     <div class="details-skills">
 
                         ${internship.skills
-                            .map(
-                                skill =>
-                                    `<span>${skill}</span>`
-                            )
-                            .join("")}
+            .map(
+                skill =>
+                    `<span>${skill}</span>`
+            )
+            .join("")}
 
                     </div>
 
@@ -205,8 +205,8 @@ function renderInternshipDetails(internship) {
 
                             <strong>
                                 ${formatDate(
-                                    internship.postedAt
-                                )}
+                internship.postedAt
+            )}
                             </strong>
 
                         </div>
@@ -233,12 +233,16 @@ function renderInternshipDetails(internship) {
                     </button>
 
 
-                    <button
-                        type="button"
-                        class="btn btn-outline details-save-btn"
-                        onclick="handleSaveClick('${internship.id}')"
+                   <button
+                      type="button"
+                     id="saveInternshipBtn"
+                     class="btn btn-outline"
+                     onclick="handleSaveClick('${internship.id}')"
                     >
-                        Save Internship
+                        ${isInternshipSaved(internship.id)
+                            ? "Saved ✓"
+                             : "Save Internship"
+                            }
                     </button>
 
                 </div>
@@ -295,14 +299,37 @@ function formatDate(dateString) {
 
 function handleApplyClick(internshipId) {
 
-    /*
-        Application functionality will be implemented
-        in the next iteration.
-    */
+    const currentUser = getCurrentUser();
 
-    alert(
-        "Application functionality will be available soon."
-    );
+
+    if (!currentUser) {
+
+        alert("Please login first.");
+
+        return;
+
+    }
+
+
+    if (hasApplied(internshipId, currentUser.id)) {
+
+        alert(
+            "You have already applied for this internship."
+        );
+
+        return;
+
+    }
+
+
+    const result =
+        createApplication(
+            internshipId,
+            currentUser.id
+        );
+
+
+    alert(result.message);
 
 }
 
@@ -313,14 +340,38 @@ function handleApplyClick(internshipId) {
 
 function handleSaveClick(internshipId) {
 
-    /*
-        Saved internship functionality will be implemented
-        in a later iteration.
-    */
+    const isSaved =
+        toggleSavedInternship(internshipId);
 
-    alert(
-        "Save functionality will be available soon."
-    );
+
+    const saveButton =
+        document.getElementById("saveInternshipBtn");
+
+
+    if (!saveButton) {
+        return;
+    }
+
+
+    if (isSaved) {
+
+        saveButton.textContent =
+            "Saved ✓";
+
+        saveButton.classList.add(
+            "saved"
+        );
+
+    } else {
+
+        saveButton.textContent =
+            "Save Internship";
+
+        saveButton.classList.remove(
+            "saved"
+        );
+
+    }
 
 }
 
@@ -521,21 +572,21 @@ function applyFilters() {
                 selectedCategory === "all"
                 ||
                 internship.category ===
-                    selectedCategory;
+                selectedCategory;
 
 
             const matchesLocation =
                 selectedLocation === "all"
                 ||
                 internship.location ===
-                    selectedLocation;
+                selectedLocation;
 
 
             const matchesType =
                 selectedType === "all"
                 ||
                 internship.type ===
-                    selectedType;
+                selectedType;
 
 
             return (
@@ -568,10 +619,9 @@ function renderInternshipList(internships) {
 
 
     resultsCount.textContent =
-        `${internships.length} ${
-            internships.length === 1
-                ? "internship"
-                : "internships"
+        `${internships.length} ${internships.length === 1
+            ? "internship"
+            : "internships"
         }`;
 
 
@@ -645,6 +695,161 @@ function createListingCard(internship) {
                 <div class="internship-skills">
 
                     ${internship.skills
+            .slice(0, 4)
+            .map(
+                skill =>
+                    `<span>${skill}</span>`
+            )
+            .join("")}
+
+                </div>
+
+            </div>
+
+
+            <div class="internship-card-footer">
+
+                <a
+                    href="internship-details.html?id=${internship.id}"
+                    class="btn btn-outline"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+        </article>
+    `;
+
+}
+
+
+
+
+/* =========================================================
+   SAVED INTERNSHIPS PAGE
+   ========================================================= */
+
+const savedInternshipList =
+    document.getElementById("savedInternshipList");
+
+const savedCount =
+    document.getElementById("savedCount");
+
+const noSavedInternships =
+    document.getElementById("noSavedInternships");
+
+
+if (savedInternshipList) {
+
+    initializeSavedInternships();
+
+}
+
+
+function initializeSavedInternships() {
+
+    const savedIds =
+        getSavedInternships();
+
+    const internships =
+        getInternships();
+
+
+    const savedInternships =
+        internships.filter(
+            internship =>
+                savedIds.includes(internship.id)
+        );
+
+
+    renderSavedInternships(
+        savedInternships
+    );
+
+}
+
+
+function renderSavedInternships(
+    internships
+) {
+
+    savedCount.textContent =
+        `${internships.length} ${
+            internships.length === 1
+                ? "internship"
+                : "internships"
+        }`;
+
+
+    if (internships.length === 0) {
+
+        savedInternshipList.innerHTML = "";
+
+        noSavedInternships.hidden = false;
+
+        return;
+    }
+
+
+    noSavedInternships.hidden = true;
+
+
+    savedInternshipList.innerHTML =
+        internships
+            .map(createSavedInternshipCard)
+            .join("");
+
+}
+
+
+function createSavedInternshipCard(
+    internship
+) {
+
+    return `
+        <article class="internship-card">
+
+            <div class="internship-card-header">
+
+                <div class="company-placeholder">
+                    ${internship.company.charAt(0)}
+                </div>
+
+                <span class="internship-type">
+                    ${internship.type}
+                </span>
+
+            </div>
+
+
+            <div class="internship-card-body">
+
+                <h3>
+                    ${internship.title}
+                </h3>
+
+                <p class="company-name">
+                    ${internship.company}
+                </p>
+
+
+                <div class="internship-meta">
+
+                    <span>
+                        📍 ${internship.location}
+                    </span>
+
+                    <span>
+                        ⏱ ${internship.duration}
+                    </span>
+
+                </div>
+
+
+                <div class="internship-skills">
+
+                    ${internship.skills
                         .slice(0, 4)
                         .map(
                             skill =>
@@ -666,9 +871,30 @@ function createListingCard(internship) {
                     View Details
                 </a>
 
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    onclick="removeSavedInternship('${internship.id}')"
+                >
+                    Remove
+                </button>
+
             </div>
 
         </article>
     `;
+
+}
+
+
+function removeSavedInternship(
+    internshipId
+) {
+
+    toggleSavedInternship(
+        internshipId
+    );
+
+    initializeSavedInternships();
 
 }

@@ -383,3 +383,74 @@
     }
 
 }
+
+
+@media (max-width: 750px) {
+
+    .application-card {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .application-actions {
+        width: 100%;
+
+        justify-content: space-between;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .application-main {
+        align-items: flex-start;
+    }
+
+
+    .application-actions {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+
+    .application-actions .btn {
+        text-align: center;
+    }
+
+}
+
+
+
+@media (max-width: 650px) {
+
+    .profile-card {
+        padding: 20px;
+    }
+
+
+    .profile-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .profile-form-footer {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+
+    .profile-message {
+        margin-right: 0;
+    }
+
+
+    .profile-form-footer .btn {
+        width: 100%;
+    }
+
+}

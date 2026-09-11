@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Profile | Campus2Career</title>
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body>
+
+    <header class="dashboard-header">
+
+        <div class="dashboard-nav">
+
+            <a href="dashboard.html" class="logo">
+                Campus<span>2</span>Career
+            </a>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="internships.html">
+                    Internships
+                </a>
+
+                <a href="applications.html">
+                    Applications
+                </a>
+
+                <a href="saved.html">
+                    Saved
+                </a>
+
+                <a href="profile.html" class="active">
+                    Profile
+                </a>
+
+                <button
+                    type="button"
+                    onclick="logout()"
+                    class="logout-btn"
+                >
+                    Logout
+                </button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main class="profile-container">
+
+        <section class="internships-heading">
+
+            <p class="dashboard-label">
+                Account
+            </p>
+
+            <h1>
+                My Profile
+            </h1>
+
+            <p>
+                Manage your personal and academic information.
+            </p>
+
+        </section>
+
+
+        <section class="profile-card">
+
+            <div class="profile-header">
+
+                <div
+                    id="profileInitial"
+                    class="profile-avatar"
+                >
+                    S
+                </div>
+
+                <div>
+
+                    <h2 id="profileName">
+                        Student Name
+                    </h2>
+
+                    <p id="profileEmail">
+                        student@email.com
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form id="profileForm">
+
+                <div class="profile-form-grid">
+
+                    <div class="form-group">
+
+                        <label for="profileNameInput">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="profileNameInput"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="profileEmailInput">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="profileEmailInput"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="phoneInput">
+                            Phone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="phoneInput"
+                            placeholder="Enter your phone number"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="universityInput">
+                            University
+                        </label>
+
+                        <input
+                            type="text"
+                            id="universityInput"
+                            placeholder="Enter your university"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="majorInput">
+                            Major
+                        </label>
+
+                        <input
+                            type="text"
+                            id="majorInput"
+                            placeholder="e.g. Computer Science"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="yearInput">
+                            Year
+                        </label>
+
+                        <select id="yearInput">
+
+                            <option value="">
+                                Select year
+                            </option>
+
+                            <option value="First Year">
+                                First Year
+                            </option>
+
+                            <option value="Second Year">
+                                Second Year
+                            </option>
+
+                            <option value="Third Year">
+                                Third Year
+                            </option>
+
+                            <option value="Fourth Year">
+                                Fourth Year
+                            </option>
+
+                            <option value="Final Year">
+                                Final Year
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="skillsInput">
+                        Skills
+                    </label>
+
+                    <input
+                        type="text"
+                        id="skillsInput"
+                        placeholder="JavaScript, HTML, CSS, Git"
+                    >
+
+                    <small>
+                        Separate skills with commas.
+                    </small>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="bioInput">
+                        Bio
+                    </label>
+
+                    <textarea
+                        id="bioInput"
+                        rows="5"
+                        placeholder="Tell recruiters a little about yourself..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="profile-form-footer">
+
+                    <span
+                        id="profileMessage"
+                        class="profile-message"
+                    ></span>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <script src="../../data/seed.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/student/profile.js"></script>
+
+</body>
+
+</html>

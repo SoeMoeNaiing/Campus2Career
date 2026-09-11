@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Applications | Campus2Career</title>
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body>
+
+    <header class="dashboard-header">
+
+        <div class="dashboard-nav">
+
+            <a href="dashboard.html" class="logo">
+                Campus<span>2</span>Career
+            </a>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="internships.html">
+                    Internships
+                </a>
+
+                <a href="applications.html" class="active">
+                    Applications
+                </a>
+
+                <a href="saved.html">
+                    Saved
+                </a>
+
+                <a href="profile.html">
+                    Profile
+                </a>
+
+                <button
+                    type="button"
+                    onclick="logout()"
+                    class="logout-btn"
+                >
+                    Logout
+                </button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main class="applications-container">
+
+        <section class="internships-heading">
+
+            <p class="dashboard-label">
+                Your Activity
+            </p>
+
+            <h1>
+                My Applications
+            </h1>
+
+            <p>
+                Track the internships you have applied for
+                and check your application status.
+            </p>
+
+        </section>
+
+
+        <section class="applications-section">
+
+            <div class="results-header">
+
+                <h2>
+                    Applications
+                </h2>
+
+                <span id="applicationsCount">
+                    0 applications
+                </span>
+
+            </div>
+
+
+            <div
+                id="applicationsList"
+                class="applications-list"
+            >
+                <!-- JavaScript renders applications -->
+            </div>
+
+
+            <div
+                id="noApplications"
+                class="empty-state"
+                hidden
+            >
+
+                <h3>
+                    No applications yet
+                </h3>
+
+                <p>
+                    You haven't applied for any internships yet.
+                </p>
+
+                <a
+                    href="internships.html"
+                    class="btn btn-primary"
+                >
+                    Browse Internships
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="../../data/seed.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/student/internships.js"></script>
+    <script src="../../js/student/applications.js"></script>
+
+</body>
+
+</html>

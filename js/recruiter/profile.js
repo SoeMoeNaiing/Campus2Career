@@ -130,14 +130,17 @@ function handleRecruiterProfileSubmit(event) {
     };
 
 
-    const updatedProfile =
-        updateRecruiterProfile(
-            currentUser.id,
-            profileData
-        );
+   const updatedProfile =
+    updateRecruiterProfile(
+        currentUser.id,
+        profileData
+    );
 
+updateCurrentUserName(
+    profileData.name
+);
 
-    loadRecruiterProfile(updatedProfile);
+loadRecruiterProfile(updatedProfile);
 
 
     const message =

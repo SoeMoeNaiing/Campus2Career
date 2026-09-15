@@ -411,27 +411,19 @@ function createDefaultStudentProfile(user) {
     }
 
 
-    const profile = {
-
-        studentId: user.id,
-
-        name: user.name || "",
-
-        email: user.email || "",
-
-        phone: "",
-
-        university: "",
-
-        major: "",
-
-        year: "",
-
-        skills: "",
-
-        bio: ""
-
-    };
+   const profile = {
+    studentId: user.id,
+    name: user.name || "",
+    email: user.email || "",
+    rollNo: "",
+    nrc: "",
+    phone: "",
+    university: "",
+    major: "",
+    year: "",
+    skills: "",
+    bio: ""
+};
 
 
     profiles[user.id] = profile;

@@ -87,7 +87,11 @@ function loadProfile(profile) {
         "phoneInput"
     ).value = profile.phone;
 
+    document.getElementById("rollNoInput").value =
+    profile.rollNo || "";
 
+document.getElementById("nrcInput").value =
+    profile.nrc || "";
     document.getElementById(
         "universityInput"
     ).value = profile.university;
@@ -134,44 +138,51 @@ function handleProfileSubmit(event) {
 
 
     const profileData = {
+    name:
+        document.getElementById(
+            "profileNameInput"
+        ).value.trim(),
 
-        name:
-            document.getElementById(
-                "profileNameInput"
-            ).value.trim(),
+    rollNo:
+        document.getElementById(
+            "rollNoInput"
+        ).value.trim(),
 
-        phone:
-            document.getElementById(
-                "phoneInput"
-            ).value.trim(),
+    nrc:
+        document.getElementById(
+            "nrcInput"
+        ).value.trim(),
 
-        university:
-            document.getElementById(
-                "universityInput"
-            ).value.trim(),
+    phone:
+        document.getElementById(
+            "phoneInput"
+        ).value.trim(),
 
-        major:
-            document.getElementById(
-                "majorInput"
-            ).value.trim(),
+    university:
+        document.getElementById(
+            "universityInput"
+        ).value.trim(),
 
-        year:
-            document.getElementById(
-                "yearInput"
-            ).value,
+    major:
+        document.getElementById(
+            "majorInput"
+        ).value.trim(),
 
-        skills:
-            document.getElementById(
-                "skillsInput"
-            ).value.trim(),
+    year:
+        document.getElementById(
+            "yearInput"
+        ).value,
 
-        bio:
-            document.getElementById(
-                "bioInput"
-            ).value.trim()
+    skills:
+        document.getElementById(
+            "skillsInput"
+        ).value.trim(),
 
-    };
-
+    bio:
+        document.getElementById(
+            "bioInput"
+        ).value.trim()
+};
 
     const updatedProfile =
         updateStudentProfile(

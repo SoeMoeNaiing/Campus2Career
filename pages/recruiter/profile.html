@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recruiter Profile - Campus2Career</title>
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+
+        <div class="dashboard-nav">
+
+            <a href="dashboard.html" class="nav-brand">
+                Campus2Career
+            </a>
+
+            <nav>
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="internships.html">
+                    My Internships
+                </a>
+
+                <a href="applications.html">
+                    Applications
+                </a>
+
+                <a href="profile.html" class="active">
+                    Profile
+                </a>
+
+                <button
+                    type="button"
+                    onclick="logout()"
+                    class="logout-btn"
+                >
+                    Logout
+                </button>
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- Main -->
+    <main class="profile-container">
+
+        <section class="profile-card">
+
+            <!-- Profile Header -->
+            <div class="profile-header">
+
+                <div class="profile-avatar">
+                    <span id="profileInitial">R</span>
+                </div>
+
+                <div>
+                    <h2 id="profileName">
+                        Recruiter
+                    </h2>
+
+                    <p id="profileEmail">
+                        recruiter@example.com
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- Profile Form -->
+            <form id="profileForm">
+
+                <div class="profile-form-grid">
+
+                    <!-- Recruiter Name -->
+                    <div class="form-group">
+
+                        <label for="profileNameInput">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="profileNameInput"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="form-group">
+
+                        <label for="profileEmailInput">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="profileEmailInput"
+                            readonly
+                        >
+
+                        <small>
+                            Email cannot be changed.
+                        </small>
+
+                    </div>
+
+
+                    <!-- Company Name -->
+                    <div class="form-group">
+
+                        <label for="companyNameInput">
+                            Company Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="companyNameInput"
+                            placeholder="Enter company name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Phone -->
+                    <div class="form-group">
+
+                        <label for="phoneInput">
+                            Phone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="phoneInput"
+                            placeholder="Enter phone number"
+                        >
+
+                    </div>
+
+
+                    <!-- Address -->
+                    <div class="form-group">
+
+                        <label for="addressInput">
+                            Company Address
+                        </label>
+
+                        <input
+                            type="text"
+                            id="addressInput"
+                            placeholder="Enter company address"
+                        >
+
+                    </div>
+
+
+                    <!-- Industry -->
+                    <div class="form-group">
+
+                        <label for="industryInput">
+                            Industry
+                        </label>
+
+                        <input
+                            type="text"
+                            id="industryInput"
+                            placeholder="e.g. Technology, Finance"
+                        >
+
+                    </div>
+
+
+                    <!-- Website -->
+                    <div class="form-group">
+
+                        <label for="websiteInput">
+                            Website
+                        </label>
+
+                        <input
+                            type="url"
+                            id="websiteInput"
+                            placeholder="https://example.com"
+                        >
+
+                    </div>
+
+
+                    <!-- Description -->
+                    <div class="form-group">
+
+                        <label for="descriptionInput">
+                            Company Description
+                        </label>
+
+                        <textarea
+                            id="descriptionInput"
+                            rows="5"
+                            placeholder="Tell students about your company"
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Form Footer -->
+                <div class="profile-form-footer">
+
+                    <p
+                        id="profileMessage"
+                        class="profile-message"
+                    ></p>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/recruiter/profile.js"></script>
+
+</body>
+</html>

@@ -461,3 +461,78 @@ function updateStudentProfile(
     return profiles[studentId];
 
 }
+
+
+
+
+function getRecruiterProfiles() {
+    const profiles = localStorage.getItem(
+        "campus2career_recruiter_profiles"
+    );
+
+    return profiles
+        ? JSON.parse(profiles)
+        : {};
+}
+
+
+function saveRecruiterProfiles(profiles) {
+    localStorage.setItem(
+        "campus2career_recruiter_profiles",
+        JSON.stringify(profiles)
+    );
+}
+
+
+function getRecruiterProfile(recruiterId) {
+    const profiles = getRecruiterProfiles();
+
+    return profiles[recruiterId] || null;
+}
+
+
+function createDefaultRecruiterProfile(user) {
+
+    const profiles = getRecruiterProfiles();
+
+    if (profiles[user.id]) {
+        return profiles[user.id];
+    }
+
+    const profile = {
+        recruiterId: user.id,
+        name: user.name || "",
+        email: user.email || "",
+        companyName: "",
+        phone: "",
+        address: "",
+        industry: "",
+        website: "",
+        description: ""
+    };
+
+    profiles[user.id] = profile;
+
+    saveRecruiterProfiles(profiles);
+
+    return profile;
+}
+
+
+function updateRecruiterProfile(
+    recruiterId,
+    profileData
+) {
+
+    const profiles = getRecruiterProfiles();
+
+    profiles[recruiterId] = {
+        ...profiles[recruiterId],
+        ...profileData,
+        recruiterId: recruiterId
+    };
+
+    saveRecruiterProfiles(profiles);
+
+    return profiles[recruiterId];
+}

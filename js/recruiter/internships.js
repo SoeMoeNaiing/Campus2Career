@@ -21,20 +21,20 @@ if (!requireRole("recruiter")) {
     }
 
     if (
-    document.getElementById(
-        "editInternshipForm"
-    )
-) {
+        document.getElementById(
+            "editInternshipForm"
+        )
+    ) {
 
-    initializeEditInternshipForm();
+        initializeEditInternshipForm();
 
-    document.getElementById(
-        "editInternshipForm"
-    ).addEventListener(
-        "submit",
-        handleEditInternshipSubmit
-    );
-}
+        document.getElementById(
+            "editInternshipForm"
+        ).addEventListener(
+            "submit",
+            handleEditInternshipSubmit
+        );
+    }
 }
 
 function initializeRecruiterInternships() {
@@ -104,10 +104,9 @@ function renderRecruiterInternships(
 
 
     listCount.textContent =
-        `${internships.length} ${
-            internships.length === 1
-                ? "internship"
-                : "internships"
+        `${internships.length} ${internships.length === 1
+            ? "internship"
+            : "internships"
         }`;
 
 
@@ -208,12 +207,13 @@ function createRecruiterInternshipCard(
                 </a>
 
                 <button
-                    type="button"
-                    class="btn btn-outline"
-                    disabled
-                >
-                    Close
-                </button>
+                   type="button"
+                   class="btn btn-outline"
+                   onclick="handleCloseInternship('${internship.id}')"
+                   ${internship.status === "closed" ? "disabled" : ""}
+                   >
+                  ${internship.status === "closed" ? "Closed" : "Close"}
+               </button>
 
             </div>
 
@@ -264,98 +264,98 @@ function updateInternshipSummary(
 }
 
 
-function createRecruiterInternshipCard(
-    internship
-) {
+// function createRecruiterInternshipCard(
+//     internship
+// ) {
 
-    const statusClass =
-        internship.status === "active"
-            ? "status-active"
-            : "status-closed";
-
-
-    const statusText =
-        internship.status === "active"
-            ? "Active"
-            : "Closed";
+//     const statusClass =
+//         internship.status === "active"
+//             ? "status-active"
+//             : "status-closed";
 
 
-    const postedDate =
-        internship.postedDate
-            ? new Date(
-                internship.postedDate
-            ).toLocaleDateString()
-            : "N/A";
+//     const statusText =
+//         internship.status === "active"
+//             ? "Active"
+//             : "Closed";
 
 
-    return `
-        <article class="internship-card">
-
-            <div class="internship-card-header">
-
-                <div class="company-placeholder">
-                    ${internship.company.charAt(0)}
-                </div>
-
-                <span class="${statusClass}">
-                    ${statusText}
-                </span>
-
-            </div>
+//     const postedDate =
+//         internship.postedDate
+//             ? new Date(
+//                 internship.postedDate
+//             ).toLocaleDateString()
+//             : "N/A";
 
 
-            <div class="internship-card-body">
+//     return `
+//         <article class="internship-card">
 
-                <h3>
-                    ${internship.title}
-                </h3>
+//             <div class="internship-card-header">
 
-                <p class="company-name">
-                    ${internship.company}
-                </p>
+//                 <div class="company-placeholder">
+//                     ${internship.company.charAt(0)}
+//                 </div>
 
+//                 <span class="${statusClass}">
+//                     ${statusText}
+//                 </span>
 
-                <div class="internship-meta">
-
-                    <span>
-                        📍 ${internship.location}
-                    </span>
-
-                    <span>
-                        🗓 ${internship.duration}
-                    </span>
-
-                    <span>
-                        📅 Posted ${postedDate}
-                    </span>
-
-                </div>
-
-            </div>
+//             </div>
 
 
-            <div class="internship-card-footer">
+//             <div class="internship-card-body">
 
-                <a
-                    href="edit-internship.html?id=${internship.id}"
-                    class="btn btn-outline"
-                >
-                    Edit
-                </a>
+//                 <h3>
+//                     ${internship.title}
+//                 </h3>
 
-                <button
-                    type="button"
-                    class="btn btn-outline"
-                    disabled
-                >
-                    Close
-                </button>
+//                 <p class="company-name">
+//                     ${internship.company}
+//                 </p>
 
-            </div>
 
-        </article>
-    `;
-}
+//                 <div class="internship-meta">
+
+//                     <span>
+//                         📍 ${internship.location}
+//                     </span>
+
+//                     <span>
+//                         🗓 ${internship.duration}
+//                     </span>
+
+//                     <span>
+//                         📅 Posted ${postedDate}
+//                     </span>
+
+//                 </div>
+
+//             </div>
+
+
+//             <div class="internship-card-footer">
+
+//                 <a
+//                     href="edit-internship.html?id=${internship.id}"
+//                     class="btn btn-outline"
+//                 >
+//                     Edit
+//                 </a>
+
+//                 <button
+//                     type="button"
+//                     class="btn btn-outline"
+//                     disabled
+//                 >
+//                     Close
+//                 </button>
+
+//             </div>
+
+//         </article>
+//     `;
+// }
 
 
 
@@ -478,60 +478,60 @@ function handleCreateInternshipSubmit(event) {
 
     const currentUser = getCurrentUser();
 
-if (!currentUser) {
-    return;
-}
+    if (!currentUser) {
+        return;
+    }
 
 
-const newInternship = {
+    const newInternship = {
 
-    id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
 
-    recruiterId: currentUser.id,
+        recruiterId: currentUser.id,
 
-    title: internshipData.title,
+        title: internshipData.title,
 
-    company: internshipData.company,
+        company: internshipData.company,
 
-    location: internshipData.location,
+        location: internshipData.location,
 
-    type: internshipData.type,
+        type: internshipData.type,
 
-    category: internshipData.category,
+        category: internshipData.category,
 
-    duration: internshipData.duration,
+        duration: internshipData.duration,
 
-    skills: internshipData.skills,
+        skills: internshipData.skills,
 
-    description: internshipData.description,
+        description: internshipData.description,
 
-    requirements: internshipData.requirements,
+        requirements: internshipData.requirements,
 
-    postedDate: new Date().toISOString(),
+        postedDate: new Date().toISOString(),
 
-    status: "active"
-};
-
-
-addInternship(newInternship);
+        status: "active"
+    };
 
 
-showInternshipFormMessage(
-    "Internship posted successfully.",
-    "success"
-);
-
-document.getElementById(
-    "internshipForm"
-).reset();
+    addInternship(newInternship);
 
 
-setTimeout(() => {
+    showInternshipFormMessage(
+        "Internship posted successfully.",
+        "success"
+    );
 
-    window.location.href =
-        "internships.html";
+    document.getElementById(
+        "internshipForm"
+    ).reset();
 
-}, 1000);
+
+    setTimeout(() => {
+
+        window.location.href =
+            "internships.html";
+
+    }, 1000);
 
 
     showInternshipFormMessage(
@@ -742,9 +742,9 @@ function handleEditInternshipSubmit(event) {
         document.getElementById(
             "skillsInput"
         ).value
-        .split(",")
-        .map(skill => skill.trim())
-        .filter(Boolean);
+            .split(",")
+            .map(skill => skill.trim())
+            .filter(Boolean);
 
     const description =
         document.getElementById(
@@ -839,4 +839,31 @@ function handleEditInternshipSubmit(event) {
             "internships.html";
 
     }, 1000);
+}
+
+
+function handleCloseInternship(internshipId) {
+
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+        return;
+    }
+
+    const internships = getInternships();
+
+    const internship = internships.find(
+        item =>
+            item.id === internshipId &&
+            item.recruiterId === currentUser.id
+    );
+
+    if (!internship) {
+        console.log("Internship not found or not owned by recruiter.");
+        return;
+    }
+
+    closeInternship(internshipId);
+
+    initializeRecruiterInternships();
 }

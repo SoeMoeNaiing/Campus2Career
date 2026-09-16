@@ -578,3 +578,25 @@ function updateInternship(
 
     return internships[index];
 }
+
+
+
+function closeInternship(internshipId) {
+
+    const internships = getInternships();
+
+    const index = internships.findIndex(
+        internship =>
+            internship.id === internshipId
+    );
+
+    if (index === -1) {
+        return null;
+    }
+
+    internships[index].status = "closed";
+
+    saveInternships(internships);
+
+    return internships[index];
+}

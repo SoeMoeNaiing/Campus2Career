@@ -548,3 +548,33 @@ function addInternship(internship) {
 
     return internship;
 }
+
+
+
+function updateInternship(
+    internshipId,
+    updatedData
+) {
+
+    const internships = getInternships();
+
+    const index = internships.findIndex(
+        internship =>
+            internship.id === internshipId
+    );
+
+    if (index === -1) {
+        return null;
+    }
+
+    internships[index] = {
+        ...internships[index],
+        ...updatedData,
+        id: internships[index].id,
+        recruiterId: internships[index].recruiterId
+    };
+
+    saveInternships(internships);
+
+    return internships[index];
+}

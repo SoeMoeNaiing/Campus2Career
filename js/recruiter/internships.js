@@ -1,5 +1,7 @@
 if (!requireRole("recruiter")) {
-    // Redirect already handled in auth.js
+
+    // Redirect already handled by auth.js
+
 } else {
 
     if (
@@ -17,6 +19,22 @@ if (!requireRole("recruiter")) {
     ) {
         initializeCreateInternshipForm();
     }
+
+    if (
+    document.getElementById(
+        "editInternshipForm"
+    )
+) {
+
+    initializeEditInternshipForm();
+
+    document.getElementById(
+        "editInternshipForm"
+    ).addEventListener(
+        "submit",
+        handleEditInternshipSubmit
+    );
+}
 }
 
 function initializeRecruiterInternships() {
@@ -541,3 +559,284 @@ function showInternshipFormMessage(
 }
 
 
+function initializeEditInternshipForm() {
+
+    const form =
+        document.getElementById(
+            "editInternshipForm"
+        );
+
+    if (!form) {
+        return;
+    }
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const internshipId =
+        params.get("id");
+
+    if (!internshipId) {
+        showEditFormMessage(
+            "Internship not found.",
+            "error"
+        );
+
+        return;
+    }
+
+    const currentUser =
+        getCurrentUser();
+
+    if (!currentUser) {
+        return;
+    }
+
+    const internships =
+        getInternships();
+
+    const internship =
+        internships.find(
+            item =>
+                item.id === internshipId &&
+                item.recruiterId === currentUser.id
+        );
+
+    if (!internship) {
+
+        showEditFormMessage(
+            "Internship not found or you do not have permission to edit it.",
+            "error"
+        );
+
+        return;
+    }
+
+    loadInternshipIntoEditForm(
+        internship
+    );
+}
+
+
+function loadInternshipIntoEditForm(
+    internship
+) {
+
+    document.getElementById(
+        "titleInput"
+    ).value = internship.title || "";
+
+    document.getElementById(
+        "companyInput"
+    ).value = internship.company || "";
+
+    document.getElementById(
+        "locationInput"
+    ).value = internship.location || "";
+
+    document.getElementById(
+        "typeInput"
+    ).value = internship.type || "";
+
+    document.getElementById(
+        "categoryInput"
+    ).value = internship.category || "";
+
+    document.getElementById(
+        "durationInput"
+    ).value = internship.duration || "";
+
+    document.getElementById(
+        "skillsInput"
+    ).value =
+        Array.isArray(internship.skills)
+            ? internship.skills.join(", ")
+            : internship.skills || "";
+
+    document.getElementById(
+        "descriptionInput"
+    ).value =
+        internship.description || "";
+
+    document.getElementById(
+        "requirementsInput"
+    ).value =
+        internship.requirements || "";
+}
+
+
+function showEditFormMessage(
+    message,
+    type
+) {
+
+    const element =
+        document.getElementById(
+            "editFormMessage"
+        );
+
+    if (!element) {
+        return;
+    }
+
+    element.textContent = message;
+
+    element.className =
+        `profile-message ${type}`;
+}
+
+
+function handleEditInternshipSubmit(event) {
+
+    event.preventDefault();
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const internshipId =
+        params.get("id");
+
+    const currentUser =
+        getCurrentUser();
+
+    if (!currentUser || !internshipId) {
+        return;
+    }
+
+
+    const title =
+        document.getElementById(
+            "titleInput"
+        ).value.trim();
+
+    const company =
+        document.getElementById(
+            "companyInput"
+        ).value.trim();
+
+    const location =
+        document.getElementById(
+            "locationInput"
+        ).value.trim();
+
+    const type =
+        document.getElementById(
+            "typeInput"
+        ).value;
+
+    const category =
+        document.getElementById(
+            "categoryInput"
+        ).value.trim();
+
+    const duration =
+        document.getElementById(
+            "durationInput"
+        ).value.trim();
+
+    const skills =
+        document.getElementById(
+            "skillsInput"
+        ).value
+        .split(",")
+        .map(skill => skill.trim())
+        .filter(Boolean);
+
+    const description =
+        document.getElementById(
+            "descriptionInput"
+        ).value.trim();
+
+    const requirements =
+        document.getElementById(
+            "requirementsInput"
+        ).value.trim();
+
+
+    if (
+        !title ||
+        !company ||
+        !location ||
+        !type ||
+        !category ||
+        !duration ||
+        !description ||
+        !requirements
+    ) {
+
+        showEditFormMessage(
+            "Please fill in all required fields.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const internships =
+        getInternships();
+
+    const existingInternship =
+        internships.find(
+            internship =>
+                internship.id === internshipId &&
+                internship.recruiterId === currentUser.id
+        );
+
+
+    if (!existingInternship) {
+
+        showEditFormMessage(
+            "Internship not found or you do not have permission to edit it.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const updatedInternship =
+        updateInternship(
+            internshipId,
+            {
+                title,
+                company,
+                location,
+                type,
+                category,
+                duration,
+                skills,
+                description,
+                requirements
+            }
+        );
+
+
+    if (!updatedInternship) {
+
+        showEditFormMessage(
+            "Failed to update internship.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    showEditFormMessage(
+        "Internship updated successfully.",
+        "success"
+    );
+
+
+    setTimeout(() => {
+
+        window.location.href =
+            "internships.html";
+
+    }, 1000);
+}

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Edit Internship | Campus2Career</title>
+
+    <link
+        rel="stylesheet"
+        href="../../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/responsive.css"
+    >
+</head>
+
+
+<body>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+
+        <div class="dashboard-nav">
+
+            <a
+                href="dashboard.html"
+                class="nav-brand"
+            >
+                Campus2Career
+            </a>
+
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a
+                    href="internships.html"
+                    class="active"
+                >
+                    My Internships
+                </a>
+
+                <a href="applications.html">
+                    Applications
+                </a>
+
+                <a href="profile.html">
+                    Profile
+                </a>
+
+                <button
+                    type="button"
+                    onclick="logout()"
+                    class="logout-btn"
+                >
+                    Logout
+                </button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- Main -->
+    <main class="profile-container">
+
+        <section class="internships-heading">
+
+            <p class="dashboard-label">
+                Recruiter
+            </p>
+
+            <h1>
+                Edit Internship
+            </h1>
+
+            <p>
+                Update your internship information.
+            </p>
+
+        </section>
+
+
+        <section class="profile-card">
+
+            <form id="editInternshipForm">
+
+                <div class="profile-form-grid">
+
+                    <div class="form-group">
+
+                        <label for="titleInput">
+                            Internship Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="titleInput"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="companyInput">
+                            Company Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="companyInput"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="locationInput">
+                            Location
+                        </label>
+
+                        <input
+                            type="text"
+                            id="locationInput"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="typeInput">
+                            Internship Type
+                        </label>
+
+                        <select
+                            id="typeInput"
+                            required
+                        >
+
+                            <option value="">
+                                Select type
+                            </option>
+
+                            <option value="Full-time">
+                                Full-time
+                            </option>
+
+                            <option value="Part-time">
+                                Part-time
+                            </option>
+
+                            <option value="Remote">
+                                Remote
+                            </option>
+
+                            <option value="Hybrid">
+                                Hybrid
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="categoryInput">
+                            Category
+                        </label>
+
+                        <input
+                            type="text"
+                            id="categoryInput"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="durationInput">
+                            Duration
+                        </label>
+
+                        <input
+                            type="text"
+                            id="durationInput"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="skillsInput">
+                        Required Skills
+                    </label>
+
+                    <input
+                        type="text"
+                        id="skillsInput"
+                    >
+
+                    <small>
+                        Separate skills with commas.
+                    </small>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="descriptionInput">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="descriptionInput"
+                        rows="6"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="requirementsInput">
+                        Requirements
+                    </label>
+
+                    <textarea
+                        id="requirementsInput"
+                        rows="6"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <p
+                    id="editFormMessage"
+                    class="profile-message"
+                ></p>
+
+
+                <div class="profile-form-footer">
+
+                    <a
+                        href="internships.html"
+                        class="btn btn-outline"
+                    >
+                        ← Back to My Internships
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <script src="../../data/seed.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/recruiter/internships.js"></script>
+
+</body>
+
+</html>

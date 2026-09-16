@@ -503,10 +503,17 @@ showInternshipFormMessage(
     "success"
 );
 
-
 document.getElementById(
     "internshipForm"
 ).reset();
+
+
+setTimeout(() => {
+
+    window.location.href =
+        "internships.html";
+
+}, 1000);
 
 
     showInternshipFormMessage(

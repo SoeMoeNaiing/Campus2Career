@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Applications | Campus2Career</title>
+
+    <link
+        rel="stylesheet"
+        href="../../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/responsive.css"
+    >
+</head>
+
+
+<body>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+
+        <div class="dashboard-nav">
+
+            <a
+                href="dashboard.html"
+                class="nav-brand"
+            >
+                Campus2Career
+            </a>
+
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="internships.html">
+                    My Internships
+                </a>
+
+                <a
+                    href="applications.html"
+                    class="active"
+                >
+                    Applications
+                </a>
+
+                <a href="profile.html">
+                    Profile
+                </a>
+
+                <button
+                    type="button"
+                    onclick="logout()"
+                    class="logout-btn"
+                >
+                    Logout
+                </button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- Main -->
+    <main class="internships-container">
+
+        <!-- Page Heading -->
+        <section class="internships-heading">
+
+            <div>
+
+                <p class="dashboard-label">
+                    Recruiter
+                </p>
+
+                <h1>
+                    Applications
+                </h1>
+
+                <p>
+                    Review applications submitted
+                    by students.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Summary -->
+        <section class="internship-summary">
+
+            <div class="summary-card">
+
+                <span>
+                    Total Applications
+                </span>
+
+                <strong id="applicationCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>
+                    Pending
+                </span>
+
+                <strong id="pendingApplicationCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>
+                    Accepted
+                </span>
+
+                <strong id="acceptedApplicationCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>
+                    Rejected
+                </span>
+
+                <strong id="rejectedApplicationCount">
+                    0
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- Applications -->
+        <section class="dashboard-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    Student Applications
+                </h2>
+
+                <span id="applicationListCount">
+                    0 applications
+                </span>
+
+            </div>
+
+
+            <div
+                id="recruiterApplicationList"
+                class="application-list"
+            >
+                <!-- JavaScript will render applications -->
+            </div>
+
+
+            <!-- Empty State -->
+            <div
+                id="noRecruiterApplications"
+                class="empty-state"
+                hidden
+            >
+
+                <h3>
+                    No applications yet
+                </h3>
+
+                <p>
+                    Students have not applied to
+                    your internships yet.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="../../data/seed.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/recruiter/applications.js"></script>
+
+</body>
+
+</html>

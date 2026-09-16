@@ -365,6 +365,203 @@ function hasApplied(internshipId, studentId) {
 
 }
 
+/* =========================================================
+   INTERVIEWS
+   ========================================================= */
+
+/**
+ * Get all interviews.
+ */
+function getInterviews() {
+
+    const interviews = localStorage.getItem(
+        "campus2career_interviews"
+    );
+
+    return interviews
+        ? JSON.parse(interviews)
+        : [];
+
+}
+
+
+/**
+ * Save the complete interviews array.
+ */
+function saveInterviews(interviews) {
+
+    localStorage.setItem(
+        "campus2career_interviews",
+        JSON.stringify(interviews)
+    );
+
+}
+
+
+/**
+ * Find the interview linked to an application.
+ *
+ * One application -> one interview in this prototype.
+ */
+function getInterviewByApplicationId(applicationId) {
+
+    const interviews = getInterviews();
+
+    return interviews.find(
+        interview =>
+            interview.applicationId === applicationId
+    ) || null;
+
+}
+
+
+createInterviewInvitation({
+    applicationId: "APP_TEST",
+    internshipId: "INT_TEST",
+    recruiterId: "REC_TEST",
+    studentId: "STU_TEST",
+    date: "2026-09-20",
+    time: "10:00",
+    type: "online",
+    meetingLink: "https://meet.google.com/xxx",
+    message: "Test invite"
+})
+function createInterviewInvitation(data) {
+
+    const interviews = getInterviews();
+
+    const interview = {
+
+        id: "INTV" + Date.now(),
+
+        applicationId: data.applicationId,
+
+        internshipId: data.internshipId,
+
+        recruiterId: data.recruiterId,
+
+        studentId: data.studentId,
+
+        date: data.date,
+
+        time: data.time,
+
+        type: data.type,
+
+        location: data.location || "",
+
+        meetingLink: data.meetingLink || "",
+
+        message: data.message || "",
+
+        status: "pending",
+
+        result: "pending",
+
+        createdAt: new Date().toISOString(),
+
+        respondedAt: "",
+
+        completedAt: ""
+
+    };
+
+    interviews.push(interview);
+
+    saveInterviews(interviews);
+
+    return interview;
+
+}
+
+
+/**
+ * Update only the status field of an interview.
+ *
+ * Allowed statuses:
+ *   "pending"  -> waiting for student
+ *   "accepted" -> student accepted
+ *   "declined" -> student declined
+ *   "completed"-> interview has happened
+ */
+function updateInterviewStatus(
+    interviewId,
+    status
+) {
+
+    const interviews = getInterviews();
+
+    const index = interviews.findIndex(
+        interview =>
+            interview.id === interviewId
+    );
+
+    if (index === -1) {
+        return null;
+    }
+
+    interviews[index].status = status;
+
+
+    // Record when the student responded.
+    if (
+        status === "accepted" ||
+        status === "declined"
+    ) {
+
+        interviews[index].respondedAt =
+            new Date().toISOString();
+
+    }
+
+
+    // Record when the interview itself was completed.
+    if (status === "completed") {
+
+        interviews[index].completedAt =
+            new Date().toISOString();
+
+    }
+
+
+    saveInterviews(interviews);
+
+    return interviews[index];
+
+}
+
+
+/**
+ * Update only the result field of an interview.
+ *
+ * Allowed results:
+ *   "pending"
+ *   "selected"
+ *   "not_selected"
+ */
+function updateInterviewResult(
+    interviewId,
+    result
+) {
+
+    const interviews = getInterviews();
+
+    const index = interviews.findIndex(
+        interview =>
+            interview.id === interviewId
+    );
+
+    if (index === -1) {
+        return null;
+    }
+
+    interviews[index].result = result;
+
+    saveInterviews(interviews);
+
+    return interviews[index];
+
+}
 
 /* =========================================================
    STUDENT PROFILES
@@ -599,4 +796,31 @@ function closeInternship(internshipId) {
     saveInternships(internships);
 
     return internships[index];
+}
+
+
+
+function updateApplicationStatus(
+    applicationId,
+    status
+) {
+
+    const applications =
+        getApplications();
+
+    const index =
+        applications.findIndex(
+            application =>
+                application.id === applicationId
+        );
+
+    if (index === -1) {
+        return null;
+    }
+
+    applications[index].status = status;
+
+    saveApplications(applications);
+
+    return applications[index];
 }

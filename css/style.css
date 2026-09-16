@@ -3241,3 +3241,249 @@ p {
         border: 1px solid #cbd5e1;
     }
 }
+
+/* =========================================================
+   INTERVIEW SECTION — STUDENT APPLICATIONS LIST
+   ========================================================= */
+
+/* Let the card wrap so the interview section can sit on its own row */
+.applications-list .application-card {
+    flex-wrap: wrap;
+    row-gap: 0;
+}
+
+/* Keep the first row (main + actions) behaving like before */
+.applications-list .application-main {
+    flex: 1 1 auto;
+}
+
+.applications-list .application-actions {
+    flex: 0 0 auto;
+}
+
+/* Interview section — full-width row below the main content */
+.applications-list .application-card > .interview-section {
+    flex: 0 0 100%;
+    width: 100%;
+
+    margin-top: 18px;
+    padding-top: 18px;
+
+    border-top: 1px solid var(--border);
+}
+
+
+/* ---------- Interview section internals ---------- */
+
+.interview-section-title {
+    margin: 0 0 12px 0;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    color: var(--dark);
+}
+
+.interview-detail {
+    margin: 4px 0;
+
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+.interview-detail a {
+    color: var(--primary);
+    text-decoration: underline;
+
+    word-break: break-all;
+}
+
+.interview-message {
+    margin: 12px 0;
+
+    font-style: italic;
+
+    color: var(--muted);
+}
+
+.interview-actions {
+    display: flex;
+    gap: 10px;
+
+    margin-top: 14px;
+
+    flex-wrap: wrap;
+}
+
+.interview-badge {
+    margin: 8px 0 0 0;
+
+    font-size: 0.85rem;
+
+    color: var(--muted);
+}
+
+/* =========================================================
+   RECRUITER APPLICATIONS PAGE
+   ========================================================= */
+
+/* ---------- Summary cards ---------- */
+
+.internship-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+
+    margin-bottom: 40px;
+}
+
+.summary-card {
+    padding: 22px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: #ffffff;
+
+    transition:
+        transform var(--dur) var(--ease-out-expo),
+        border-color var(--dur) var(--ease-out),
+        box-shadow var(--dur) var(--ease-out-expo);
+}
+
+.summary-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(37, 99, 235, 0.25);
+    box-shadow: var(--shadow-md);
+}
+
+.summary-card span {
+    display: block;
+    margin-bottom: 8px;
+
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.summary-card strong {
+    display: block;
+
+    color: var(--dark);
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+
+/* ---------- Recruiter application list ---------- */
+
+.application-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+/* ---------- Recruiter application card ---------- */
+
+.application-list .application-card {
+    display: block;
+    padding: 22px;
+}
+
+
+.application-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+
+    margin-bottom: 14px;
+}
+
+.application-card-header h3 {
+    margin-bottom: 4px;
+    color: var(--dark);
+    font-size: 1.02rem;
+    font-weight: 700;
+}
+
+.application-card-header p {
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+
+.application-card-body {
+    display: grid;
+    gap: 8px;
+
+    padding: 14px 0;
+
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.application-card-body p {
+    margin: 0;
+
+    color: var(--text);
+    font-size: 0.88rem;
+}
+
+.application-card-body strong {
+    color: var(--dark);
+    font-weight: 700;
+}
+
+
+.application-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+
+    padding-top: 14px;
+
+    flex-wrap: wrap;
+}
+
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+
+    .internship-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+
+    .internship-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .application-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .application-card-footer {
+        justify-content: stretch;
+    }
+
+    .application-card-footer .btn {
+        flex: 1 1 auto;
+        text-align: center;
+    }
+}
+
+
+/* Force hidden attribute to actually hide elements */
+[hidden] {
+    display: none !important;
+}

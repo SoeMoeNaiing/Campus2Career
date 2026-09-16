@@ -118,7 +118,6 @@ function renderApplications(applications) {
 /* =========================================================
    APPLICATION CARD
    ========================================================= */
-
 function createApplicationCard(application) {
 
     const internship =
@@ -190,12 +189,319 @@ function createApplicationCard(application) {
 
             </div>
 
+
+            ${renderInterviewSection(application)}
+
         </article>
     `;
 
 }
+/* =========================================================
+   INTERVIEW SECTION
+   ========================================================= */
+
+function renderInterviewSection(application) {
+
+    const interview =
+        getInterviewByApplicationId(
+            application.id
+        );
 
 
+    // No interview invitation yet.
+    if (!interview) {
+        return "";
+    }
+
+
+    if (interview.status === "pending") {
+
+        return renderInterviewInvitation(
+            interview
+        );
+
+    }
+
+
+    if (interview.status === "accepted") {
+
+        return renderInterviewAccepted(
+            interview
+        );
+
+    }
+
+
+    if (interview.status === "declined") {
+
+        return renderInterviewDeclined(
+            interview
+        );
+
+    }
+
+
+    return "";
+}
+
+
+/* =========================================================
+   PENDING INVITATION
+   ========================================================= */
+
+function renderInterviewInvitation(interview) {
+
+    const typeLabel =
+        interview.type === "online"
+            ? "Online"
+            : "In Person";
+
+
+    const contactLine =
+        interview.type === "online"
+            ? `
+                <p class="interview-detail">
+                    <strong>Meeting Link:</strong>
+                    <a
+                        href="${interview.meetingLink}"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        ${interview.meetingLink}
+                    </a>
+                </p>
+            `
+            : `
+                <p class="interview-detail">
+                    <strong>Location:</strong>
+                    ${interview.location || "N/A"}
+                </p>
+            `;
+
+
+    return `
+        <div class="interview-section">
+
+            <h4 class="interview-section-title">
+                Interview Invitation
+            </h4>
+
+
+            <p class="interview-detail">
+                📅 ${formatApplicationDate(interview.date)}
+            </p>
+
+            <p class="interview-detail">
+                🕐 ${interview.time}
+            </p>
+
+            <p class="interview-detail">
+                💻 ${typeLabel}
+            </p>
+
+            ${contactLine}
+
+
+            ${
+                interview.message
+                    ? `
+                        <p class="interview-message">
+                            "${interview.message}"
+                        </p>
+                    `
+                    : ""
+            }
+
+
+            <div class="interview-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="handleAcceptInterview('${interview.id}')"
+                >
+                    Accept Interview
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    onclick="handleDeclineInterview('${interview.id}')"
+                >
+                    Decline Interview
+                </button>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   ACCEPTED INTERVIEW
+   ========================================================= */
+
+function renderInterviewAccepted(interview) {
+
+    const typeLabel =
+        interview.type === "online"
+            ? "Online"
+            : "In Person";
+
+
+    const contactLine =
+        interview.type === "online"
+            ? `
+                <p class="interview-detail">
+                    <strong>Meeting Link:</strong>
+                    <a
+                        href="${interview.meetingLink}"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        ${interview.meetingLink}
+                    </a>
+                </p>
+            `
+            : `
+                <p class="interview-detail">
+                    <strong>Location:</strong>
+                    ${interview.location || "N/A"}
+                </p>
+            `;
+
+
+    const joinButton =
+        interview.type === "online"
+            ? `
+                <a
+                    href="${interview.meetingLink}"
+                    target="_blank"
+                    rel="noopener"
+                    class="btn btn-primary"
+                >
+                    Join Interview
+                </a>
+            `
+            : "";
+
+
+    return `
+        <div class="interview-section">
+
+            <h4 class="interview-section-title">
+                ✓ Interview Accepted
+            </h4>
+
+
+            <p class="interview-detail">
+                📅 ${formatApplicationDate(interview.date)}
+            </p>
+
+            <p class="interview-detail">
+                🕐 ${interview.time}
+            </p>
+
+            <p class="interview-detail">
+                💻 ${typeLabel}
+            </p>
+
+            ${contactLine}
+
+
+            ${
+                interview.message
+                    ? `
+                        <p class="interview-message">
+                            "${interview.message}"
+                        </p>
+                    `
+                    : ""
+            }
+
+
+            ${
+                joinButton
+                    ? `<div class="interview-actions">${joinButton}</div>`
+                    : ""
+            }
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   DECLINED INTERVIEW
+   ========================================================= */
+
+function renderInterviewDeclined(interview) {
+
+    return `
+        <div class="interview-section">
+
+            <h4 class="interview-section-title">
+                ✕ Interview Declined
+            </h4>
+
+
+            <p class="interview-detail">
+                You declined this interview invitation.
+            </p>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   STUDENT RESPONSE HANDLERS
+   ========================================================= */
+
+function handleAcceptInterview(interviewId) {
+
+    const confirmed =
+        confirm(
+            "Accept this interview invitation?"
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    updateInterviewStatus(
+        interviewId,
+        "accepted"
+    );
+
+
+    loadStudentApplications();
+}
+
+
+function handleDeclineInterview(interviewId) {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to decline this interview invitation?"
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    updateInterviewStatus(
+        interviewId,
+        "declined"
+    );
+
+
+    loadStudentApplications();
+}
 /* =========================================================
    STATUS
    ========================================================= */

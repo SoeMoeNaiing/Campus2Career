@@ -199,12 +199,25 @@ function createRecruiterInternshipCard(
 
             <div class="internship-card-footer">
 
-                <a
-                    href="edit-internship.html?id=${internship.id}"
-                    class="btn btn-outline"
-                >
-                    Edit
-                </a>
+               ${internship.status === "active"
+        ? `
+            <a
+                href="edit-internship.html?id=${internship.id}"
+                class="btn btn-outline"
+            >
+                Edit
+            </a>
+          `
+        : `
+            <button
+                type="button"
+                class="btn btn-outline"
+                disabled
+            >
+                Edit
+            </button>
+          `
+    }
 
                 <button
                    type="button"

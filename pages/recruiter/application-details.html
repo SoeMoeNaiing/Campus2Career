@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Application Details | Campus2Career</title>
+
+    <link
+        rel="stylesheet"
+        href="../../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/responsive.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+
+        <div class="dashboard-nav">
+
+            <a
+                href="dashboard.html"
+                class="nav-brand"
+            >
+                Campus2Career
+            </a>
+
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="internships.html">
+                    My Internships
+                </a>
+
+                <a
+                    href="applications.html"
+                    class="active"
+                >
+                    Applications
+                </a>
+
+                <a href="profile.html">
+                    Profile
+                </a>
+
+                <button
+                    type="button"
+                    onclick="logout()"
+                    class="logout-btn"
+                >
+                    Logout
+                </button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- Main -->
+    <main class="profile-container">
+
+        <section class="internships-heading">
+
+            <p class="dashboard-label">
+                Application
+            </p>
+
+            <h1>
+                Student Details
+            </h1>
+
+            <p>
+                Review the student's information
+                and application.
+            </p>
+
+        </section>
+
+
+        <!-- Student Details -->
+        <section
+            id="studentDetails"
+            class="profile-card"
+        >
+
+            <!-- JavaScript will load details here -->
+
+        </section>
+
+
+        <!-- Application Details -->
+        <section
+            id="applicationDetails"
+            class="profile-card"
+        >
+
+            <!-- JavaScript will load application information here -->
+
+        </section>
+
+
+        <!-- Actions -->
+        <!-- Actions -->
+<div
+    id="applicationActions"
+    class="profile-form-footer"
+>
+    <!-- JavaScript will render actions -->
+</div>
+
+    </main>
+
+
+    <script src="../../data/seed.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/recruiter/applications.js"></script>
+
+</body>
+
+</html>

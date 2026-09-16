@@ -9,7 +9,8 @@
 const seedInternships = [
     {
         id: "INT001",
-        recruiterId: "76e9a695-fbb2-44f7-9a94-f4958ce1759b",
+        recruiterId: "76e9a695-fbb2-44f7-9a94-f4958ce1759b"
+,
         title: "Software Engineering Intern",
         company: "Tech Solutions Myanmar",
         location: "Yangon",

@@ -2388,3 +2388,32 @@ html {
 .profile-message.success {
     color: #166534;
 }
+
+.status-active,
+.status-closed {
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 5px 9px;
+
+    border-radius: 999px;
+
+    font-size: 0.7rem;
+
+    font-weight: 700;
+}
+
+
+.status-active {
+    color: #166534;
+
+    background: #dcfce7;
+}
+
+
+.status-closed {
+    color: #991b1b;
+
+    background: #fee2e2;
+}

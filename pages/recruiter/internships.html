@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Internships | Campus2Career</title>
+
+    <link
+        rel="stylesheet"
+        href="../../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/responsive.css"
+    >
+</head>
+
+
+<body>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+
+        <div class="dashboard-nav">
+
+            <a
+                href="dashboard.html"
+                class="nav-brand"
+            >
+                Campus2Career
+            </a>
+
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a
+                    href="internships.html"
+                    class="active"
+                >
+                    My Internships
+                </a>
+
+                <a href="applications.html">
+                    Applications
+                </a>
+
+                <a href="profile.html">
+                    Profile
+                </a>
+
+                <button
+                    type="button"
+                    onclick="logout()"
+                    class="logout-btn"
+                >
+                    Logout
+                </button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- Main -->
+    <main class="internships-container">
+
+        <!-- Page Heading -->
+        <section class="internships-heading">
+
+            <div>
+
+                <p class="dashboard-label">
+                    Recruiter
+                </p>
+
+                <h1>
+                    My Internships
+                </h1>
+
+                <p>
+                    Manage the internship opportunities
+                    posted by your company.
+                </p>
+
+            </div>
+
+
+            <a
+                href="create-internship.html"
+                class="btn btn-primary"
+            >
+                + Post Internship
+            </a>
+
+        </section>
+
+
+        <!-- Summary -->
+        <section class="internship-summary">
+
+            <div class="summary-card">
+
+                <span>
+                    Total Internships
+                </span>
+
+                <strong id="internshipCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>
+                    Active
+                </span>
+
+                <strong id="activeInternshipCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>
+                    Closed
+                </span>
+
+                <strong id="closedInternshipCount">
+                    0
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- Internship List -->
+        <section class="dashboard-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    Your Posted Internships
+                </h2>
+
+                <span id="internshipListCount">
+                    0 internships
+                </span>
+
+            </div>
+
+
+            <div
+                id="recruiterInternshipList"
+                class="internship-grid"
+            >
+                <!-- JavaScript renders internships -->
+            </div>
+
+
+            <!-- Empty State -->
+            <div
+                id="noRecruiterInternships"
+                class="empty-state"
+                hidden
+            >
+
+                <h3>
+                    No internships yet
+                </h3>
+
+                <p>
+                    You haven't posted any internship
+                    opportunities yet.
+                </p>
+
+                <a
+                    href="create-internship.html"
+                    class="btn btn-primary"
+                >
+                    Post Your First Internship
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="../../data/seed.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/recruiter/internships.js"></script>
+
+</body>
+
+</html>

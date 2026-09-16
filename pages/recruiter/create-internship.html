@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Post Internship | Campus2Career</title>
+
+    <link
+        rel="stylesheet"
+        href="../../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/responsive.css"
+    >
+</head>
+
+
+<body>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+
+        <div class="dashboard-nav">
+
+            <a
+                href="dashboard.html"
+                class="nav-brand"
+            >
+                Campus2Career
+            </a>
+
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a
+                    href="internships.html"
+                    class="active"
+                >
+                    My Internships
+                </a>
+
+                <a href="applications.html">
+                    Applications
+                </a>
+
+                <a href="profile.html">
+                    Profile
+                </a>
+
+                <button
+                    type="button"
+                    onclick="logout()"
+                    class="logout-btn"
+                >
+                    Logout
+                </button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- Main -->
+    <main class="profile-container">
+
+        <section class="internships-heading">
+
+            <p class="dashboard-label">
+                Recruiter
+            </p>
+
+            <h1>
+                Post an Internship
+            </h1>
+
+            <p>
+                Create a new internship opportunity
+                for students.
+            </p>
+
+        </section>
+
+
+        <section class="profile-card">
+
+            <form id="internshipForm">
+
+                <!-- Basic Information -->
+                <div class="section-heading">
+
+                    <h2>
+                        Internship Information
+                    </h2>
+
+                </div>
+
+
+                <div class="profile-form-grid">
+
+                    <!-- Title -->
+                    <div class="form-group">
+
+                        <label for="titleInput">
+                            Internship Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="titleInput"
+                            placeholder="e.g. Software Engineering Intern"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Company -->
+                    <div class="form-group">
+
+                        <label for="companyInput">
+                            Company Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="companyInput"
+                            placeholder="Company name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Location -->
+                    <div class="form-group">
+
+                        <label for="locationInput">
+                            Location
+                        </label>
+
+                        <input
+                            type="text"
+                            id="locationInput"
+                            placeholder="e.g. Yangon / Remote"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Type -->
+                    <div class="form-group">
+
+                        <label for="typeInput">
+                            Internship Type
+                        </label>
+
+                        <select id="typeInput" required>
+
+                            <option value="">
+                                Select type
+                            </option>
+
+                            <option value="Full-time">
+                                Full-time
+                            </option>
+
+                            <option value="Part-time">
+                                Part-time
+                            </option>
+
+                            <option value="Remote">
+                                Remote
+                            </option>
+
+                            <option value="Hybrid">
+                                Hybrid
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Category -->
+                    <div class="form-group">
+
+                        <label for="categoryInput">
+                            Category
+                        </label>
+
+                        <input
+                            type="text"
+                            id="categoryInput"
+                            placeholder="e.g. Software Development"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Duration -->
+                    <div class="form-group">
+
+                        <label for="durationInput">
+                            Duration
+                        </label>
+
+                        <input
+                            type="text"
+                            id="durationInput"
+                            placeholder="e.g. 3 months"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Skills -->
+                <div class="form-group">
+
+                    <label for="skillsInput">
+                        Required Skills
+                    </label>
+
+                    <input
+                        type="text"
+                        id="skillsInput"
+                        placeholder="JavaScript, HTML, CSS, Git"
+                    >
+
+                    <small>
+                        Separate skills with commas.
+                    </small>
+
+                </div>
+
+
+                <!-- Description -->
+                <div class="form-group">
+
+                    <label for="descriptionInput">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="descriptionInput"
+                        rows="6"
+                        placeholder="Describe the internship opportunity..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- Requirements -->
+                <div class="form-group">
+
+                    <label for="requirementsInput">
+                        Requirements
+                    </label>
+
+                    <textarea
+                        id="requirementsInput"
+                        rows="6"
+                        placeholder="List the requirements for applicants..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- Form Message -->
+                <p
+                    id="formMessage"
+                    class="profile-message"
+                ></p>
+
+
+                <!-- Actions -->
+                <div class="profile-form-footer">
+
+                    <a
+                        href="internships.html"
+                        class="btn btn-outline"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Post Internship
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <script src="../../data/seed.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/recruiter/internships.js"></script>
+
+</body>
+
+</html>

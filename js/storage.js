@@ -536,3 +536,15 @@ function updateRecruiterProfile(
 
     return profiles[recruiterId];
 }
+
+
+function addInternship(internship) {
+
+    const internships = getInternships();
+
+    internships.push(internship);
+
+    saveInternships(internships);
+
+    return internship;
+}

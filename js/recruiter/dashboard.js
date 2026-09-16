@@ -193,7 +193,7 @@ function createRecruiterInternshipCard(internship) {
                     href="edit-internship.html?id=${internship.id}"
                     class="btn btn-outline"
                 >
-                    Manage
+                    Edit
                 </a>
 
             </div>

@@ -3581,3 +3581,116 @@ p {
 .profile-form-footer.application-actions-stacked > a.btn {
     margin-top: 6px;
 }
+
+
+/* =========================================================
+   STUDENT — FINAL INTERVIEW RESULT
+   ========================================================= */
+
+.interview-section.interview-result-success {
+    border-top-color: var(--success);
+}
+
+
+.interview-section.interview-result-success .interview-section-title {
+    color: var(--success);
+}
+
+
+.interview-section.interview-result-failure {
+    border-top-color: var(--danger);
+}
+
+
+.interview-section.interview-result-failure .interview-section-title {
+    color: var(--danger);
+}
+
+/* =========================================================
+   RECRUITER VERIFICATION SECTION
+   ========================================================= */
+
+.verification-card {
+    margin-top: 24px;
+}
+
+
+.verification-card .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.verification-card .section-heading h2 {
+    margin: 0;
+
+    color: var(--dark);
+    font-size: 1.1rem;
+}
+
+
+.verification-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 6px 12px;
+
+    border-radius: var(--radius-full);
+
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+
+.badge-unsubmitted {
+    color: var(--muted);
+    background: var(--surface-2);
+}
+
+
+.badge-pending {
+    color: var(--warning);
+    background: var(--warning-bg);
+}
+
+
+.badge-verified {
+    color: var(--success);
+    background: var(--success-bg);
+}
+
+
+.badge-rejected {
+    color: #991b1b;
+    background: var(--danger-bg);
+}
+
+
+.verification-body p {
+    margin-bottom: 10px;
+
+    color: var(--text);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+
+.verification-body .btn {
+    margin-top: 8px;
+}
+
+
+.verification-hint {
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-style: italic;
+}

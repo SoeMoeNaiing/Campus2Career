@@ -214,6 +214,21 @@ function renderInterviewSection(application) {
     }
 
 
+    /* ---------- Final result already set ---------- */
+
+    if (
+        interview.result === "selected" ||
+        interview.result === "not_selected" ||
+        interview.result === "no_show"
+    ) {
+
+        return renderInterviewResult(
+            interview
+        );
+
+    }
+
+
     if (interview.status === "pending") {
 
         return renderInterviewInvitation(
@@ -243,7 +258,6 @@ function renderInterviewSection(application) {
 
     return "";
 }
-
 
 /* =========================================================
    PENDING INVITATION
@@ -582,7 +596,84 @@ function renderInterviewDeclined(interview) {
     `;
 }
 
+/* =========================================================
+   FINAL INTERVIEW RESULT
+   ========================================================= */
 
+function renderInterviewResult(interview) {
+
+    const typeLabel =
+        interview.type === "online"
+            ? "Online"
+            : "In Person";
+
+
+    let title = "";
+    let message = "";
+    let tone = "";
+
+
+    if (interview.result === "selected") {
+
+        title = "✓ You have been selected";
+        message =
+            "Congratulations! The recruiter has " +
+            "selected you for this internship.";
+        tone = "interview-result-success";
+
+    }
+
+
+    if (interview.result === "not_selected") {
+
+        title = "✕ Not selected";
+        message =
+            "Unfortunately, the recruiter did not " +
+            "select you for this internship.";
+        tone = "interview-result-failure";
+
+    }
+
+
+    if (interview.result === "no_show") {
+
+        title = "✕ Not selected";
+        message =
+            "You did not attend the interview, " +
+            "so the application was not successful.";
+        tone = "interview-result-failure";
+
+    }
+
+
+    return `
+        <div class="interview-section ${tone}">
+
+            <h4 class="interview-section-title">
+                ${title}
+            </h4>
+
+
+            <p class="interview-detail">
+                📅 ${formatApplicationDate(interview.date)}
+            </p>
+
+            <p class="interview-detail">
+                🕐 ${interview.time}
+            </p>
+
+            <p class="interview-detail">
+                💻 ${typeLabel}
+            </p>
+
+
+            <p class="interview-message">
+                ${message}
+            </p>
+
+        </div>
+    `;
+}
 /* =========================================================
    STUDENT RESPONSE HANDLERS
    ========================================================= */
@@ -665,7 +756,11 @@ function formatApplicationStatus(status) {
 
         accepted: "Accepted",
 
-        rejected: "Rejected"
+        rejected: "Rejected",
+
+        selected: "Selected",
+
+        not_selected: "Not Selected"
 
     };
 

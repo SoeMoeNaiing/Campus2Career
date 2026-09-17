@@ -749,7 +749,7 @@ function createDefaultRecruiterProfile(user) {
         return profiles[user.id];
     }
 
-    const profile = {
+       const profile = {
         recruiterId: user.id,
         name: user.name || "",
         email: user.email || "",
@@ -758,7 +758,13 @@ function createDefaultRecruiterProfile(user) {
         address: "",
         industry: "",
         website: "",
-        description: ""
+        description: "",
+
+        // Verification
+        verificationStatus: "unsubmitted",
+        verificationRequestedAt: "",
+        verifiedAt: "",
+        rejectionReason: ""
     };
 
     profiles[user.id] = profile;
@@ -876,4 +882,136 @@ function updateApplicationStatus(
     saveApplications(applications);
 
     return applications[index];
+}
+
+/* =========================================================
+   RECRUITER VERIFICATION
+   ========================================================= */
+
+/**
+ * Update the verification status of a recruiter profile.
+ *
+ * status values:
+ *   "unsubmitted" | "pending" | "verified" | "rejected"
+ */
+function updateRecruiterVerification(
+    recruiterId,
+    status,
+    reason
+) {
+
+    const profiles = getRecruiterProfiles();
+
+    const profile = profiles[recruiterId];
+
+    if (!profile) {
+        return null;
+    }
+
+
+    profile.verificationStatus = status;
+
+
+    if (status === "pending") {
+
+        profile.verificationRequestedAt =
+            new Date().toISOString();
+
+        profile.verifiedAt = "";
+        profile.rejectionReason = "";
+
+    }
+
+
+    if (status === "verified") {
+
+        profile.verifiedAt =
+            new Date().toISOString();
+
+        profile.rejectionReason = "";
+
+    }
+
+
+    if (status === "rejected") {
+
+        profile.rejectionReason =
+            reason || "";
+
+        profile.verifiedAt = "";
+
+    }
+
+
+    if (status === "unsubmitted") {
+
+        profile.verificationRequestedAt = "";
+        profile.verifiedAt = "";
+        profile.rejectionReason = "";
+
+    }
+
+
+    saveRecruiterProfiles(profiles);
+
+    return profile;
+
+}
+
+
+/**
+ * Get all recruiter profiles with a given verification status.
+ */
+function getRecruitersByVerificationStatus(status) {
+
+    const profiles = getRecruiterProfiles();
+
+    return Object.values(profiles).filter(
+        profile =>
+            (profile.verificationStatus || "unsubmitted") === status
+    );
+
+}
+
+
+/**
+ * Migration: existing recruiter profiles created before
+ * the verification system existed get marked as "verified"
+ * so the current demo data keeps working.
+ *
+ * Run once from the console:
+ *   migrateRecruiterVerifications()
+ */
+function migrateRecruiterVerifications() {
+
+    const profiles = getRecruiterProfiles();
+
+    let migrated = 0;
+
+
+    Object.values(profiles).forEach(profile => {
+
+        if (!profile.verificationStatus) {
+
+            profile.verificationStatus = "verified";
+
+            profile.verifiedAt =
+                new Date().toISOString();
+
+            migrated++;
+
+        }
+
+    });
+
+
+    if (migrated > 0) {
+
+        saveRecruiterProfiles(profiles);
+
+    }
+
+
+    return migrated;
+
 }

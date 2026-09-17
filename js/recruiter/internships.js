@@ -12,29 +12,75 @@ if (!requireRole("recruiter")) {
         initializeRecruiterInternships();
     }
 
-    if (
-        document.getElementById(
-            "internshipForm"
-        )
-    ) {
-        initializeCreateInternshipForm();
+
+    /* ---------- Verification gate for post / edit ---------- */
+
+    const onCreatePage =
+        document.getElementById("internshipForm");
+
+    const onEditPage =
+        document.getElementById("editInternshipForm");
+
+
+    if (onCreatePage || onEditPage) {
+
+        if (!isCurrentRecruiterVerified()) {
+
+            alert(
+                "Your account is not verified yet. " +
+                "Please complete your profile and " +
+                "apply for verification before posting internships."
+            );
+
+            window.location.href = "profile.html";
+
+        } else {
+
+            if (onCreatePage) {
+                initializeCreateInternshipForm();
+            }
+
+            if (onEditPage) {
+
+                initializeEditInternshipForm();
+
+                document.getElementById(
+                    "editInternshipForm"
+                ).addEventListener(
+                    "submit",
+                    handleEditInternshipSubmit
+                );
+
+            }
+
+        }
+
     }
 
-    if (
-        document.getElementById(
-            "editInternshipForm"
-        )
-    ) {
+}
+/* =========================================================
+   VERIFICATION CHECK
+   ========================================================= */
 
-        initializeEditInternshipForm();
+function isCurrentRecruiterVerified() {
 
-        document.getElementById(
-            "editInternshipForm"
-        ).addEventListener(
-            "submit",
-            handleEditInternshipSubmit
-        );
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+        return false;
     }
+
+
+    const profile =
+        getRecruiterProfile(currentUser.id);
+
+    if (!profile) {
+        return false;
+    }
+
+
+    return profile.verificationStatus === "verified";
+
 }
 
 function initializeRecruiterInternships() {
@@ -297,6 +343,16 @@ function initializeCreateInternshipForm() {
 function handleCreateInternshipSubmit(event) {
 
     event.preventDefault();
+    if (!isCurrentRecruiterVerified()) {
+
+        showInternshipFormMessage(
+            "Your account is not verified. You cannot post internships.",
+            "error"
+        );
+
+        return;
+
+    }
 
     const title =
         document.getElementById(
@@ -606,6 +662,16 @@ function showEditFormMessage(
 function handleEditInternshipSubmit(event) {
 
     event.preventDefault();
+     if (!isCurrentRecruiterVerified()) {
+
+        showEditFormMessage(
+            "Your account is not verified. You cannot edit internships.",
+            "error"
+        );
+
+        return;
+
+    }
 
     const params =
         new URLSearchParams(
@@ -763,6 +829,18 @@ function handleCloseInternship(internshipId) {
 
     if (!currentUser) {
         return;
+    }
+
+
+    if (!isCurrentRecruiterVerified()) {
+
+        alert(
+            "Your account is not verified. " +
+            "You cannot close internships."
+        );
+
+        return;
+
     }
 
     const internships = getInternships();

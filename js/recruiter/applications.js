@@ -760,6 +760,11 @@ function renderApplicationActions(
     }
 
 
+    container.classList.remove("application-actions-stacked");
+
+    container.innerHTML = "";
+
+
     /* ---------- PENDING ---------- */
 
     if (application.status === "pending") {
@@ -821,7 +826,7 @@ function renderApplicationActions(
     }
 
 
-    /* ---------- ACCEPTED ---------- */
+    /* ---------- ACCEPTED (interview stage) ---------- */
 
     if (application.status === "accepted") {
 
@@ -831,6 +836,110 @@ function renderApplicationActions(
 
         return;
     }
+
+
+    /* ---------- FINAL (selected / not_selected) ---------- */
+
+    renderFinalApplicationActions(
+        application
+    );
+}
+/* =========================================================
+   FINAL APPLICATION ACTIONS
+   ========================================================= */
+
+function renderFinalApplicationActions(
+    application
+) {
+
+    const container =
+        document.getElementById(
+            "applicationActions"
+        );
+
+    if (!container) {
+        return;
+    }
+
+
+    const interview =
+        getInterviewByApplicationId(
+            application.id
+        );
+
+
+    const label =
+        application.status === "selected"
+            ? "✓ Selected"
+            : "✕ Not Selected";
+
+
+    let noShowNote = "";
+
+
+    if (
+        interview &&
+        interview.result === "no_show"
+    ) {
+
+        noShowNote = `
+            <p class="interview-detail interview-warning">
+                ⚠ Student did not attend the interview.
+            </p>
+        `;
+
+    }
+
+
+    container.innerHTML = `
+
+        <span class="application-status">
+            ${label}
+        </span>
+
+
+        ${noShowNote}
+
+
+        <a
+            href="applications.html"
+            class="btn btn-outline"
+        >
+            Back to Applications
+        </a>
+
+    `;
+}
+
+/* =========================================================
+   INTERVIEW TIME HELPERS
+   ========================================================= */
+
+function hasInterviewEnded(interview) {
+
+    if (!interview.date || !interview.time) {
+        return false;
+    }
+
+
+    const startTime =
+        new Date(
+            `${interview.date}T${interview.time}`
+        );
+
+
+    if (isNaN(startTime.getTime())) {
+        return false;
+    }
+
+
+    const diffMinutes =
+        (Date.now() - startTime.getTime()) / 60000;
+
+
+    // The window closes 30 minutes after start
+    // (same rule as the student side).
+    return diffMinutes >= 30;
 }
 /* =========================================================
    ACCEPTED APPLICATION ACTIONS
@@ -849,7 +958,7 @@ function renderAcceptedApplicationActions(
         return;
     }
 
-
+container.classList.remove("application-actions-stacked");
     const interview =
         getInterviewByApplicationId(
             application.id
@@ -892,6 +1001,7 @@ function renderAcceptedApplicationActions(
     /* ---------- Waiting for student ---------- */
 
     if (interview.status === "pending") {
+         container.classList.add("application-actions-stacked");
 
         container.innerHTML = `
 
@@ -939,9 +1049,43 @@ function renderAcceptedApplicationActions(
         return;
     }
 
-    /* ---------- Student accepted ---------- */
+        /* ---------- Student accepted ---------- */
 
     if (interview.status === "accepted") {
+         container.classList.add("application-actions-stacked");
+
+        /* ---------- Attendance line ---------- */
+
+        let attendanceLine = "";
+
+
+        if (interview.attendedAt) {
+
+            attendanceLine = `
+                <p class="interview-detail">
+                    ✓ Student joined the interview at
+                    ${new Date(interview.attendedAt).toLocaleTimeString()}
+                </p>
+            `;
+
+        } else if (hasInterviewEnded(interview)) {
+
+            attendanceLine = `
+                <p class="interview-detail interview-warning">
+                    ⚠ Student did not join the interview
+                </p>
+            `;
+
+        } else {
+
+            attendanceLine = `
+                <p class="interview-detail">
+                    Waiting for the interview to take place.
+                </p>
+            `;
+
+        }
+
 
         container.innerHTML = `
 
@@ -970,6 +1114,9 @@ function renderAcceptedApplicationActions(
                         : "In Person"
                 }
             </p>
+
+
+            ${attendanceLine}
 
 
             <div class="form-group">
@@ -1004,6 +1151,13 @@ function renderAcceptedApplicationActions(
                         Not Selected
                     </option>
 
+                    <option
+                        value="no_show"
+                        ${interview.result === "no_show" ? "selected" : ""}
+                    >
+                        No Show
+                    </option>
+
                 </select>
 
             </div>
@@ -1020,7 +1174,6 @@ function renderAcceptedApplicationActions(
 
         return;
     }
-
 
     /* ---------- Student declined ---------- */
 
@@ -1046,6 +1199,99 @@ function renderAcceptedApplicationActions(
     }
 }
 
+/* =========================================================
+   INTERVIEW RESULT
+   ========================================================= */
+
+function handleInterviewResultChange(
+    interviewId
+) {
+
+    const select =
+        document.getElementById(
+            "interviewResult"
+        );
+
+    if (!select) {
+        return;
+    }
+
+
+    const newResult =
+        select.value;
+
+
+    const labelMap = {
+        pending: "Pending",
+        selected: "Selected",
+        not_selected: "Not Selected",
+        no_show: "No Show"
+    };
+
+
+    const confirmed =
+        confirm(
+            `Set interview result to "${labelMap[newResult] || newResult}"? ` +
+            `This will update the application status.`
+        );
+
+
+    if (!confirmed) {
+
+        // Re-render to restore the previous selection.
+        initializeApplicationDetails();
+
+        return;
+
+    }
+
+
+    /* 1. Update the interview result */
+
+    const interview =
+        updateInterviewResult(
+            interviewId,
+            newResult
+        );
+
+
+    if (!interview) {
+        return;
+    }
+
+
+    /* 2. Update the application status */
+
+    let applicationStatus = null;
+
+
+    if (newResult === "selected") {
+        applicationStatus = "selected";
+    }
+
+    if (newResult === "not_selected") {
+        applicationStatus = "not_selected";
+    }
+
+    if (newResult === "no_show") {
+        applicationStatus = "not_selected";
+    }
+
+
+    if (applicationStatus) {
+
+        updateApplicationStatus(
+            interview.applicationId,
+            applicationStatus
+        );
+
+    }
+
+
+    /* 3. Re-render the details page */
+
+    initializeApplicationDetails();
+}
 
 /* =========================================================
    INTERVIEW INVITE FORM

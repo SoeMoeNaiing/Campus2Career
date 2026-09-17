@@ -424,7 +424,7 @@ createInterviewInvitation({
     time: "10:00",
     type: "online",
     meetingLink: "https://meet.google.com/xxx",
-    message: "Test invite"
+    message: "Test"
 })
 function createInterviewInvitation(data) {
 
@@ -454,13 +454,15 @@ function createInterviewInvitation(data) {
 
         message: data.message || "",
 
-        status: "pending",
+                status: "pending",
 
         result: "pending",
 
         createdAt: new Date().toISOString(),
 
         respondedAt: "",
+
+        attendedAt: "",
 
         completedAt: ""
 
@@ -556,6 +558,57 @@ function updateInterviewResult(
     }
 
     interviews[index].result = result;
+
+    saveInterviews(interviews);
+
+    return interviews[index];
+
+}
+/**
+ * Find an interview by its id.
+ */
+function getInterviewById(interviewId) {
+
+    const interviews = getInterviews();
+
+    return interviews.find(
+        interview =>
+            interview.id === interviewId
+    ) || null;
+
+}
+
+
+/**
+ * Record that the student clicked "Join Interview".
+ *
+ * Only sets attendedAt the first time. If it is
+ * already set, we do not overwrite it — that way the
+ * timestamp means "first time they joined".
+ */
+function markInterviewAttended(interviewId) {
+
+    const interviews = getInterviews();
+
+    const index = interviews.findIndex(
+        interview =>
+            interview.id === interviewId
+    );
+
+    if (index === -1) {
+        return null;
+    }
+
+
+    // Already recorded — leave the original timestamp.
+    if (interviews[index].attendedAt) {
+        return interviews[index];
+    }
+
+
+    interviews[index].attendedAt =
+        new Date().toISOString();
+
 
     saveInterviews(interviews);
 

@@ -3487,3 +3487,97 @@ p {
 [hidden] {
     display: none !important;
 }
+
+
+.interview-hint {
+    margin-top: 10px;
+
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+
+.profile-form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    padding-top: 12px;
+}
+
+
+/* =========================================================
+   RECRUITER DETAILS — STACKED ACTIONS
+   ========================================================= */
+
+.profile-form-footer.application-actions-stacked {
+    display: block;
+    padding-top: 12px;
+}
+
+
+.profile-form-footer.application-actions-stacked > p {
+    margin: 6px 0;
+
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+
+.profile-form-footer.application-actions-stacked > .application-status {
+    display: inline-flex;
+    margin-bottom: 12px;
+}
+
+
+.profile-form-footer.application-actions-stacked .form-group {
+    max-width: 260px;
+
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+
+.profile-form-footer.application-actions-stacked .btn,
+.profile-form-footer.application-actions-stacked a.btn {
+    margin-top: 8px;
+}
+
+
+/* =========================================================
+   RECRUITER DETAILS — STACKED ACTIONS
+   ========================================================= */
+
+.profile-form-footer.application-actions-stacked {
+    display: block;
+    padding-top: 12px;
+}
+
+
+.profile-form-footer.application-actions-stacked > p {
+    margin: 6px 0;
+
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+
+.profile-form-footer.application-actions-stacked > .application-status {
+    display: inline-flex;
+    margin-bottom: 14px;
+}
+
+
+.profile-form-footer.application-actions-stacked .form-group {
+    max-width: 260px;
+
+    margin-top: 16px;
+    margin-bottom: 20px;
+}
+
+
+.profile-form-footer.application-actions-stacked > .btn,
+.profile-form-footer.application-actions-stacked > a.btn {
+    margin-top: 6px;
+}

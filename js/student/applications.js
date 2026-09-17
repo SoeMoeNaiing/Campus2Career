@@ -338,7 +338,108 @@ function renderInterviewInvitation(interview) {
     `;
 }
 
+/* =========================================================
+   JOIN BUTTON TIMING
+   ========================================================= */
 
+function canJoinInterview(interview) {
+
+    if (interview.type !== "online") {
+        return false;
+    }
+
+
+    if (!interview.date || !interview.time) {
+        return false;
+    }
+
+
+    const startTime =
+        new Date(
+            `${interview.date}T${interview.time}`
+        );
+
+
+    if (isNaN(startTime.getTime())) {
+        return false;
+    }
+
+
+    const now = new Date();
+
+
+    const diffMinutes =
+        (startTime.getTime() - now.getTime()) / 60000;
+
+
+    // Show 5 minutes before start
+    // Hide 2 hours after start
+   return diffMinutes <= 5 && diffMinutes >= -30;
+}
+
+
+function getJoinButtonMessage(interview) {
+
+    if (interview.type !== "online") {
+        return "";
+    }
+
+
+    const startTime =
+        new Date(
+            `${interview.date}T${interview.time}`
+        );
+
+
+    const now = new Date();
+
+
+    const diffMinutes =
+        (startTime.getTime() - now.getTime()) / 60000;
+
+
+    /* ---------- Too early ---------- */
+
+    if (diffMinutes > 5) {
+
+        return `
+            <p class="interview-detail interview-hint">
+                The Join Interview button will
+                appear 5 minutes before the interview.
+            </p>
+        `;
+
+    }
+
+
+    /* ---------- Window has closed ---------- */
+
+    if (diffMinutes < -30) {
+
+        if (interview.attendedAt) {
+
+            return `
+                <p class="interview-detail interview-hint">
+                    ✓ You joined this interview at
+                    ${new Date(interview.attendedAt).toLocaleTimeString()}.
+                </p>
+            `;
+
+        }
+
+
+        return `
+            <p class="interview-detail interview-hint">
+                ✕ This interview time has passed
+                and you did not join.
+            </p>
+        `;
+
+    }
+
+
+    return "";
+}
 /* =========================================================
    ACCEPTED INTERVIEW
    ========================================================= */
@@ -373,19 +474,50 @@ function renderInterviewAccepted(interview) {
             `;
 
 
-    const joinButton =
-        interview.type === "online"
-            ? `
-                <a
-                    href="${interview.meetingLink}"
-                    target="_blank"
-                    rel="noopener"
+    const canJoin =
+        canJoinInterview(interview);
+
+
+    let joinSection = "";
+
+
+    if (canJoin) {
+
+        const attendedNote =
+            interview.attendedAt
+                ? `
+                    <p class="interview-detail interview-hint">
+                        ✓ You joined at
+                        ${new Date(interview.attendedAt).toLocaleTimeString()}
+                    </p>
+                `
+                : "";
+
+
+        joinSection = `
+
+            ${attendedNote}
+
+            <div class="interview-actions">
+
+                <button
+                    type="button"
                     class="btn btn-primary"
+                    onclick="handleJoinInterview('${interview.id}', '${interview.meetingLink}')"
                 >
                     Join Interview
-                </a>
-            `
-            : "";
+                </button>
+
+            </div>
+
+        `;
+
+    } else {
+
+        joinSection =
+            getJoinButtonMessage(interview);
+
+    }
 
 
     return `
@@ -422,16 +554,11 @@ function renderInterviewAccepted(interview) {
             }
 
 
-            ${
-                joinButton
-                    ? `<div class="interview-actions">${joinButton}</div>`
-                    : ""
-            }
+            ${joinSection}
 
         </div>
     `;
 }
-
 
 /* =========================================================
    DECLINED INTERVIEW
@@ -501,6 +628,30 @@ function handleDeclineInterview(interviewId) {
 
 
     loadStudentApplications();
+}
+
+/* =========================================================
+   JOIN INTERVIEW
+   ========================================================= */
+
+function handleJoinInterview(
+    interviewId,
+    meetingLink
+) {
+
+    // 1. Record attendance (only records the first time).
+    markInterviewAttended(interviewId);
+
+    // 2. Open the meeting link in a new tab.
+    window.open(
+        meetingLink,
+        "_blank",
+        "noopener"
+    );
+
+    // 3. Refresh the card so the "✓ You joined at ..." note appears.
+    loadStudentApplications();
+
 }
 /* =========================================================
    STATUS

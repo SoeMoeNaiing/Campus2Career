@@ -311,6 +311,71 @@ function handleApplyClick(internshipId) {
     }
 
 
+    /* ---------- Profile completeness check ---------- */
+
+    const profile =
+        getStudentProfile(currentUser.id);
+
+
+    if (!profile) {
+
+        alert(
+            "Please complete your profile before applying."
+        );
+
+        window.location.href = "profile.html";
+
+        return;
+
+    }
+
+
+    const requiredFields = [
+        "name",
+        "email",
+        "phone",
+        "university"
+    ];
+
+
+    const missing =
+        requiredFields.filter(
+            field =>
+                !profile[field] ||
+                String(profile[field]).trim() === ""
+        );
+
+
+    if (missing.length > 0) {
+
+        const pretty = missing
+            .map(field => {
+
+                if (field === "name") return "Name";
+                if (field === "email") return "Email";
+                if (field === "phone") return "Phone";
+                if (field === "university") return "University";
+
+                return field;
+
+            })
+            .join(", ");
+
+
+        alert(
+            "Please complete the following before applying:\n\n" +
+            pretty
+        );
+
+        window.location.href = "profile.html";
+
+        return;
+
+    }
+
+
+    /* ---------- Duplicate check ---------- */
+
     if (hasApplied(internshipId, currentUser.id)) {
 
         alert(
@@ -322,6 +387,8 @@ function handleApplyClick(internshipId) {
     }
 
 
+    /* ---------- Create application ---------- */
+
     const result =
         createApplication(
             internshipId,
@@ -332,7 +399,6 @@ function handleApplyClick(internshipId) {
     alert(result.message);
 
 }
-
 
 /* =========================================================
    SAVE

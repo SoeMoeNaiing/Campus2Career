@@ -3,7 +3,30 @@ if (!requireRole("recruiter")) {
 } else {
     initializeRecruiterDashboard();
 }
+/* =========================================================
+   VERIFICATION CHECK
+   ========================================================= */
 
+function isCurrentRecruiterVerified() {
+
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+        return false;
+    }
+
+
+    const profile =
+        getRecruiterProfile(currentUser.id);
+
+    if (!profile) {
+        return false;
+    }
+
+
+    return profile.verificationStatus === "verified";
+
+}
 
 function initializeRecruiterDashboard() {
 
@@ -16,12 +39,134 @@ updateInternshipSeedData();
     }
 
     // Display recruiter name
+       // Display recruiter name
+       // Display recruiter name
     document.getElementById("recruiterName").textContent =
         currentUser.name;
 
     calculateRecruiterStats(currentUser.id);
 
     renderRecentInternships(currentUser.id);
+
+    renderQuickActions();
+}
+
+
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
+
+function renderQuickActions() {
+
+    const container =
+        document.querySelector(
+            ".dashboard-section .quick-actions"
+        );
+
+    if (!container) {
+        return;
+    }
+
+
+    const verified =
+        isCurrentRecruiterVerified();
+
+
+    if (!verified) {
+
+        const profile =
+            getRecruiterProfile(
+                getCurrentUser().id
+            );
+
+        const status =
+            profile
+                ? (profile.verificationStatus || "unsubmitted")
+                : "unsubmitted";
+
+
+        let note = "";
+
+        if (status === "pending") {
+
+            note = "Your verification request is being reviewed by an admin.";
+
+        } else if (status === "rejected") {
+
+            note = "Your verification was rejected. Update your profile and re-apply.";
+
+        } else {
+
+            note = "Complete your company profile and apply for verification to start posting internships.";
+
+        }
+
+
+        container.innerHTML = `
+
+            <a
+                href="profile.html"
+                class="quick-action-card verification-cta"
+            >
+                <h3>Get Verified</h3>
+                <p>${note}</p>
+            </a>
+
+
+            <a
+                href="applications.html"
+                class="quick-action-card"
+            >
+                <h3>View Applications</h3>
+                <p>
+                    Review student applications.
+                </p>
+            </a>
+
+        `;
+
+        return;
+    }
+
+
+    /* Verified recruiter — same Quick Actions as before */
+
+    container.innerHTML = `
+
+        <a
+            href="create-internship.html"
+            class="quick-action-card"
+        >
+            <h3>Post Internship</h3>
+            <p>
+                Create a new internship opportunity.
+            </p>
+        </a>
+
+
+        <a
+            href="internships.html"
+            class="quick-action-card"
+        >
+            <h3>My Internships</h3>
+            <p>
+                View and manage your internships.
+            </p>
+        </a>
+
+
+        <a
+            href="applications.html"
+            class="quick-action-card"
+        >
+            <h3>View Applications</h3>
+            <p>
+                Review student applications.
+            </p>
+        </a>
+
+    `;
+
 }
 
 
@@ -120,11 +265,37 @@ function renderRecentInternships(recruiterId) {
         );
 
 
-    if (recentInternships.length === 0) {
+       if (recentInternships.length === 0) {
 
         container.innerHTML = "";
 
         emptyState.style.display = "block";
+
+
+        // Adjust the CTA based on verification status.
+        const cta =
+            emptyState.querySelector("a.btn");
+
+        if (cta) {
+
+            if (isCurrentRecruiterVerified()) {
+
+                cta.href = "create-internship.html";
+
+                cta.textContent =
+                    "Post Your First Internship";
+
+            } else {
+
+                cta.href = "profile.html";
+
+                cta.textContent =
+                    "Get Verified to Post";
+
+            }
+
+        }
+
 
         return;
     }

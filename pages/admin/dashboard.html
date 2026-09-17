@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Dashboard | Campus2Career</title>
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body>
+
+    <header class="dashboard-header">
+
+        <div class="dashboard-nav">
+
+            <a href="dashboard.html" class="logo">
+                Campus<span>2</span>Career
+            </a>
+
+            <nav>
+
+                <a href="dashboard.html" class="active">
+                    Dashboard
+                </a>
+
+                <a href="recruiters.html">
+                    Recruiters
+                </a>
+
+                <a href="students.html">
+                    Students
+                </a>
+
+                <a href="internships.html">
+                    Internships
+                </a>
+
+                <button
+                    type="button"
+                    onclick="logout()"
+                    class="logout-btn"
+                >
+                    Logout
+                </button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main class="dashboard-container">
+
+        <!-- Welcome -->
+        <section class="dashboard-welcome">
+
+            <p class="dashboard-label">
+                Admin Console
+            </p>
+
+            <h1>
+                Welcome, <span id="adminName">Admin</span> 👋
+            </h1>
+
+            <p>
+                Manage recruiters, students, and internships
+                across the platform.
+            </p>
+
+        </section>
+
+
+        <!-- Stats -->
+        <section class="dashboard-stats admin-grid">
+
+            <div class="stat-card">
+                <span class="stat-label">
+                    Total Students
+                </span>
+                <strong id="totalStudents">0</strong>
+            </div>
+
+
+            <div class="stat-card">
+                <span class="stat-label">
+                    Total Recruiters
+                </span>
+                <strong id="totalRecruiters">0</strong>
+            </div>
+
+
+            <div class="stat-card stat-card-highlight">
+                <span class="stat-label">
+                    Pending Verifications
+                </span>
+                <strong id="pendingVerifications">0</strong>
+            </div>
+
+
+            <div class="stat-card">
+                <span class="stat-label">
+                    Total Internships
+                </span>
+                <strong id="totalInternships">0</strong>
+            </div>
+
+
+            <div class="stat-card">
+                <span class="stat-label">
+                    Active Internships
+                </span>
+                <strong id="activeInternships">0</strong>
+            </div>
+
+
+            <div class="stat-card">
+                <span class="stat-label">
+                    Total Applications
+                </span>
+                <strong id="totalApplications">0</strong>
+            </div>
+
+        </section>
+
+
+        <!-- Quick Actions -->
+        <section class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>Quick Actions</h2>
+            </div>
+
+            <div class="quick-actions">
+
+                <a
+                    href="recruiters.html"
+                    class="quick-action-card"
+                >
+                    <h3>Verify Recruiters</h3>
+                    <p>
+                        Review pending recruiter applications
+                        and approve or reject them.
+                    </p>
+                </a>
+
+
+                <a
+                    href="students.html"
+                    class="quick-action-card"
+                >
+                    <h3>Manage Students</h3>
+                    <p>
+                        View all registered student accounts
+                        and their activity.
+                    </p>
+                </a>
+
+
+                <a
+                    href="internships.html"
+                    class="quick-action-card"
+                >
+                    <h3>Moderate Internships</h3>
+                    <p>
+                        Review posted internships and close
+                        or remove inappropriate ones.
+                    </p>
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="../../data/seed.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/admin/dashboard.js"></script>
+
+</body>
+
+</html>

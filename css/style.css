@@ -3694,3 +3694,63 @@ p {
     font-size: 0.82rem;
     font-style: italic;
 }
+
+/* =========================================================
+   DASHBOARD — VERIFICATION CTA
+   ========================================================= */
+
+.quick-action-card.verification-cta {
+    border-color: rgba(37, 99, 235, 0.35);
+
+    background:
+        linear-gradient(
+            140deg,
+            rgba(37, 99, 235, 0.06),
+            rgba(124, 58, 237, 0.05)
+        );
+}
+
+
+.quick-action-card.verification-cta h3 {
+    color: var(--primary);
+}
+
+
+/* =========================================================
+   ADMIN DASHBOARD
+   ========================================================= */
+
+.dashboard-stats.admin-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+
+.stat-card-highlight {
+    border-color: rgba(37, 99, 235, 0.35);
+
+    background:
+        linear-gradient(
+            140deg,
+            rgba(37, 99, 235, 0.06),
+            rgba(124, 58, 237, 0.04)
+        );
+}
+
+
+.stat-card-highlight strong {
+    color: var(--primary);
+}
+
+
+@media (max-width: 900px) {
+    .dashboard-stats.admin-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 560px) {
+    .dashboard-stats.admin-grid {
+        grid-template-columns: 1fr;
+    }
+}

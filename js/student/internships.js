@@ -11,7 +11,39 @@ if (!requireRole("student")) {
     throw new Error("Unauthorized access.");
 
 }
+/* =========================================================
+   VERIFIED RECRUITER HELPER
+   ========================================================= */
 
+function recruiterIsVerified(recruiterId) {
+
+    if (!recruiterId) {
+        return false;
+    }
+
+
+    const profile =
+        getRecruiterProfile(recruiterId);
+
+    if (!profile) {
+        return false;
+    }
+
+
+    return profile.verificationStatus === "verified";
+
+}
+
+
+/* Filter: keep only internships posted by verified recruiters */
+function filterByVerifiedRecruiter(internships) {
+
+    return internships.filter(
+        internship =>
+            recruiterIsVerified(internship.recruiterId)
+    );
+
+}
 
 /* ================= INITIALIZE ================= */
 
@@ -29,6 +61,8 @@ const internshipId =
 
 /* ================= FIND INTERNSHIP ================= */
 
+/* ================= FIND INTERNSHIP ================= */
+
 const internships =
     getInternships();
 
@@ -37,6 +71,12 @@ const internship =
         item => item.id === internshipId
     );
 
+
+/* Block access to internships from unverified recruiters */
+
+const internshipVisible =
+    internship &&
+    recruiterIsVerified(internship.recruiterId);
 
 /* ================= ELEMENTS ================= */
 
@@ -53,7 +93,7 @@ const notFound =
 
 /* ================= RENDER ================= */
 
-if (!internship) {
+if (!internshipVisible) {
 
     if (detailsContainer) {
         detailsContainer.hidden = true;
@@ -311,6 +351,28 @@ function handleApplyClick(internshipId) {
     }
 
 
+    /* ---------- Verification check ---------- */
+
+    const internshipToApply =
+        getInternships().find(
+            item => item.id === internshipId
+        );
+
+
+    if (
+        !internshipToApply ||
+        !recruiterIsVerified(internshipToApply.recruiterId)
+    ) {
+
+        alert(
+            "This internship is no longer available."
+        );
+
+        return;
+
+    }
+
+
     /* ---------- Profile completeness check ---------- */
 
     const profile =
@@ -484,12 +546,13 @@ if (internshipList) {
 function initializeInternshipListing() {
 
     const internships =
-        getInternships()
+        filterByVerifiedRecruiter(
+            getInternships()
+        )
             .filter(
                 internship =>
                     internship.status === "active"
             );
-
 
     populateFilters(internships);
 
@@ -611,13 +674,14 @@ function applyFilters() {
         typeFilter.value;
 
 
-    const internships =
-        getInternships()
+       const internships =
+        filterByVerifiedRecruiter(
+            getInternships()
+        )
             .filter(
                 internship =>
                     internship.status === "active"
             );
-
 
     const filtered =
         internships.filter(internship => {
@@ -819,7 +883,9 @@ function initializeSavedInternships() {
         getSavedInternships();
 
     const internships =
-        getInternships();
+        filterByVerifiedRecruiter(
+            getInternships()
+        );
 
 
     const savedInternships =
@@ -827,7 +893,6 @@ function initializeSavedInternships() {
             internship =>
                 savedIds.includes(internship.id)
         );
-
 
     renderSavedInternships(
         savedInternships

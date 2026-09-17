@@ -1,3 +1,35 @@
+/* ================= ADMIN BOOTSTRAP ================= */
+
+/**
+ * Ensure a default admin account exists.
+ *
+ * Runs on every page load, exits early if the
+ * admin already exists.
+ *
+ * Default credentials:
+ *   Email:    admin@campus2career.com
+ *   Password: admin123
+ */
+(function ensureAdminAccount() {
+
+    const users = getUsers();
+
+    const adminExists =
+        users.some(user => user.role === "admin");
+
+    if (adminExists) {
+        return;
+    }
+
+    createUser({
+        name: "Platform Admin",
+        email: "admin@campus2career.com",
+        password: "admin123",
+        role: "admin"
+    });
+
+})();
+
 /* =========================================================
    CAMPUS2CAREER
    Authentication
@@ -296,6 +328,16 @@ function redirectAfterLogin(role) {
 
         window.location.href =
             "../recruiter/dashboard.html";
+
+        return;
+
+    }
+
+
+    if (role === "admin") {
+
+        window.location.href =
+            "../admin/dashboard.html";
 
         return;
 

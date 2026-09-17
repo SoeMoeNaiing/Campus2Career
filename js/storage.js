@@ -1015,3 +1015,87 @@ function migrateRecruiterVerifications() {
     return migrated;
 
 }
+
+
+
+
+/* =========================================================
+   SEED RECRUITER BOOTSTRAP
+   ========================================================= */
+
+/**
+ * Ensure the recruiter that owns the seed internships
+ * exists in recruiter profiles and is marked verified.
+ *
+ * Runs on every page load, exits early if already set up.
+ */
+(function ensureSeedRecruiter() {
+
+    const SEED_RECRUITER_ID =
+        "76e9a695-fbb2-44f7-9a94-f4958ce1759b";
+
+
+    const profiles = getRecruiterProfiles();
+
+
+    /* ---------- Profile exists ---------- */
+
+    if (profiles[SEED_RECRUITER_ID]) {
+
+        if (
+            profiles[SEED_RECRUITER_ID].verificationStatus !==
+            "verified"
+        ) {
+
+            profiles[SEED_RECRUITER_ID].verificationStatus =
+                "verified";
+
+            profiles[SEED_RECRUITER_ID].verifiedAt =
+                new Date().toISOString();
+
+            saveRecruiterProfiles(profiles);
+
+        }
+
+        return;
+
+    }
+
+
+    /* ---------- Create seed profile ---------- */
+
+    profiles[SEED_RECRUITER_ID] = {
+
+        recruiterId: SEED_RECRUITER_ID,
+
+        name: "Kanhaiya Verma",
+
+        email: "kanhaiyaverma@gmail.com",
+
+        companyName: "Tech Solutions Myanmar",
+
+        phone: "",
+
+        address: "Yangon",
+
+        industry: "Technology",
+
+        website: "",
+
+        description:
+            "Seed recruiter for Campus2Career demo data.",
+
+        verificationStatus: "verified",
+
+        verificationRequestedAt: "",
+
+        verifiedAt: new Date().toISOString(),
+
+        rejectionReason: ""
+
+    };
+
+
+    saveRecruiterProfiles(profiles);
+
+})();

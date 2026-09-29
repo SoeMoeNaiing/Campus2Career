@@ -32,9 +32,9 @@
 
             <a
                 href="dashboard.html"
-                class="nav-brand"
+                class="logo"
             >
-                Campus2Career
+               Campus<span>2</span>Career
             </a>
 
 
@@ -157,7 +157,7 @@
         </section>
 
 
-        <!-- Applications -->
+              <!-- Applications -->
         <section class="dashboard-section">
 
             <div class="section-heading">
@@ -173,9 +173,71 @@
             </div>
 
 
+            <!-- Status Filter Tabs -->
+            <div
+                id="statusFilterTabs"
+                class="status-filter-tabs"
+            >
+                <button
+                    type="button"
+                    class="filter-tab active"
+                    data-status="all"
+                    onclick="setStatusFilter('all')"
+                >
+                    All
+                </button>
+
+                <button
+                    type="button"
+                    class="filter-tab"
+                    data-status="pending"
+                    onclick="setStatusFilter('pending')"
+                >
+                    Pending
+                </button>
+
+                <button
+                    type="button"
+                    class="filter-tab"
+                    data-status="accepted"
+                    onclick="setStatusFilter('accepted')"
+                >
+                    Accepted
+                </button>
+
+                <button
+                    type="button"
+                    class="filter-tab"
+                    data-status="rejected"
+                    onclick="setStatusFilter('rejected')"
+                >
+                    Rejected
+                </button>
+
+                <button
+                    type="button"
+                    class="filter-tab"
+                    data-status="selected"
+                    onclick="setStatusFilter('selected')"
+                >
+                    Selected
+                </button>
+
+                <button
+                    type="button"
+                    class="filter-tab"
+                    data-status="not_selected"
+                    onclick="setStatusFilter('not_selected')"
+                >
+                    Not Selected
+                </button>
+            </div>
+
+
             <div
                 id="recruiterApplicationList"
                 class="application-list"
+            >
             >
                 <!-- JavaScript will render applications -->
             </div>

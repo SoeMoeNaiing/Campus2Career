@@ -1,3 +1,13 @@
+
+/* =========================================================
+   FILTER STATE
+   ========================================================= */
+
+let currentStatusFilter = "all";
+
+let currentApplications = [];
+
+let currentInternships = [];
 if (!requireRole("recruiter")) {
 
     // Redirect already handled by auth.js
@@ -22,6 +32,7 @@ if (!requireRole("recruiter")) {
     }
 
 }
+
 /* =========================================================
    INITIALIZE
    ========================================================= */
@@ -66,17 +77,79 @@ function initializeRecruiterApplications() {
         );
 
 
-    renderRecruiterApplications(
-        recruiterApplications,
-        recruiterInternships
-    );
+    /* Cache for filter re-runs */
 
+    currentApplications = recruiterApplications;
+
+    currentInternships = recruiterInternships;
+
+
+    /* Summary always reflects the full set */
 
     updateApplicationSummary(
         recruiterApplications
     );
+
+
+    /* Render with the current filter */
+
+    applyStatusFilter();
 }
 
+
+/* =========================================================
+   STATUS FILTER
+   ========================================================= */
+
+function setStatusFilter(status) {
+
+    currentStatusFilter = status;
+
+
+    /* Highlight the active tab */
+
+    document
+        .querySelectorAll("#statusFilterTabs .filter-tab")
+        .forEach(tab => {
+
+            tab.classList.toggle(
+                "active",
+                tab.dataset.status === status
+            );
+
+        });
+
+
+    applyStatusFilter();
+}
+
+
+function applyStatusFilter() {
+    console.log(
+        "[FILTER]",
+        "status:", currentStatusFilter,
+        "| cached apps:", currentApplications.length,
+        "| cached internships:", currentInternships.length
+    );
+
+    let filtered = currentApplications;
+
+
+    if (currentStatusFilter !== "all") {
+
+        filtered = filtered.filter(
+            application =>
+                application.status === currentStatusFilter
+        );
+
+    }
+
+
+    renderRecruiterApplications(
+        filtered,
+        currentInternships
+    );
+}
 
 /* =========================================================
    RENDER APPLICATIONS
@@ -197,8 +270,8 @@ const student =
                 </div>
 
 
-                <span class="application-status">
-                    ${application.status}
+                               <span class="application-status status-${application.status}">
+                    ${formatApplicationStatus(application.status)}
                 </span>
 
             </div>
@@ -278,12 +351,45 @@ function renderInterviewBadge(interview) {
     }
 
 
+    /* ---------- Final result already set ---------- */
+
+    if (interview.result === "selected") {
+
+        return `
+            <p class="interview-badge interview-badge-success">
+                ✓ Selected
+            </p>
+        `;
+    }
+
+
+    if (interview.result === "not_selected") {
+
+        return `
+            <p class="interview-badge interview-badge-failure">
+                ✕ Not Selected
+            </p>
+        `;
+    }
+
+
+    if (interview.result === "no_show") {
+
+        return `
+            <p class="interview-badge interview-badge-failure">
+                ⚠ No Show
+            </p>
+        `;
+    }
+
+
+    /* ---------- In-progress states ---------- */
+
     if (interview.status === "pending") {
 
         return `
             <p class="interview-badge">
-                🕐 Interview invited —
-                waiting for student
+                🕐 Interview invited — waiting for student
             </p>
         `;
     }
@@ -312,7 +418,30 @@ function renderInterviewBadge(interview) {
 
     return "";
 }
+/* =========================================================
+   STATUS LABEL
+   ========================================================= */
 
+function formatApplicationStatus(status) {
+
+    const statusNames = {
+
+        pending: "Pending",
+
+        accepted: "Accepted",
+
+        rejected: "Rejected",
+
+        selected: "Selected",
+
+        not_selected: "Not Selected"
+
+    };
+
+
+    return statusNames[status] || status;
+
+}
 /* =========================================================
    SUMMARY
    ========================================================= */
@@ -321,7 +450,7 @@ function updateApplicationSummary(
     applications
 ) {
 
-    const total =
+        const total =
         applications.length;
 
 
@@ -335,16 +464,17 @@ function updateApplicationSummary(
     const accepted =
         applications.filter(
             application =>
-                application.status === "accepted"
+                application.status === "accepted" ||
+                application.status === "selected"
         ).length;
 
 
     const rejected =
         applications.filter(
             application =>
-                application.status === "rejected"
+                application.status === "rejected" ||
+                application.status === "not_selected"
         ).length;
-
 
     document.getElementById(
         "applicationCount"
@@ -1260,7 +1390,23 @@ function handleInterviewResultChange(
     }
 
 
-    /* 2. Update the application status */
+       /* 2. If a final result is set, mark the interview completed */
+
+    if (
+        newResult === "selected" ||
+        newResult === "not_selected" ||
+        newResult === "no_show"
+    ) {
+
+        updateInterviewStatus(
+            interviewId,
+            "completed"
+        );
+
+    }
+
+
+    /* 3. Update the application status */
 
     let applicationStatus = null;
 
@@ -1283,6 +1429,16 @@ function handleInterviewResultChange(
         updateApplicationStatus(
             interview.applicationId,
             applicationStatus
+        );
+
+    }
+        /* If reset back to pending, mark interview accepted again */
+
+    if (newResult === "pending") {
+
+        updateInterviewStatus(
+            interviewId,
+            "accepted"
         );
 
     }

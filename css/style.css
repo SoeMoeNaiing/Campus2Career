@@ -3754,3 +3754,86 @@ p {
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================================================
+   FINAL STATUS PILLS
+   ========================================================= */
+
+.status-selected {
+    background: var(--success-bg);
+    color: var(--success);
+}
+
+
+.status-not_selected {
+    background: var(--danger-bg);
+    color: #991b1b;
+}
+
+
+/* ---------- List badge tones ---------- */
+
+.interview-badge.interview-badge-success {
+    color: var(--success);
+}
+
+
+.interview-badge.interview-badge-failure {
+    color: var(--danger);
+}
+
+/* =========================================================
+   RECRUITER — STATUS FILTER TABS
+   ========================================================= */
+
+.status-filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-bottom: 22px;
+}
+
+
+.filter-tab {
+    padding: 7px 14px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+
+    background: #ffffff;
+    color: var(--muted);
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+
+    cursor: pointer;
+
+    transition:
+        color var(--dur) var(--ease-out),
+        border-color var(--dur) var(--ease-out),
+        background var(--dur) var(--ease-out),
+        box-shadow var(--dur) var(--ease-out),
+        transform var(--dur) var(--ease-spring);
+}
+
+
+.filter-tab:hover {
+    color: var(--primary);
+    border-color: rgba(37, 99, 235, 0.35);
+    transform: translateY(-1px);
+}
+
+
+.filter-tab.active {
+    color: #ffffff;
+    background: var(--gradient-brand);
+    border-color: transparent;
+    box-shadow: var(--shadow-primary);
+}
+
+
+.filter-tab.active:hover {
+    transform: none;
+}

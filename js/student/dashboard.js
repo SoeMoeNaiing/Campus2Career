@@ -104,8 +104,10 @@ function renderRecommendedInternships() {
     }
 
 
-    const internships =
-        getInternships();
+       const internships =
+        filterByVerifiedRecruiter(
+            getInternships()
+        );
 
 
     const activeInternships =
@@ -170,7 +172,7 @@ function createInternshipCard(internship) {
                 </p>
 
 
-                <div class="internship-meta">
+                                <div class="internship-meta">
 
                     <span>
                         📍 ${internship.location}
@@ -179,6 +181,19 @@ function createInternshipCard(internship) {
                     <span>
                         ⏱ ${internship.duration}
                     </span>
+
+                    ${
+                        internship.deadline
+                            ? `
+                                <span>
+                                    ⏰ Apply by
+                                    ${formatCardDate(
+                                        internship.deadline
+                                    )}
+                                </span>
+                            `
+                            : ""
+                    }
 
                 </div>
 
@@ -215,3 +230,60 @@ function createInternshipCard(internship) {
 
 
 renderRecommendedInternships();
+
+
+
+
+/* =========================================================
+   VERIFIED RECRUITER HELPERS
+   ========================================================= */
+
+function recruiterIsVerified(recruiterId) {
+
+    if (!recruiterId) {
+        return false;
+    }
+
+    const profile =
+        getRecruiterProfile(recruiterId);
+
+    if (!profile) {
+        return false;
+    }
+
+    return profile.verificationStatus === "verified";
+
+}
+
+
+function filterByVerifiedRecruiter(internships) {
+
+    return internships.filter(
+        internship =>
+            recruiterIsVerified(internship.recruiterId)
+    );
+
+}
+
+function formatCardDate(dateString) {
+
+    if (!dateString) {
+        return "";
+    }
+
+    const date = new Date(dateString);
+
+    if (isNaN(date.getTime())) {
+        return dateString;
+    }
+
+    return date.toLocaleDateString(
+        "en-US",
+        {
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+        }
+    );
+
+}

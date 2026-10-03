@@ -169,6 +169,25 @@ function renderInternshipDetails(internship) {
                 </section>
 
 
+                ${
+                    internship.requirements
+                        ? `
+                            <section class="details-section">
+
+                                <h2>
+                                    Requirements
+                                </h2>
+
+                                <p>
+                                    ${internship.requirements}
+                                </p>
+
+                            </section>
+                        `
+                        : ""
+                }
+
+
                 <section class="details-section">
 
                     <h2>
@@ -178,11 +197,11 @@ function renderInternshipDetails(internship) {
                     <div class="details-skills">
 
                         ${internship.skills
-            .map(
-                skill =>
-                    `<span>${skill}</span>`
-            )
-            .join("")}
+                            .map(
+                                skill =>
+                                    `<span>${skill}</span>`
+                            )
+                            .join("")}
 
                     </div>
 
@@ -245,11 +264,34 @@ function renderInternshipDetails(internship) {
 
                             <strong>
                                 ${formatDate(
-                internship.postedAt
-            )}
+                                   
+                                    internship.postedAt ||
+                                    internship.postedDate
+                                )}
                             </strong>
 
                         </div>
+
+
+                        ${
+                            internship.deadline
+                                ? `
+                                    <div class="details-info-item">
+
+                                        <span>
+                                            Application Deadline
+                                        </span>
+
+                                        <strong>
+                                            ${formatDate(
+                                                internship.deadline
+                                            )}
+                                        </strong>
+
+                                    </div>
+                                `
+                                : ""
+                        }
 
                     </div>
 
@@ -273,16 +315,16 @@ function renderInternshipDetails(internship) {
                     </button>
 
 
-                   <button
-                      type="button"
-                     id="saveInternshipBtn"
-                     class="btn btn-outline"
-                     onclick="handleSaveClick('${internship.id}')"
+                    <button
+                        type="button"
+                        id="saveInternshipBtn"
+                        class="btn btn-outline"
+                        onclick="handleSaveClick('${internship.id}')"
                     >
                         ${isInternshipSaved(internship.id)
                             ? "Saved ✓"
-                             : "Save Internship"
-                            }
+                            : "Save Internship"
+                        }
                     </button>
 
                 </div>
@@ -310,8 +352,6 @@ function renderInternshipDetails(internship) {
 
     `;
 }
-
-
 /* =========================================================
    FORMAT DATE
    ========================================================= */
@@ -809,7 +849,7 @@ function createListingCard(internship) {
                 </p>
 
 
-                <div class="internship-meta">
+                                <div class="internship-meta">
 
                     <span>
                         📍 ${internship.location}
@@ -818,6 +858,19 @@ function createListingCard(internship) {
                     <span>
                         ⏱ ${internship.duration}
                     </span>
+
+                    ${
+                        internship.deadline
+                            ? `
+                                <span>
+                                    ⏰ Apply by
+                                    ${formatCardDate(
+                                        internship.deadline
+                                    )}
+                                </span>
+                            `
+                            : ""
+                    }
 
                 </div>
 
@@ -1027,5 +1080,28 @@ function removeSavedInternship(
     );
 
     initializeSavedInternships();
+
+}
+
+function formatCardDate(dateString) {
+
+    if (!dateString) {
+        return "";
+    }
+
+    const date = new Date(dateString);
+
+    if (isNaN(date.getTime())) {
+        return dateString;
+    }
+
+    return date.toLocaleDateString(
+        "en-US",
+        {
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+        }
+    );
 
 }

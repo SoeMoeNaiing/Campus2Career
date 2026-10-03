@@ -91,19 +91,16 @@ function setCurrentUser(user) {
         role: user.role
     };
 
-    localStorage.setItem(
+    sessionStorage.setItem(
         STORAGE_KEYS.CURRENT_USER,
         JSON.stringify(sessionUser)
     );
 }
 
 
-/**
- * Get currently logged-in user.
- */
 function getCurrentUser() {
 
-    const user = localStorage.getItem(
+    const user = sessionStorage.getItem(
         STORAGE_KEYS.CURRENT_USER
     );
 
@@ -111,12 +108,9 @@ function getCurrentUser() {
 }
 
 
-/**
- * Remove current login session.
- */
 function logoutUser() {
 
-    localStorage.removeItem(
+    sessionStorage.removeItem(
         STORAGE_KEYS.CURRENT_USER
     );
 }
@@ -213,34 +207,124 @@ function updateInternshipSeedData() {
    SAVED INTERNSHIPS
    ========================================================= */
 
-function getSavedInternships() {
+/* =========================================================
+   SAVED INTERNSHIPS (PER USER)
+   ========================================================= */
 
-    const saved = localStorage.getItem(
+function getSavedInternshipsMap() {
+
+    const raw = localStorage.getItem(
         "campus2career_saved_internships"
     );
 
-    return saved ? JSON.parse(saved) : [];
+    if (!raw) {
+        return {};
+    }
+
+
+    const parsed = JSON.parse(raw);
+
+
+    /* Migration: old flat array gets assigned to current user */
+
+    if (Array.isArray(parsed)) {
+
+        const currentUser = getCurrentUser();
+
+        if (!currentUser) {
+            return {};
+        }
+
+
+        const migrated = {
+            [currentUser.id]: parsed
+        };
+
+
+        saveSavedInternshipsMap(migrated);
+
+        return migrated;
+
+    }
+
+
+    return parsed;
+
 }
 
 
-function saveSavedInternships(savedInternships) {
+function saveSavedInternshipsMap(map) {
 
     localStorage.setItem(
         "campus2career_saved_internships",
-        JSON.stringify(savedInternships)
+        JSON.stringify(map)
     );
+
+}
+
+
+function getSavedInternships() {
+
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+        return [];
+    }
+
+
+    const map = getSavedInternshipsMap();
+
+    return map[currentUser.id] || [];
+
+}
+
+
+function saveSavedInternships(ids) {
+
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    const map = getSavedInternshipsMap();
+
+    map[currentUser.id] = ids;
+
+    saveSavedInternshipsMap(map);
 
 }
 
 
 function isInternshipSaved(internshipId) {
 
-    const savedInternships = getSavedInternships();
-
-    return savedInternships.includes(internshipId);
+    return getSavedInternships().includes(internshipId);
 
 }
 
+
+function toggleSavedInternship(internshipId) {
+
+    let ids = getSavedInternships();
+
+
+    if (ids.includes(internshipId)) {
+
+        ids = ids.filter(id => id !== internshipId);
+
+    } else {
+
+        ids.push(internshipId);
+
+    }
+
+
+    saveSavedInternships(ids);
+
+    return ids.includes(internshipId);
+
+}
 
 function toggleSavedInternship(internshipId) {
 
@@ -415,17 +499,7 @@ function getInterviewByApplicationId(applicationId) {
 }
 
 
-createInterviewInvitation({
-    applicationId: "APP_TEST",
-    internshipId: "INT_TEST",
-    recruiterId: "REC_TEST",
-    studentId: "STU_TEST",
-    date: "2026-09-20",
-    time: "10:00",
-    type: "online",
-    meetingLink: "https://meet.google.com/xxx",
-    message: "Test"
-})
+
 function createInterviewInvitation(data) {
 
     const interviews = getInterviews();
@@ -1099,3 +1173,72 @@ function migrateRecruiterVerifications() {
     saveRecruiterProfiles(profiles);
 
 })();
+
+
+/* =========================================================
+   INTERNSHIP DEADLINE MIGRATION
+   ========================================================= */
+
+/**
+ * Backfill a deadline on any internship missing one.
+ *
+ * Default = postedAt + 60 days. If postedAt is also
+ * missing, we skip that internship.
+ *
+ * Run once from the console:
+ *   migrateInternshipDeadlines()
+ */
+function migrateInternshipDeadlines() {
+
+    const internships = getInternships();
+
+    let migrated = 0;
+
+
+    const updated = internships.map(internship => {
+
+        if (internship.deadline) {
+            return internship;
+        }
+
+        if (!internship.postedAt) {
+            return internship;
+        }
+
+        const posted =
+            new Date(internship.postedAt);
+
+        if (isNaN(posted.getTime())) {
+            return internship;
+        }
+
+
+        const deadline =
+            new Date(posted);
+
+        deadline.setDate(
+            deadline.getDate() + 60
+        );
+
+
+        migrated++;
+
+
+        return {
+            ...internship,
+            deadline: deadline
+                .toISOString()
+                .slice(0, 10)
+        };
+
+    });
+
+
+    if (migrated > 0) {
+        saveInternships(updated);
+    }
+
+
+    return migrated;
+
+}

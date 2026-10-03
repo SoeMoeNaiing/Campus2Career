@@ -11,6 +11,15 @@ if (!requireRole("admin")) {
     initializeAdminDashboard();
 
 }
+    const initial =
+        document.getElementById("adminInitial");
+
+    if (initial) {
+        initial.textContent =
+            currentUser.name
+                ? currentUser.name.charAt(0).toUpperCase()
+                : "A";
+    }
 
 
 function initializeAdminDashboard() {
@@ -80,3 +89,14 @@ function initializeAdminDashboard() {
         .textContent = applications.length;
 
 }
+
+    /* Update sidebar badge for pending verifications */
+
+    const pendingBadge =
+        document.getElementById("pendingBadge");
+
+    if (pendingBadge && pendingVerifications > 0) {
+
+        pendingBadge.textContent = pendingVerifications;
+
+    }

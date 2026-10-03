@@ -228,7 +228,7 @@ function createRecruiterInternshipCard(
                 </p>
 
 
-                <div class="internship-meta">
+                                             <div class="internship-meta">
 
                     <span>
                         📍 ${internship.location}
@@ -237,6 +237,19 @@ function createRecruiterInternshipCard(
                     <span>
                         🗓 ${internship.duration}
                     </span>
+
+                    ${
+                        internship.deadline
+                            ? `
+                                <span>
+                                    ⏰ Closes
+                                    ${formatCardDate(
+                                        internship.deadline
+                                    )}
+                                </span>
+                            `
+                            : ""
+                    }
 
                 </div>
 
@@ -383,6 +396,10 @@ function handleCreateInternshipSubmit(event) {
         document.getElementById(
             "durationInput"
         ).value.trim();
+            const deadline =
+        document.getElementById(
+            "deadlineInput"
+        ).value;
 
     const skills =
         document.getElementById(
@@ -477,6 +494,9 @@ function handleCreateInternshipSubmit(event) {
         description: internshipData.description,
 
         requirements: internshipData.requirements,
+                deadline: deadline || "",
+
+      
 
         postedDate: new Date().toISOString(),
 
@@ -618,7 +638,9 @@ function loadInternshipIntoEditForm(
     document.getElementById(
         "durationInput"
     ).value = internship.duration || "";
-
+    document.getElementById(
+        "deadlineInput"
+    ).value = internship.deadline || "";
     document.getElementById(
         "skillsInput"
     ).value =
@@ -718,7 +740,10 @@ function handleEditInternshipSubmit(event) {
         document.getElementById(
             "durationInput"
         ).value.trim();
-
+    const deadline =
+        document.getElementById(
+            "deadlineInput"
+        ).value;
     const skills =
         document.getElementById(
             "skillsInput"
@@ -792,7 +817,8 @@ function handleEditInternshipSubmit(event) {
                 duration,
                 skills,
                 description,
-                requirements
+                requirements,
+                 deadline: deadline || ""
             }
         );
 
@@ -859,4 +885,30 @@ function handleCloseInternship(internshipId) {
     closeInternship(internshipId);
 
     initializeRecruiterInternships();
+}
+/* =========================================================
+   FORMAT DEADLINE
+   ========================================================= */
+
+function formatCardDate(dateString) {
+
+    if (!dateString) {
+        return "";
+    }
+
+    const date = new Date(dateString);
+
+    if (isNaN(date.getTime())) {
+        return dateString;
+    }
+
+    return date.toLocaleDateString(
+        "en-US",
+        {
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+        }
+    );
+
 }

@@ -244,13 +244,21 @@ function renderRecentInternships(recruiterId) {
         );
 
 
-    const recentInternships =
+       const recentInternships =
         recruiterInternships
-            .sort(
-                (a, b) =>
-                    new Date(b.postedDate) -
-                    new Date(a.postedDate)
-            )
+            .sort((a, b) => {
+
+                const dateA = new Date(
+                    a.postedAt || a.postedDate || 0
+                );
+
+                const dateB = new Date(
+                    b.postedAt || b.postedDate || 0
+                );
+
+                return dateB - dateA;
+
+            })
             .slice(0, 3);
 
 
@@ -343,7 +351,7 @@ function createRecruiterInternshipCard(internship) {
                     ${internship.company}
                 </p>
 
-                <div class="internship-meta">
+                                <div class="internship-meta">
 
                     <span>
                         📍 ${internship.location}
@@ -353,22 +361,78 @@ function createRecruiterInternshipCard(internship) {
                         🗓 ${internship.duration}
                     </span>
 
+                    ${
+                        internship.deadline
+                            ? `
+                                <span>
+                                    ⏰ Closes
+                                    ${formatCardDate(
+                                        internship.deadline
+                                    )}
+                                </span>
+                            `
+                            : ""
+                    }
+
                 </div>
 
             </div>
 
 
-            <div class="internship-card-footer">
+                       <div class="internship-card-footer">
 
-                <a
-                    href="edit-internship.html?id=${internship.id}"
-                    class="btn btn-outline"
-                >
-                    Edit
-                </a>
+                ${
+                    internship.status === "active"
+                        ? `
+                            <a
+                                href="edit-internship.html?id=${internship.id}"
+                                class="btn btn-outline"
+                            >
+                                Edit
+                            </a>
+                        `
+                        : `
+                            <button
+                                type="button"
+                                class="btn btn-outline"
+                                disabled
+                            >
+                                Closed
+                            </button>
+                        `
+                }
 
             </div>
 
         </article>
     `;
+}
+
+
+
+/* =========================================================
+   FORMAT CARD DATE
+   ========================================================= */
+
+function formatCardDate(dateString) {
+
+    if (!dateString) {
+        return "";
+    }
+
+    const date = new Date(dateString);
+
+    if (isNaN(date.getTime())) {
+        return dateString;
+    }
+
+    return date.toLocaleDateString(
+        "en-US",
+        {
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+        }
+    );
+
 }

@@ -933,3 +933,99 @@ body.admin-body {
     font-weight: 700;
     letter-spacing: 0.02em;
 }
+
+/* =========================================================
+   ADMIN — INTERNSHIPS
+   ========================================================= */
+
+.admin-internship-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 18px 4px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.admin-internship-row:last-child {
+    border-bottom: none;
+}
+
+
+.admin-internship-main {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    min-width: 0;
+    flex: 1;
+}
+
+
+.admin-internship-avatar {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+    background: var(--gradient-dark);
+
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+
+.admin-internship-info {
+    min-width: 0;
+    flex: 1;
+}
+
+
+.admin-internship-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+
+.admin-internship-title-row strong {
+    color: var(--dark);
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+
+.admin-internship-actions {
+    display: flex;
+    gap: 8px;
+
+    flex-shrink: 0;
+}
+
+
+@media (max-width: 640px) {
+
+    .admin-internship-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .admin-internship-actions {
+        margin-top: 6px;
+    }
+
+    .admin-internship-actions .btn {
+        flex: 1;
+        text-align: center;
+    }
+
+}

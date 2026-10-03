@@ -1,6 +1,6 @@
 /* =========================================================
    SITE QUICK FOOTER
-   Injects a role-aware footer at the bottom of every page.
+   Injects a role-aware dark footer at the bottom of every page.
    Skips admin pages and any page that already has a footer.
    ========================================================= */
 
@@ -32,43 +32,86 @@
 
 function buildFooter() {
 
-    const links = buildFooterLinks();
+    const config = buildFooterConfig();
+
+
+    const columnsHTML =
+        config.columns
+            .map(function (col) {
+
+                const linksHTML =
+                    col.items
+                        .map(function (item) {
+
+                            return `
+                                <li>
+                                    <a href="${item.href}">
+                                        ${item.label}
+                                    </a>
+                                </li>
+                            `;
+
+                        })
+                        .join("");
+
+
+                return `
+                    <div class="site-footer-col">
+
+                        <h4>${col.heading}</h4>
+
+                        <ul>
+                            ${linksHTML}
+                        </ul>
+
+                    </div>
+                `;
+
+            })
+            .join("");
 
 
     const footer = document.createElement("footer");
+
     footer.className = "site-quick-footer";
 
     footer.innerHTML = `
         <div class="site-quick-footer-inner">
 
-            <div class="site-quick-footer-brand">
+            <div class="site-footer-brand-col">
 
-                <a href="${links.homeHref}" class="footer-logo">
+                <a href="${config.homeHref}" class="footer-logo">
                     Campus<span>2</span>Career
                 </a>
 
-                <p>
-                    Internship opportunities for students
-                    and recruiters.
+                <p class="site-footer-tagline">
+                    ${config.tagline}
                 </p>
 
             </div>
 
 
-            <nav class="site-quick-footer-nav">
-                ${
-                    links.items
-                        .map(item =>
-                            `<a href="${item.href}">${item.label}</a>`
-                        )
-                        .join("")
-                }
-            </nav>
+            <div class="site-footer-cols">
+                ${columnsHTML}
+            </div>
+
+        </div>
 
 
-            <p class="site-quick-footer-copy">
-                © ${new Date().getFullYear()} Campus2Career
-            </p>
+        <div class="site-quick-footer-bottom">
+
+            <div class="site-quick-footer-bottom-inner">
+
+                <span>
+                    © ${new Date().getFullYear()}
+                    Campus2Career. All rights reserved.
+                </span>
+
+                <span class="site-footer-tag">
+                    Built for students · recruiters · admins
+                </span>
+
+            </div>
 
         </div>
     `;
@@ -79,15 +122,10 @@ function buildFooter() {
 
 
 /* =========================================================
-   LINKS
+   CONFIG — role-aware
    ========================================================= */
 
-function buildFooterLinks() {
-
-    const path = window.location.pathname;
-
-    const inAuth = path.includes("/pages/auth/");
-    const inPages = path.includes("/pages/");
+function buildFooterConfig() {
 
     const user = getFooterUser();
     const role = user ? user.role : null;
@@ -99,36 +137,51 @@ function buildFooterLinks() {
 
         return {
 
-            homeHref:
-                inPages
-                    ? "../../index.html"
-                    : "index.html",
+            homeHref: "../../index.html",
 
-            items: [
+            tagline:
+                "Internship opportunities for students " +
+                "and recruiters, all in one place.",
+
+            columns: [
 
                 {
-                    label: "Home",
-                    href: inPages
-                        ? "../../index.html"
-                        : "index.html"
+
+                    heading: "Platform",
+
+                    items: [
+
+                        { label: "Home", href: "../../index.html" },
+                        { label: "Browse Internships", href: "../auth/login.html" },
+
+                    ]
+
                 },
 
                 {
-                    label: "Login",
-                    href: inAuth
-                        ? "login.html"
-                        : (inPages
-                            ? "../auth/login.html"
-                            : "pages/auth/login.html")
+
+                    heading: "Get Started",
+
+                    items: [
+
+                        { label: "Login", href: "../auth/login.html" },
+                        { label: "Register", href: "../auth/register.html" },
+
+                    ]
+
                 },
 
                 {
-                    label: "Register",
-                    href: inAuth
-                        ? "register.html"
-                        : (inPages
-                            ? "../auth/register.html"
-                            : "pages/auth/register.html")
+
+                    heading: "About",
+
+                    items: [
+
+                        { label: "For Students", href: "../../index.html#students" },
+                        { label: "For Recruiters", href: "../../index.html#recruiters" },
+
+                    ]
+
                 }
 
             ]
@@ -146,13 +199,51 @@ function buildFooterLinks() {
 
             homeHref: "dashboard.html",
 
-            items: [
+            tagline:
+                "Find internships, apply with confidence, " +
+                "and track your progress.",
 
-                { label: "Dashboard", href: "dashboard.html" },
-                { label: "Internships", href: "internships.html" },
-                { label: "Applications", href: "applications.html" },
-                { label: "Saved", href: "saved.html" },
-                { label: "Profile", href: "profile.html" }
+            columns: [
+
+                {
+
+                    heading: "Navigation",
+
+                    items: [
+
+                        { label: "Dashboard", href: "dashboard.html" },
+                        { label: "Internships", href: "internships.html" },
+                        { label: "Applications", href: "applications.html" },
+
+                    ]
+
+                },
+
+                {
+
+                    heading: "Account",
+
+                    items: [
+
+                        { label: "Saved Internships", href: "saved.html" },
+                        { label: "Profile", href: "profile.html" },
+
+                    ]
+
+                },
+
+                {
+
+                    heading: "Support",
+
+                    items: [
+
+                        { label: "Help", href: "#" },
+                        { label: "Contact", href: "#" },
+
+                    ]
+
+                }
 
             ]
 
@@ -169,12 +260,51 @@ function buildFooterLinks() {
 
             homeHref: "dashboard.html",
 
-            items: [
+            tagline:
+                "Post internships, manage applications, " +
+                "and hire the next generation of talent.",
 
-                { label: "Dashboard", href: "dashboard.html" },
-                { label: "My Internships", href: "internships.html" },
-                { label: "Applications", href: "applications.html" },
-                { label: "Profile", href: "profile.html" }
+            columns: [
+
+                {
+
+                    heading: "Navigation",
+
+                    items: [
+
+                        { label: "Dashboard", href: "dashboard.html" },
+                        { label: "My Internships", href: "internships.html" },
+                        { label: "Applications", href: "applications.html" },
+
+                    ]
+
+                },
+
+                {
+
+                    heading: "Account",
+
+                    items: [
+
+                        { label: "Profile", href: "profile.html" },
+                        { label: "Post Internship", href: "create-internship.html" },
+
+                    ]
+
+                },
+
+                {
+
+                    heading: "Support",
+
+                    items: [
+
+                        { label: "Help", href: "#" },
+                        { label: "Contact", href: "#" },
+
+                    ]
+
+                }
 
             ]
 
@@ -188,7 +318,8 @@ function buildFooterLinks() {
     return {
 
         homeHref: "#",
-        items: []
+        tagline: "",
+        columns: []
 
     };
 
@@ -196,7 +327,7 @@ function buildFooterLinks() {
 
 
 /* =========================================================
-   USER (works on any page, even if auth.js isn't loaded)
+   USER (works even if auth.js isn't loaded)
    ========================================================= */
 
 function getFooterUser() {

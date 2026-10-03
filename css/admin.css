@@ -1029,3 +1029,43 @@ body.admin-body {
     }
 
 }
+
+/* =========================================================
+   ADMIN — APPLICATIONS AUDIT
+   ========================================================= */
+
+.admin-application-row {
+    padding: 18px 4px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.admin-application-row:last-child {
+    border-bottom: none;
+}
+
+
+.admin-application-main {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    min-width: 0;
+}
+
+
+.admin-application-main .application-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 5px 11px;
+
+    border-radius: var(--radius-full);
+
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
+}

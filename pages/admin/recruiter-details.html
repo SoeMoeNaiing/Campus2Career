@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Recruiter Details | Admin | Campus2Career</title>
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/admin.css">
+</head>
+
+<body class="admin-body">
+
+    <div class="admin-layout">
+
+        <!-- ============== SIDEBAR ============== -->
+        <aside class="admin-sidebar">
+
+            <div class="admin-sidebar-header">
+                <a href="dashboard.html" class="logo">
+                    Campus<span>2</span>Career
+                </a>
+                <span class="role-tag">Admin Console</span>
+            </div>
+
+
+            <nav class="admin-sidebar-nav">
+
+                <div class="admin-nav-group">
+                    <p class="admin-nav-label">Overview</p>
+                    <a href="dashboard.html" class="admin-nav-item">
+                        <span class="nav-icon">▦</span>
+                        Dashboard
+                    </a>
+                </div>
+
+
+                <div class="admin-nav-group">
+                    <p class="admin-nav-label">Management</p>
+
+                    <a
+                        href="recruiters.html"
+                        class="admin-nav-item active"
+                    >
+                        <span class="nav-icon">🏢</span>
+                        Recruiters
+                        <span
+                            id="pendingBadge"
+                            class="admin-nav-badge"
+                        ></span>
+                    </a>
+
+                    <a href="students.html" class="admin-nav-item">
+                        <span class="nav-icon">🎓</span>
+                        Students
+                    </a>
+
+                    <a href="internships.html" class="admin-nav-item">
+                        <span class="nav-icon">📋</span>
+                        Internships
+                    </a>
+
+                    <a href="applications.html" class="admin-nav-item">
+                        <span class="nav-icon">📨</span>
+                        Applications
+                    </a>
+                </div>
+
+            </nav>
+
+
+            <div class="admin-sidebar-footer">
+                <div class="admin-avatar" id="adminInitial">A</div>
+                <div class="admin-user-info">
+                    <strong id="adminName">Admin</strong>
+                    <span>Administrator</span>
+                </div>
+                <button
+                    type="button"
+                    class="admin-logout"
+                    onclick="logout()"
+                >
+                    Logout
+                </button>
+            </div>
+
+        </aside>
+
+
+        <!-- ============== MAIN ============== -->
+        <main class="admin-main">
+
+            <header class="admin-topbar">
+
+                <div>
+                    <a href="recruiters.html" class="back-link">
+                        ← Back to Recruiters
+                    </a>
+
+                    <h1>Recruiter Details</h1>
+
+                    <p class="admin-breadcrumb">
+                        Review company information and manage verification
+                    </p>
+                </div>
+
+            </header>
+
+
+            <section class="admin-content">
+
+                <div
+                    id="recruiterDetails"
+                    class="admin-panel"
+                >
+                    <!-- Rendered by JS -->
+                </div>
+
+
+                <div
+                    id="recruiterNotFound"
+                    class="admin-panel"
+                    hidden
+                >
+                    <p class="admin-empty">
+                        Recruiter not found.
+                    </p>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="../../data/seed.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/admin/recruiter-details.js"></script>
+
+</body>
+
+</html>

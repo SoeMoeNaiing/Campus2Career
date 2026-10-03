@@ -3,8 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Recruiters | Admin | Campus2Career</title>
+
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/admin.css">
 </head>
@@ -13,34 +19,61 @@
 
     <div class="admin-layout">
 
+        <!-- ============== SIDEBAR ============== -->
         <aside class="admin-sidebar">
+
             <div class="admin-sidebar-header">
-                <a href="dashboard.html" class="logo">Campus<span>2</span>Career</a>
+                <a href="dashboard.html" class="logo">
+                    Campus<span>2</span>Career
+                </a>
                 <span class="role-tag">Admin Console</span>
             </div>
 
+
             <nav class="admin-sidebar-nav">
+
                 <div class="admin-nav-group">
                     <p class="admin-nav-label">Overview</p>
                     <a href="dashboard.html" class="admin-nav-item">
-                        <span class="nav-icon">▦</span> Dashboard
+                        <span class="nav-icon">▦</span>
+                        Dashboard
                     </a>
                 </div>
 
+
                 <div class="admin-nav-group">
                     <p class="admin-nav-label">Management</p>
-                    <a href="recruiters.html" class="admin-nav-item active">
-                        <span class="nav-icon">🏢</span> Recruiters
-                        <span id="pendingBadge" class="admin-nav-badge"></span>
+
+                    <a
+                        href="recruiters.html"
+                        class="admin-nav-item active"
+                    >
+                        <span class="nav-icon">🏢</span>
+                        Recruiters
+                        <span
+                            id="pendingBadge"
+                            class="admin-nav-badge"
+                        ></span>
                     </a>
+
                     <a href="students.html" class="admin-nav-item">
-                        <span class="nav-icon">🎓</span> Students
+                        <span class="nav-icon">🎓</span>
+                        Students
                     </a>
+
                     <a href="internships.html" class="admin-nav-item">
-                        <span class="nav-icon">📋</span> Internships
+                        <span class="nav-icon">📋</span>
+                        Internships
+                    </a>
+
+                    <a href="applications.html" class="admin-nav-item">
+                        <span class="nav-icon">📨</span>
+                        Applications
                     </a>
                 </div>
+
             </nav>
+
 
             <div class="admin-sidebar-footer">
                 <div class="admin-avatar" id="adminInitial">A</div>
@@ -48,35 +81,133 @@
                     <strong id="adminName">Admin</strong>
                     <span>Administrator</span>
                 </div>
-                <button type="button" class="admin-logout" onclick="logout()">Logout</button>
+                <button
+                    type="button"
+                    class="admin-logout"
+                    onclick="logout()"
+                >
+                    Logout
+                </button>
             </div>
+
         </aside>
 
 
+        <!-- ============== MAIN ============== -->
         <main class="admin-main">
 
             <header class="admin-topbar">
                 <div>
                     <h1>Recruiters</h1>
                     <p class="admin-breadcrumb">
-                        Review and verify recruiter accounts
+                        Review, verify, and manage recruiter accounts
                     </p>
                 </div>
             </header>
 
+
             <section class="admin-content">
 
+                <!-- Filter Tabs -->
+                <div
+                    id="recruiterFilterTabs"
+                    class="status-filter-tabs"
+                >
+                    <button
+                        type="button"
+                        class="filter-tab active"
+                        data-status="all"
+                        onclick="setRecruiterFilter('all')"
+                    >
+                        All
+                        <span
+                            id="countAll"
+                            class="filter-tab-count"
+                        ></span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="filter-tab"
+                        data-status="pending"
+                        onclick="setRecruiterFilter('pending')"
+                    >
+                        Pending
+                        <span
+                            id="countPending"
+                            class="filter-tab-count"
+                        ></span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="filter-tab"
+                        data-status="verified"
+                        onclick="setRecruiterFilter('verified')"
+                    >
+                        Verified
+                        <span
+                            id="countVerified"
+                            class="filter-tab-count"
+                        ></span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="filter-tab"
+                        data-status="rejected"
+                        onclick="setRecruiterFilter('rejected')"
+                    >
+                        Rejected
+                        <span
+                            id="countRejected"
+                            class="filter-tab-count"
+                        ></span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="filter-tab"
+                        data-status="unsubmitted"
+                        onclick="setRecruiterFilter('unsubmitted')"
+                    >
+                        Unsubmitted
+                        <span
+                            id="countUnsubmitted"
+                            class="filter-tab-count"
+                        ></span>
+                    </button>
+                </div>
+
+
+                <!-- List -->
                 <div class="admin-panel">
+
                     <div class="admin-panel-heading">
                         <div>
-                            <h2>All Recruiters</h2>
-                            <p>Verify, unverify, or remove recruiter accounts</p>
+                            <h2 id="listHeading">
+                                All Recruiters
+                            </h2>
+                            <p id="listSubheading">
+                                Every registered recruiter account
+                            </p>
                         </div>
                     </div>
 
-                    <p class="admin-empty">
-                        Coming next: recruiters list with verification controls.
-                    </p>
+
+                    <div id="recruiterList">
+                        <!-- Rendered by JS -->
+                    </div>
+
+
+                    <div
+                        id="noRecruiters"
+                        class="admin-empty"
+                        hidden
+                    >
+                        No recruiters match this filter.
+                    </div>
+
                 </div>
 
             </section>

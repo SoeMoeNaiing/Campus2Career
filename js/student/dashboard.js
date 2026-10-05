@@ -171,22 +171,24 @@ function createInternshipCard(internship) {
                     ${internship.company}
                 </p>
 
-
-                                <div class="internship-meta">
+                <div class="internship-meta">
 
                     <span>
-                        📍 ${internship.location}
+                        ${icon("location", 14)}
+                        ${internship.location}
                     </span>
 
                     <span>
-                        ⏱ ${internship.duration}
+                        ${icon("clock", 14)}
+                        ${internship.duration}
                     </span>
 
                     ${
                         internship.deadline
                             ? `
                                 <span>
-                                    ⏰ Apply by
+                                    ${icon("calendar", 14)}
+                                    Apply by
                                     ${formatCardDate(
                                         internship.deadline
                                     )}

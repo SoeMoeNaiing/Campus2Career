@@ -469,15 +469,15 @@ function formatStatusLabel(status) {
 function formatInterviewLabel(row) {
 
     if (row.interviewResult === "selected") {
-        return "✓ Selected";
+        return icon("check", 14) + " Selected";
     }
 
     if (row.interviewResult === "not_selected") {
-        return "✕ Not Selected";
+        return icon("x", 14) + " Not Selected";
     }
 
     if (row.interviewResult === "no_show") {
-        return "⚠ No Show";
+        return icon("alert", 14) + " No Show";
     }
 
     if (row.interviewStatus === "pending") {

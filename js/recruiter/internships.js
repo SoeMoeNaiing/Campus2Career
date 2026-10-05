@@ -1,3 +1,4 @@
+let recruiterInternshipsPager = null;
 if (!requireRole("recruiter")) {
 
     // Redirect already handled by auth.js
@@ -129,55 +130,62 @@ function getRecruiterInternships(recruiterId) {
    RENDER INTERNSHIPS
    ========================================================= */
 
-function renderRecruiterInternships(
-    internships
-) {
+function renderRecruiterInternships(internships) {
 
     const container =
-        document.getElementById(
-            "recruiterInternshipList"
-        );
+        document.getElementById("recruiterInternshipList");
 
     const emptyState =
-        document.getElementById(
-            "noRecruiterInternships"
-        );
-
-    const listCount =
-        document.getElementById(
-            "internshipListCount"
-        );
+        document.getElementById("noRecruiterInternships");
 
 
-    listCount.textContent =
-        `${internships.length} ${internships.length === 1
-            ? "internship"
-            : "internships"
-        }`;
-
-
-    if (internships.length === 0) {
-
-        container.innerHTML = "";
-
-        emptyState.hidden = false;
-
+    if (!container) {
         return;
     }
 
 
-    emptyState.hidden = true;
+    /* Pager init */
+
+    if (!recruiterInternshipsPager) {
+
+        recruiterInternshipsPager = createPaginatedRenderer({
+            containerId: "recruiterInternshipList",
+            counterId: "internshipListCount",
+            pagerId: "recruiterInternshipsPager",
+            perPage: 6
+        });
+
+    }
 
 
-    container.innerHTML =
-        internships
-            .map(
-                internship =>
-                    createRecruiterInternshipCard(
-                        internship
-                    )
-            )
-            .join("");
+    /* Empty */
+
+    if (internships.length === 0) {
+
+        recruiterInternshipsPager.setItems([], createRecruiterInternshipCard);
+
+        if (emptyState) {
+            emptyState.hidden = false;
+        }
+
+        return;
+
+    }
+
+
+    if (emptyState) {
+        emptyState.hidden = true;
+    }
+
+
+    /* Newest first */
+
+    const sorted =
+        sortByNewest(internships, "postedAt");
+
+
+    recruiterInternshipsPager.setItems(sorted, createRecruiterInternshipCard);
+
 }
 
 

@@ -3,6 +3,7 @@
    ========================================================= */
 
 let allStudentRows = [];
+let adminStudentsPager = null;
 
 
 if (!requireRole("admin")) {
@@ -147,16 +148,8 @@ function buildStudentRows() {
 
 function renderStudentList() {
 
-    const container =
-        document.getElementById("studentList");
-
     const empty =
         document.getElementById("noStudents");
-
-    if (!container) {
-        return;
-    }
-
 
     const searchInput =
         document.getElementById("studentSearchInput");
@@ -199,9 +192,7 @@ function renderStudentList() {
     if (heading) {
 
         heading.textContent =
-            term
-                ? `Search Results`
-                : `All Students`;
+            term ? "Search Results" : "All Students";
 
     }
 
@@ -211,15 +202,25 @@ function renderStudentList() {
         subheading.textContent =
             term
                 ? `${filtered.length} ${
-                      filtered.length === 1
-                          ? "match"
-                          : "matches"
+                      filtered.length === 1 ? "match" : "matches"
                   } for "${searchInput.value.trim()}"`
                 : `${allStudentRows.length} registered ${
-                      allStudentRows.length === 1
-                          ? "account"
-                          : "accounts"
+                      allStudentRows.length === 1 ? "account" : "accounts"
                   }`;
+
+    }
+
+
+    /* Pager */
+
+    if (!adminStudentsPager) {
+
+        adminStudentsPager = createPaginatedRenderer({
+            containerId: "studentList",
+            counterId: null,
+            pagerId: "adminStudentsPager",
+            perPage: 12
+        });
 
     }
 
@@ -228,7 +229,7 @@ function renderStudentList() {
 
     if (filtered.length === 0) {
 
-        container.innerHTML = "";
+        adminStudentsPager.setItems([], createStudentRow);
 
         if (empty) {
             empty.hidden = false;
@@ -244,15 +245,11 @@ function renderStudentList() {
     }
 
 
-    /* Render */
+    /* Render via pager */
 
-    container.innerHTML =
-        filtered
-            .map(createStudentRow)
-            .join("");
+    adminStudentsPager.setItems(filtered, createStudentRow);
 
 }
-
 
 function createStudentRow(row) {
 

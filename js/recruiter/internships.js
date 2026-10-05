@@ -185,15 +185,12 @@ function renderRecruiterInternships(
    INTERNSHIP CARD
    ========================================================= */
 
-function createRecruiterInternshipCard(
-    internship
-) {
+function createRecruiterInternshipCard(internship) {
 
     const statusClass =
         internship.status === "active"
             ? "status-active"
             : "status-closed";
-
 
     const statusText =
         internship.status === "active"
@@ -228,71 +225,67 @@ function createRecruiterInternshipCard(
                 </p>
 
 
-                                             <div class="internship-meta">
+                <div class="internship-meta">
 
                     <span>
-                        ${icon("location", 14)} ${internship.location}
+                        ${icon("location", 14)}
+                        ${internship.location}
                     </span>
 
                     <span>
-                        ${icon("calendar", 14)} ${internship.duration}
+                        ${icon("clock", 14)}
+                        ${internship.duration}
                     </span>
 
-                    ${
-                        internship.deadline
-                            ? `
-                                <span>
-                                    ${icon("calendar", 14)} Closes
-                                    ${formatCardDate(
-                                        internship.deadline
-                                    )}
-                                </span>
-                            `
-                            : ""
-                    }
+                    ${renderApplicantLine(internship.id, "applications")}
 
                 </div>
+
+
+                ${renderDeadlineLine(internship)}
 
             </div>
 
 
             <div class="internship-card-footer">
 
-               ${internship.status === "active"
-        ? `
-            <a
-                href="edit-internship.html?id=${internship.id}"
-                class="btn btn-outline"
-            >
-                Edit
-            </a>
-          `
-        : `
-            <button
-                type="button"
-                class="btn btn-outline"
-                disabled
-            >
-                Edit
-            </button>
-          `
-    }
+                ${
+                    internship.status === "active"
+                        ? `
+                            <a
+                                href="edit-internship.html?id=${internship.id}"
+                                class="btn btn-outline"
+                            >
+                                Edit
+                            </a>
+                        `
+                        : `
+                            <button
+                                type="button"
+                                class="btn btn-outline"
+                                disabled
+                            >
+                                Edit
+                            </button>
+                        `
+                }
+
 
                 <button
-                   type="button"
-                   class="btn btn-outline"
-                   onclick="handleCloseInternship('${internship.id}')"
-                   ${internship.status === "closed" ? "disabled" : ""}
-                   >
-                  ${internship.status === "closed" ? "Closed" : "Close"}
-               </button>
+                    type="button"
+                    class="btn btn-outline"
+                    onclick="handleCloseInternship('${internship.id}')"
+                    ${internship.status === "closed" ? "disabled" : ""}
+                >
+                    ${internship.status === "closed" ? "Closed" : "Close"}
+                </button>
 
             </div>
 
         </article>
     `;
-}
 
+}
 
 /* =========================================================
    SUMMARY

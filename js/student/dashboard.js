@@ -163,6 +163,8 @@ function createInternshipCard(internship) {
 
             <div class="internship-card-body">
 
+                ${renderCardBadges(internship, true)}
+
                 <h3>
                     ${internship.title}
                 </h3>
@@ -170,6 +172,7 @@ function createInternshipCard(internship) {
                 <p class="company-name">
                     ${internship.company}
                 </p>
+
 
                 <div class="internship-meta">
 
@@ -183,20 +186,6 @@ function createInternshipCard(internship) {
                         ${internship.duration}
                     </span>
 
-                    ${
-                        internship.deadline
-                            ? `
-                                <span>
-                                    ${icon("calendar", 14)}
-                                    Apply by
-                                    ${formatCardDate(
-                                        internship.deadline
-                                    )}
-                                </span>
-                            `
-                            : ""
-                    }
-
                 </div>
 
 
@@ -204,13 +193,13 @@ function createInternshipCard(internship) {
 
                     ${internship.skills
                         .slice(0, 3)
-                        .map(
-                            skill =>
-                                `<span>${skill}</span>`
-                        )
+                        .map(skill => `<span>${skill}</span>`)
                         .join("")}
 
                 </div>
+
+
+                ${renderDeadlineLine(internship)}
 
             </div>
 
@@ -228,8 +217,8 @@ function createInternshipCard(internship) {
 
         </article>
     `;
-}
 
+}
 
 renderRecommendedInternships();
 

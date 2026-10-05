@@ -976,9 +976,7 @@ function renderSavedInternships(
 }
 
 
-function createSavedInternshipCard(
-    internship
-) {
+function createSavedInternshipCard(internship) {
 
     return `
         <article class="internship-card">
@@ -998,6 +996,8 @@ function createSavedInternshipCard(
 
             <div class="internship-card-body">
 
+                ${renderCardBadges(internship, true)}
+
                 <h3>
                     ${internship.title}
                 </h3>
@@ -1010,12 +1010,16 @@ function createSavedInternshipCard(
                 <div class="internship-meta">
 
                     <span>
-                        ${icon("location", 14)} ${internship.location}
+                        ${icon("location", 14)}
+                        ${internship.location}
                     </span>
 
                     <span>
-                        ${icon("clock", 14)} ${internship.duration}
+                        ${icon("clock", 14)}
+                        ${internship.duration}
                     </span>
+
+                    ${renderApplicantLine(internship.id, "applicants")}
 
                 </div>
 
@@ -1024,13 +1028,13 @@ function createSavedInternshipCard(
 
                     ${internship.skills
                         .slice(0, 4)
-                        .map(
-                            skill =>
-                                `<span>${skill}</span>`
-                        )
+                        .map(skill => `<span>${skill}</span>`)
                         .join("")}
 
                 </div>
+
+
+                ${renderDeadlineLine(internship)}
 
             </div>
 

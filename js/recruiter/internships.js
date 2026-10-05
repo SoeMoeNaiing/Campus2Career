@@ -26,7 +26,7 @@ if (!requireRole("recruiter")) {
 
         if (!isCurrentRecruiterVerified()) {
 
-            toast.error(
+            alert(
                 "Your account is not verified yet. " +
                 "Please complete your profile and " +
                 "apply for verification before posting internships."
@@ -860,7 +860,7 @@ function handleCloseInternship(internshipId) {
 
     if (!isCurrentRecruiterVerified()) {
 
-        toast.error(
+        alert(
             "Your account is not verified. " +
             "You cannot close internships."
         );

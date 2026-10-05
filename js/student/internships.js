@@ -384,7 +384,7 @@ function handleApplyClick(internshipId) {
 
     if (!currentUser) {
 
-        toast.error("Please login first.");
+        alert("Please login first.");
 
         return;
 
@@ -404,7 +404,7 @@ function handleApplyClick(internshipId) {
         !recruiterIsVerified(internshipToApply.recruiterId)
     ) {
 
-        toast.error(
+        alert(
             "This internship is no longer available."
         );
 
@@ -421,7 +421,7 @@ function handleApplyClick(internshipId) {
 
     if (!profile) {
 
-        toast.warn("Please complete your profile before applying."
+        alert("Please complete your profile before applying."
         );
 
         window.location.href = "profile.html";
@@ -463,7 +463,7 @@ function handleApplyClick(internshipId) {
             .join(", ");
 
 
-        toast.warn("Please complete the following before applying:\n\n" +
+        alert("Please complete the following before applying:\n\n" +
             pretty
         );
 
@@ -478,7 +478,7 @@ function handleApplyClick(internshipId) {
 
     if (hasApplied(internshipId, currentUser.id)) {
 
-        toast.warn("You have already applied for this internship."
+        alert("You have already applied for this internship."
         );
 
         return;
@@ -495,7 +495,7 @@ function handleApplyClick(internshipId) {
         );
 
 
-    toast.success(result.message);
+    alert(result.message);
 
 }
 
@@ -837,6 +837,8 @@ function createListingCard(internship) {
 
             <div class="internship-card-body">
 
+                ${renderCardBadges(internship, true)}
+
                 <h3>
                     ${internship.title}
                 </h3>
@@ -846,28 +848,19 @@ function createListingCard(internship) {
                 </p>
 
 
-                                <div class="internship-meta">
+                <div class="internship-meta">
 
                     <span>
-                        ${icon("location", 14)} ${internship.location}
+                        ${icon("location", 14)}
+                        ${internship.location}
                     </span>
 
                     <span>
-                        ${icon("clock", 14)} ${internship.duration}
+                        ${icon("clock", 14)}
+                        ${internship.duration}
                     </span>
 
-                    ${
-                        internship.deadline
-                            ? `
-                                <span>
-                                    ${icon("calendar", 14)} Apply by
-                                    ${formatCardDate(
-                                        internship.deadline
-                                    )}
-                                </span>
-                            `
-                            : ""
-                    }
+                    ${renderApplicantLine(internship.id, "applicants")}
 
                 </div>
 
@@ -875,14 +868,14 @@ function createListingCard(internship) {
                 <div class="internship-skills">
 
                     ${internship.skills
-            .slice(0, 4)
-            .map(
-                skill =>
-                    `<span>${skill}</span>`
-            )
-            .join("")}
+                        .slice(0, 4)
+                        .map(skill => `<span>${skill}</span>`)
+                        .join("")}
 
                 </div>
+
+
+                ${renderDeadlineLine(internship)}
 
             </div>
 
@@ -902,7 +895,6 @@ function createListingCard(internship) {
     `;
 
 }
-
 
 
 

@@ -1681,7 +1681,7 @@ function handleInterviewInviteSubmit(
 
     if (existingInterview) {
 
-        toast.warn("An interview invitation has already been sent for this application."
+        alert("An interview invitation has already been sent for this application."
         );
 
         initializeApplicationDetails();
@@ -1735,7 +1735,7 @@ function handleInterviewInviteSubmit(
 
     if (!date || !time) {
 
-        toast.warn("Please provide a date and time for the interview."
+        alert("Please provide a date and time for the interview."
         );
 
         return;
@@ -1748,7 +1748,7 @@ function handleInterviewInviteSubmit(
         !meetingLink
     ) {
 
-        toast.warn("Please provide a meeting link for an online interview."
+        alert("Please provide a meeting link for an online interview."
         );
 
         return;
@@ -1761,7 +1761,7 @@ function handleInterviewInviteSubmit(
         !location
     ) {
 
-        toast.warn("Please provide a location for an in-person interview."
+        alert("Please provide a location for an in-person interview."
         );
 
         return;

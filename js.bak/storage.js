@@ -1,0 +1,1244 @@
+/* =========================================================
+   CAMPUS2CAREER
+   Local Storage Layer
+   ========================================================= */
+
+
+/* ================= STORAGE KEYS ================= */
+
+const STORAGE_KEYS = {
+    USERS: "campus2career_users",
+    CURRENT_USER: "campus2career_current_user"
+};
+
+
+/* ================= USERS ================= */
+
+/**
+ * Get all registered users.
+ * Returns an empty array if no users exist.
+ */
+function getUsers() {
+
+    const users = localStorage.getItem(STORAGE_KEYS.USERS);
+
+    return users ? JSON.parse(users) : [];
+}
+
+
+/**
+ * Save the complete users array.
+ */
+function saveUsers(users) {
+
+    localStorage.setItem(
+        STORAGE_KEYS.USERS,
+        JSON.stringify(users)
+    );
+}
+
+
+/**
+ * Find a user by email.
+ */
+function findUserByEmail(email) {
+
+    const users = getUsers();
+
+    return users.find(
+        user => user.email.toLowerCase() === email.toLowerCase()
+    ) || null;
+}
+
+
+/**
+ * Create a new user.
+ */
+function createUser(userData) {
+
+    const users = getUsers();
+
+    const newUser = {
+        id: crypto.randomUUID(),
+        name: userData.name,
+        email: userData.email.toLowerCase(),
+        password: userData.password,
+        role: userData.role,
+        createdAt: new Date().toISOString()
+    };
+
+    users.push(newUser);
+
+    saveUsers(users);
+
+    return newUser;
+}
+
+
+/* ================= CURRENT USER ================= */
+
+/**
+ * Store the currently logged-in user.
+ *
+ * We don't need to store the password here.
+ */
+function setCurrentUser(user) {
+
+    const sessionUser = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+    };
+
+    sessionStorage.setItem(
+        STORAGE_KEYS.CURRENT_USER,
+        JSON.stringify(sessionUser)
+    );
+}
+
+
+function getCurrentUser() {
+
+    const user = sessionStorage.getItem(
+        STORAGE_KEYS.CURRENT_USER
+    );
+
+    return user ? JSON.parse(user) : null;
+}
+
+
+function logoutUser() {
+
+    sessionStorage.removeItem(
+        STORAGE_KEYS.CURRENT_USER
+    );
+}
+
+
+/**
+ * Check whether someone is logged in.
+ */
+function isLoggedIn() {
+
+    return getCurrentUser() !== null;
+}
+
+
+
+/* ================= INTERNSHIPS ================= */
+
+
+/**
+ * Get all internships.
+ */
+function getInternships() {
+
+    const internships =
+        localStorage.getItem("campus2career_internships");
+
+    return internships
+        ? JSON.parse(internships)
+        : [];
+}
+
+
+/**
+ * Save internships.
+ */
+function saveInternships(internships) {
+
+    localStorage.setItem(
+        "campus2career_internships",
+        JSON.stringify(internships)
+    );
+}
+
+
+/**
+ * Initialize internship data.
+ *
+ * Only seed data if internships don't already exist.
+ */
+function initializeInternships() {
+
+    const existingInternships =
+        getInternships();
+
+    if (existingInternships.length === 0) {
+
+        saveInternships(seedInternships);
+
+    }
+
+}
+function updateInternshipSeedData() {
+
+    const internships = getInternships();
+
+    if (internships.length === 0) {
+        return;
+    }
+
+    const updatedInternships = internships.map(internship => {
+
+        const seedInternship =
+            seedInternships.find(
+                seed => seed.id === internship.id
+            );
+
+        if (!seedInternship) {
+            return internship;
+        }
+
+        return {
+            ...internship,
+            recruiterId: seedInternship.recruiterId,
+            status: seedInternship.status
+        };
+    });
+
+    saveInternships(updatedInternships);
+}
+
+
+
+/* =========================================================
+   SAVED INTERNSHIPS
+   ========================================================= */
+
+/* =========================================================
+   SAVED INTERNSHIPS (PER USER)
+   ========================================================= */
+
+function getSavedInternshipsMap() {
+
+    const raw = localStorage.getItem(
+        "campus2career_saved_internships"
+    );
+
+    if (!raw) {
+        return {};
+    }
+
+
+    const parsed = JSON.parse(raw);
+
+
+    /* Migration: old flat array gets assigned to current user */
+
+    if (Array.isArray(parsed)) {
+
+        const currentUser = getCurrentUser();
+
+        if (!currentUser) {
+            return {};
+        }
+
+
+        const migrated = {
+            [currentUser.id]: parsed
+        };
+
+
+        saveSavedInternshipsMap(migrated);
+
+        return migrated;
+
+    }
+
+
+    return parsed;
+
+}
+
+
+function saveSavedInternshipsMap(map) {
+
+    localStorage.setItem(
+        "campus2career_saved_internships",
+        JSON.stringify(map)
+    );
+
+}
+
+
+function getSavedInternships() {
+
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+        return [];
+    }
+
+
+    const map = getSavedInternshipsMap();
+
+    return map[currentUser.id] || [];
+
+}
+
+
+function saveSavedInternships(ids) {
+
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    const map = getSavedInternshipsMap();
+
+    map[currentUser.id] = ids;
+
+    saveSavedInternshipsMap(map);
+
+}
+
+
+function isInternshipSaved(internshipId) {
+
+    return getSavedInternships().includes(internshipId);
+
+}
+
+
+function toggleSavedInternship(internshipId) {
+
+    let ids = getSavedInternships();
+
+
+    if (ids.includes(internshipId)) {
+
+        ids = ids.filter(id => id !== internshipId);
+
+    } else {
+
+        ids.push(internshipId);
+
+    }
+
+
+    saveSavedInternships(ids);
+
+    return ids.includes(internshipId);
+
+}
+
+function toggleSavedInternship(internshipId) {
+
+    let savedInternships = getSavedInternships();
+
+
+    if (savedInternships.includes(internshipId)) {
+
+        savedInternships =
+            savedInternships.filter(
+                id => id !== internshipId
+            );
+
+    } else {
+
+        savedInternships.push(internshipId);
+
+    }
+
+
+    saveSavedInternships(savedInternships);
+
+    return savedInternships.includes(internshipId);
+
+}
+
+
+/* =========================================================
+   APPLICATIONS
+   ========================================================= */
+
+function getApplications() {
+
+    const applications = localStorage.getItem(
+        "campus2career_applications"
+    );
+
+    return applications
+        ? JSON.parse(applications)
+        : [];
+}
+
+
+function saveApplications(applications) {
+
+    localStorage.setItem(
+        "campus2career_applications",
+        JSON.stringify(applications)
+    );
+
+}
+
+
+function createApplication(internshipId, studentId) {
+
+    const applications = getApplications();
+
+
+    // Prevent duplicate applications
+    const alreadyApplied = applications.some(
+        application =>
+            application.internshipId === internshipId &&
+            application.studentId === studentId
+    );
+
+
+    if (alreadyApplied) {
+
+        return {
+            success: false,
+            message: "You have already applied for this internship."
+        };
+
+    }
+
+
+    const application = {
+
+        id: "APP" + Date.now(),
+
+        internshipId: internshipId,
+
+        studentId: studentId,
+
+        status: "pending",
+
+        appliedDate: new Date().toISOString()
+
+    };
+
+
+    applications.push(application);
+
+    saveApplications(applications);
+
+
+    return {
+        success: true,
+        message: "Application submitted successfully."
+    };
+
+}
+
+
+function getStudentApplications(studentId) {
+
+    return getApplications().filter(
+        application =>
+            application.studentId === studentId
+    );
+
+}
+
+
+function hasApplied(internshipId, studentId) {
+
+    return getApplications().some(
+        application =>
+            application.internshipId === internshipId &&
+            application.studentId === studentId
+    );
+
+}
+
+/* =========================================================
+   INTERVIEWS
+   ========================================================= */
+
+/**
+ * Get all interviews.
+ */
+function getInterviews() {
+
+    const interviews = localStorage.getItem(
+        "campus2career_interviews"
+    );
+
+    return interviews
+        ? JSON.parse(interviews)
+        : [];
+
+}
+
+
+/**
+ * Save the complete interviews array.
+ */
+function saveInterviews(interviews) {
+
+    localStorage.setItem(
+        "campus2career_interviews",
+        JSON.stringify(interviews)
+    );
+
+}
+
+
+/**
+ * Find the interview linked to an application.
+ *
+ * One application -> one interview in this prototype.
+ */
+function getInterviewByApplicationId(applicationId) {
+
+    const interviews = getInterviews();
+
+    return interviews.find(
+        interview =>
+            interview.applicationId === applicationId
+    ) || null;
+
+}
+
+
+
+function createInterviewInvitation(data) {
+
+    const interviews = getInterviews();
+
+    const interview = {
+
+        id: "INTV" + Date.now(),
+
+        applicationId: data.applicationId,
+
+        internshipId: data.internshipId,
+
+        recruiterId: data.recruiterId,
+
+        studentId: data.studentId,
+
+        date: data.date,
+
+        time: data.time,
+
+        type: data.type,
+
+        location: data.location || "",
+
+        meetingLink: data.meetingLink || "",
+
+        message: data.message || "",
+
+                status: "pending",
+
+        result: "pending",
+
+        createdAt: new Date().toISOString(),
+
+        respondedAt: "",
+
+        attendedAt: "",
+
+        completedAt: ""
+
+    };
+
+    interviews.push(interview);
+
+    saveInterviews(interviews);
+
+    return interview;
+
+}
+
+
+/**
+ * Update only the status field of an interview.
+ *
+ * Allowed statuses:
+ *   "pending"  -> waiting for student
+ *   "accepted" -> student accepted
+ *   "declined" -> student declined
+ *   "completed"-> interview has happened
+ */
+function updateInterviewStatus(
+    interviewId,
+    status
+) {
+
+    const interviews = getInterviews();
+
+    const index = interviews.findIndex(
+        interview =>
+            interview.id === interviewId
+    );
+
+    if (index === -1) {
+        return null;
+    }
+
+    interviews[index].status = status;
+
+
+    // Record when the student responded.
+    if (
+        status === "accepted" ||
+        status === "declined"
+    ) {
+
+        interviews[index].respondedAt =
+            new Date().toISOString();
+
+    }
+
+
+    // Record when the interview itself was completed.
+    if (status === "completed") {
+
+        interviews[index].completedAt =
+            new Date().toISOString();
+
+    }
+
+
+    saveInterviews(interviews);
+
+    return interviews[index];
+
+}
+
+
+/**
+ * Update only the result field of an interview.
+ *
+ * Allowed results:
+ *   "pending"
+ *   "selected"
+ *   "not_selected"
+ */
+function updateInterviewResult(
+    interviewId,
+    result
+) {
+
+    const interviews = getInterviews();
+
+    const index = interviews.findIndex(
+        interview =>
+            interview.id === interviewId
+    );
+
+    if (index === -1) {
+        return null;
+    }
+
+    interviews[index].result = result;
+
+    saveInterviews(interviews);
+
+    return interviews[index];
+
+}
+/**
+ * Find an interview by its id.
+ */
+function getInterviewById(interviewId) {
+
+    const interviews = getInterviews();
+
+    return interviews.find(
+        interview =>
+            interview.id === interviewId
+    ) || null;
+
+}
+
+
+/**
+ * Record that the student clicked "Join Interview".
+ *
+ * Only sets attendedAt the first time. If it is
+ * already set, we do not overwrite it — that way the
+ * timestamp means "first time they joined".
+ */
+function markInterviewAttended(interviewId) {
+
+    const interviews = getInterviews();
+
+    const index = interviews.findIndex(
+        interview =>
+            interview.id === interviewId
+    );
+
+    if (index === -1) {
+        return null;
+    }
+
+
+    // Already recorded — leave the original timestamp.
+    if (interviews[index].attendedAt) {
+        return interviews[index];
+    }
+
+
+    interviews[index].attendedAt =
+        new Date().toISOString();
+
+
+    saveInterviews(interviews);
+
+    return interviews[index];
+
+}
+
+/* =========================================================
+   STUDENT PROFILES
+   ========================================================= */
+
+function getStudentProfiles() {
+
+    const profiles = localStorage.getItem(
+        "campus2career_student_profiles"
+    );
+
+    return profiles
+        ? JSON.parse(profiles)
+        : {};
+}
+
+
+function saveStudentProfiles(profiles) {
+
+    localStorage.setItem(
+        "campus2career_student_profiles",
+        JSON.stringify(profiles)
+    );
+
+}
+
+
+function getStudentProfile(studentId) {
+
+    const profiles = getStudentProfiles();
+
+    return profiles[studentId] || null;
+
+}
+
+
+function createDefaultStudentProfile(user) {
+
+    const profiles = getStudentProfiles();
+
+
+    if (profiles[user.id]) {
+        return profiles[user.id];
+    }
+
+
+   const profile = {
+    studentId: user.id,
+    name: user.name || "",
+    email: user.email || "",
+    rollNo: "",
+    nrc: "",
+    phone: "",
+    university: "",
+    major: "",
+    year: "",
+    skills: "",
+    bio: ""
+};
+
+
+    profiles[user.id] = profile;
+
+    saveStudentProfiles(profiles);
+
+
+    return profile;
+
+}
+
+
+function updateStudentProfile(
+    studentId,
+    profileData
+) {
+
+    const profiles = getStudentProfiles();
+
+
+    profiles[studentId] = {
+
+        ...profiles[studentId],
+
+        ...profileData,
+
+        studentId: studentId
+
+    };
+
+
+    saveStudentProfiles(profiles);
+
+
+    return profiles[studentId];
+
+}
+
+
+
+
+function getRecruiterProfiles() {
+    const profiles = localStorage.getItem(
+        "campus2career_recruiter_profiles"
+    );
+
+    return profiles
+        ? JSON.parse(profiles)
+        : {};
+}
+
+
+function saveRecruiterProfiles(profiles) {
+    localStorage.setItem(
+        "campus2career_recruiter_profiles",
+        JSON.stringify(profiles)
+    );
+}
+
+
+function getRecruiterProfile(recruiterId) {
+    const profiles = getRecruiterProfiles();
+
+    return profiles[recruiterId] || null;
+}
+
+
+function createDefaultRecruiterProfile(user) {
+
+    const profiles = getRecruiterProfiles();
+
+    if (profiles[user.id]) {
+        return profiles[user.id];
+    }
+
+       const profile = {
+        recruiterId: user.id,
+        name: user.name || "",
+        email: user.email || "",
+        companyName: "",
+        phone: "",
+        address: "",
+        industry: "",
+        website: "",
+        description: "",
+
+        // Verification
+        verificationStatus: "unsubmitted",
+        verificationRequestedAt: "",
+        verifiedAt: "",
+        rejectionReason: ""
+    };
+
+    profiles[user.id] = profile;
+
+    saveRecruiterProfiles(profiles);
+
+    return profile;
+}
+
+
+function updateRecruiterProfile(
+    recruiterId,
+    profileData
+) {
+
+    const profiles = getRecruiterProfiles();
+
+    profiles[recruiterId] = {
+        ...profiles[recruiterId],
+        ...profileData,
+        recruiterId: recruiterId
+    };
+
+    saveRecruiterProfiles(profiles);
+
+    return profiles[recruiterId];
+}
+
+
+function addInternship(internship) {
+
+    const internships = getInternships();
+
+    internships.push(internship);
+
+    saveInternships(internships);
+
+    return internship;
+}
+
+
+
+function updateInternship(
+    internshipId,
+    updatedData
+) {
+
+    const internships = getInternships();
+
+    const index = internships.findIndex(
+        internship =>
+            internship.id === internshipId
+    );
+
+    if (index === -1) {
+        return null;
+    }
+
+    internships[index] = {
+        ...internships[index],
+        ...updatedData,
+        id: internships[index].id,
+        recruiterId: internships[index].recruiterId
+    };
+
+    saveInternships(internships);
+
+    return internships[index];
+}
+
+
+
+function closeInternship(internshipId) {
+
+    const internships = getInternships();
+
+    const index = internships.findIndex(
+        internship =>
+            internship.id === internshipId
+    );
+
+    if (index === -1) {
+        return null;
+    }
+
+    internships[index].status = "closed";
+
+    saveInternships(internships);
+
+    return internships[index];
+}
+
+
+
+function updateApplicationStatus(
+    applicationId,
+    status
+) {
+
+    const applications =
+        getApplications();
+
+    const index =
+        applications.findIndex(
+            application =>
+                application.id === applicationId
+        );
+
+    if (index === -1) {
+        return null;
+    }
+
+    applications[index].status = status;
+
+    saveApplications(applications);
+
+    return applications[index];
+}
+
+/* =========================================================
+   RECRUITER VERIFICATION
+   ========================================================= */
+
+/**
+ * Update the verification status of a recruiter profile.
+ *
+ * status values:
+ *   "unsubmitted" | "pending" | "verified" | "rejected"
+ */
+function updateRecruiterVerification(
+    recruiterId,
+    status,
+    reason
+) {
+
+    const profiles = getRecruiterProfiles();
+
+    const profile = profiles[recruiterId];
+
+    if (!profile) {
+        return null;
+    }
+
+
+    profile.verificationStatus = status;
+
+
+    if (status === "pending") {
+
+        profile.verificationRequestedAt =
+            new Date().toISOString();
+
+        profile.verifiedAt = "";
+        profile.rejectionReason = "";
+
+    }
+
+
+    if (status === "verified") {
+
+        profile.verifiedAt =
+            new Date().toISOString();
+
+        profile.rejectionReason = "";
+
+    }
+
+
+    if (status === "rejected") {
+
+        profile.rejectionReason =
+            reason || "";
+
+        profile.verifiedAt = "";
+
+    }
+
+
+    if (status === "unsubmitted") {
+
+        profile.verificationRequestedAt = "";
+        profile.verifiedAt = "";
+        profile.rejectionReason = "";
+
+    }
+
+
+    saveRecruiterProfiles(profiles);
+
+    return profile;
+
+}
+
+
+/**
+ * Get all recruiter profiles with a given verification status.
+ */
+function getRecruitersByVerificationStatus(status) {
+
+    const profiles = getRecruiterProfiles();
+
+    return Object.values(profiles).filter(
+        profile =>
+            (profile.verificationStatus || "unsubmitted") === status
+    );
+
+}
+
+
+/**
+ * Migration: existing recruiter profiles created before
+ * the verification system existed get marked as "verified"
+ * so the current demo data keeps working.
+ *
+ * Run once from the console:
+ *   migrateRecruiterVerifications()
+ */
+function migrateRecruiterVerifications() {
+
+    const profiles = getRecruiterProfiles();
+
+    let migrated = 0;
+
+
+    Object.values(profiles).forEach(profile => {
+
+        if (!profile.verificationStatus) {
+
+            profile.verificationStatus = "verified";
+
+            profile.verifiedAt =
+                new Date().toISOString();
+
+            migrated++;
+
+        }
+
+    });
+
+
+    if (migrated > 0) {
+
+        saveRecruiterProfiles(profiles);
+
+    }
+
+
+    return migrated;
+
+}
+
+
+
+
+/* =========================================================
+   SEED RECRUITER BOOTSTRAP
+   ========================================================= */
+
+/**
+ * Ensure the recruiter that owns the seed internships
+ * exists in recruiter profiles and is marked verified.
+ *
+ * Runs on every page load, exits early if already set up.
+ */
+(function ensureSeedRecruiter() {
+
+    const SEED_RECRUITER_ID =
+        "76e9a695-fbb2-44f7-9a94-f4958ce1759b";
+
+
+    const profiles = getRecruiterProfiles();
+
+
+    /* ---------- Profile exists ---------- */
+
+    if (profiles[SEED_RECRUITER_ID]) {
+
+        if (
+            profiles[SEED_RECRUITER_ID].verificationStatus !==
+            "verified"
+        ) {
+
+            profiles[SEED_RECRUITER_ID].verificationStatus =
+                "verified";
+
+            profiles[SEED_RECRUITER_ID].verifiedAt =
+                new Date().toISOString();
+
+            saveRecruiterProfiles(profiles);
+
+        }
+
+        return;
+
+    }
+
+
+    /* ---------- Create seed profile ---------- */
+
+    profiles[SEED_RECRUITER_ID] = {
+
+        recruiterId: SEED_RECRUITER_ID,
+
+        name: "Kanhaiya Verma",
+
+        email: "kanhaiyaverma@gmail.com",
+
+        companyName: "Tech Solutions Myanmar",
+
+        phone: "",
+
+        address: "Yangon",
+
+        industry: "Technology",
+
+        website: "",
+
+        description:
+            "Seed recruiter for Campus2Career demo data.",
+
+        verificationStatus: "verified",
+
+        verificationRequestedAt: "",
+
+        verifiedAt: new Date().toISOString(),
+
+        rejectionReason: ""
+
+    };
+
+
+    saveRecruiterProfiles(profiles);
+
+})();
+
+
+/* =========================================================
+   INTERNSHIP DEADLINE MIGRATION
+   ========================================================= */
+
+/**
+ * Backfill a deadline on any internship missing one.
+ *
+ * Default = postedAt + 60 days. If postedAt is also
+ * missing, we skip that internship.
+ *
+ * Run once from the console:
+ *   migrateInternshipDeadlines()
+ */
+function migrateInternshipDeadlines() {
+
+    const internships = getInternships();
+
+    let migrated = 0;
+
+
+    const updated = internships.map(internship => {
+
+        if (internship.deadline) {
+            return internship;
+        }
+
+        if (!internship.postedAt) {
+            return internship;
+        }
+
+        const posted =
+            new Date(internship.postedAt);
+
+        if (isNaN(posted.getTime())) {
+            return internship;
+        }
+
+
+        const deadline =
+            new Date(posted);
+
+        deadline.setDate(
+            deadline.getDate() + 60
+        );
+
+
+        migrated++;
+
+
+        return {
+            ...internship,
+            deadline: deadline
+                .toISOString()
+                .slice(0, 10)
+        };
+
+    });
+
+
+    if (migrated > 0) {
+        saveInternships(updated);
+    }
+
+
+    return migrated;
+
+}

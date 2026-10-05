@@ -116,10 +116,17 @@ if (!internshipVisible) {
 
 function renderInternshipDetails(internship) {
 
-    if (!detailsContainer) {
+   if (!detailsContainer) {
         return;
     }
 
+
+    const currentUser = getCurrentUser();
+
+
+    const alreadyApplied =
+        currentUser &&
+        hasApplied(internship.id, currentUser.id);
 
     detailsContainer.innerHTML = `
 
@@ -306,29 +313,42 @@ function renderInternshipDetails(internship) {
 
                 <div class="details-action-card">
 
-                    <button
-                        type="button"
-                        class="btn btn-primary details-apply-btn"
-                        onclick="handleApplyClick('${internship.id}')"
-                    >
-                        Apply Now
-                    </button>
+    ${
+        currentUser && hasApplied(internship.id, currentUser.id)
+            ? `
+                <button
+                    type="button"
+                    class="btn btn-secondary details-apply-btn"
+                    disabled
+                >
+                    ${icon("check", 14)} Applied
+                </button>
+            `
+            : `
+                <button
+                    type="button"
+                    class="btn btn-primary details-apply-btn"
+                    onclick="handleApplyClick('${internship.id}')"
+                >
+                    Apply Now
+                </button>
+            `
+    }
 
 
-                    <button
-                        type="button"
-                        id="saveInternshipBtn"
-                        class="btn btn-outline"
-                        onclick="handleSaveClick('${internship.id}')"
-                    >
-                        ${isInternshipSaved(internship.id)
-                            ? icon("check", 14) + " Saved"
-                            : "Save Internship"
-                        }
-                    </button>
+    <button
+        type="button"
+        id="saveInternshipBtn"
+        class="btn btn-outline"
+        onclick="handleSaveClick('${internship.id}')"
+    >
+        ${isInternshipSaved(internship.id)
+            ? `${icon("check", 14)} Saved`
+            : "Save Internship"
+        }
+    </button>
 
-                </div>
-
+</div>
 
                 <div class="details-company-card">
 
@@ -487,6 +507,7 @@ function handleApplyClick(internshipId) {
 
 
     /* ---------- Create application ---------- */
+   
 
     const result =
         createApplication(
@@ -496,6 +517,20 @@ function handleApplyClick(internshipId) {
 
 
     alert(result.message);
+
+
+    /* Update the button so it shows "Applied" */
+
+    if (result.success) {
+
+        const internship =
+            getInternships().find(i => i.id === internshipId);
+
+        if (internship) {
+            renderInternshipDetails(internship);
+        }
+
+    }
 
 }
 

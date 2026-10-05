@@ -5,6 +5,7 @@
 let allApplicationRows = [];
 
 let currentApplicationFilter = "all";
+let adminApplicationsPager = null;
 
 
 if (!requireRole("admin")) {
@@ -329,59 +330,53 @@ function applyApplicationFilter() {
 
 function renderApplicationList(rows) {
 
-    const container =
-        document.getElementById("applicationList");
-
-    const empty =
+    const noApplications =
         document.getElementById("noApplications");
 
-    if (!container) {
+    if (!noApplications) {
         return;
     }
 
+
+    /* Pager init */
+
+    if (!adminApplicationsPager) {
+
+        adminApplicationsPager = createPaginatedRenderer({
+            containerId: "applicationList",
+            counterId: null,
+            pagerId: "adminApplicationsPager",
+            perPage: 8
+        });
+
+    }
+
+
+    /* Empty */
 
     if (rows.length === 0) {
 
-        container.innerHTML = "";
+        adminApplicationsPager.setItems([], createApplicationRow);
 
-        if (empty) {
-            empty.hidden = false;
-        }
+        noApplications.hidden = false;
 
         return;
 
     }
 
 
-    if (empty) {
-        empty.hidden = true;
-    }
+    noApplications.hidden = true;
 
 
-    /* Sort: most recent first */
+    /* Newest first */
 
-    const sorted = rows.slice().sort((a, b) => {
-
-        const dateA = a.appliedDate
-            ? new Date(a.appliedDate).getTime()
-            : 0;
-
-        const dateB = b.appliedDate
-            ? new Date(b.appliedDate).getTime()
-            : 0;
-
-        return dateB - dateA;
-
-    });
+    const sorted =
+        sortByNewest(rows, "appliedDate");
 
 
-    container.innerHTML =
-        sorted
-            .map(createApplicationRow)
-            .join("");
+    adminApplicationsPager.setItems(sorted, createApplicationRow);
 
 }
-
 
 function createApplicationRow(row) {
 

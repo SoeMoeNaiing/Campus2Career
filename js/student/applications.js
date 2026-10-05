@@ -152,11 +152,11 @@ function createApplicationCard(application) {
                     <div class="internship-meta">
 
                         <span>
-                            📍 ${internship.location}
+                            ${icon("location", 14)} ${internship.location}
                         </span>
 
                         <span>
-                            📅 Applied
+                            ${icon("calendar", 14)} Applied
                             ${formatApplicationDate(
                                 application.appliedDate
                             )}
@@ -302,15 +302,15 @@ function renderInterviewInvitation(interview) {
 
 
             <p class="interview-detail">
-                📅 ${formatApplicationDate(interview.date)}
+                ${icon("calendar", 14)} ${formatApplicationDate(interview.date)}
             </p>
 
             <p class="interview-detail">
-                🕐 ${interview.time}
+                ${icon("clock", 14)} ${interview.time}
             </p>
 
             <p class="interview-detail">
-                💻 ${typeLabel}
+                ${icon("monitor", 14)} ${typeLabel}
             </p>
 
             ${contactLine}
@@ -434,7 +434,7 @@ function getJoinButtonMessage(interview) {
 
             return `
                 <p class="interview-detail interview-hint">
-                    ✓ You joined this interview at
+                    ${icon("check", 14)} You joined this interview at
                     ${new Date(interview.attendedAt).toLocaleTimeString()}.
                 </p>
             `;
@@ -444,7 +444,7 @@ function getJoinButtonMessage(interview) {
 
         return `
             <p class="interview-detail interview-hint">
-                ✕ This interview time has passed
+                ${icon("x", 14)} This interview time has passed
                 and you did not join.
             </p>
         `;
@@ -501,7 +501,7 @@ function renderInterviewAccepted(interview) {
             interview.attendedAt
                 ? `
                     <p class="interview-detail interview-hint">
-                        ✓ You joined at
+                        ${icon("check", 14)} You joined at
                         ${new Date(interview.attendedAt).toLocaleTimeString()}
                     </p>
                 `
@@ -538,20 +538,20 @@ function renderInterviewAccepted(interview) {
         <div class="interview-section">
 
             <h4 class="interview-section-title">
-                ✓ Interview Accepted
+                ${icon("check-circle", 16)} Interview Accepted
             </h4>
 
 
             <p class="interview-detail">
-                📅 ${formatApplicationDate(interview.date)}
+                ${icon("calendar", 14)} ${formatApplicationDate(interview.date)}
             </p>
 
             <p class="interview-detail">
-                🕐 ${interview.time}
+                ${icon("clock", 14)} ${interview.time}
             </p>
 
             <p class="interview-detail">
-                💻 ${typeLabel}
+                ${icon("monitor", 14)} ${typeLabel}
             </p>
 
             ${contactLine}
@@ -584,7 +584,7 @@ function renderInterviewDeclined(interview) {
         <div class="interview-section">
 
             <h4 class="interview-section-title">
-                ✕ Interview Declined
+                ${icon("x-circle", 16)} Interview Declined
             </h4>
 
 
@@ -615,7 +615,7 @@ function renderInterviewResult(interview) {
 
     if (interview.result === "selected") {
 
-        title = "✓ You have been selected";
+        title = icon("check", 14) + " You have been selected";
         message =
             "Congratulations! The recruiter has " +
             "selected you for this internship.";
@@ -626,7 +626,7 @@ function renderInterviewResult(interview) {
 
     if (interview.result === "not_selected") {
 
-        title = "✕ Not selected";
+        title = icon("x", 14) + " Not selected";
         message =
             "Unfortunately, the recruiter did not " +
             "select you for this internship.";
@@ -637,7 +637,7 @@ function renderInterviewResult(interview) {
 
     if (interview.result === "no_show") {
 
-        title = "✕ Not selected";
+        title = icon("x", 14) + " Not selected";
         message =
             "You did not attend the interview, " +
             "so the application was not successful.";
@@ -655,15 +655,15 @@ function renderInterviewResult(interview) {
 
 
             <p class="interview-detail">
-                📅 ${formatApplicationDate(interview.date)}
+                ${icon("calendar", 14)} ${formatApplicationDate(interview.date)}
             </p>
 
             <p class="interview-detail">
-                🕐 ${interview.time}
+                ${icon("clock", 14)} ${interview.time}
             </p>
 
             <p class="interview-detail">
-                💻 ${typeLabel}
+                ${icon("monitor", 14)} ${typeLabel}
             </p>
 
 
@@ -740,7 +740,7 @@ function handleJoinInterview(
         "noopener"
     );
 
-    // 3. Refresh the card so the "✓ You joined at ..." note appears.
+    // 3. Refresh the card so the "${icon("check", 14)} You joined at ..." note appears.
     loadStudentApplications();
 
 }

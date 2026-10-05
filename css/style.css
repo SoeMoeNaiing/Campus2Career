@@ -400,54 +400,50 @@ p {
     font-size: 1.02rem;
 }
 
-
 /* =========================================================
    6. BUTTONS
    ========================================================= */
 
 .btn {
-    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
 
-    padding: 11px 20px;
+    padding: 8px 14px;
 
     border: 1px solid transparent;
-    border-radius: var(--radius-sm);
+    border-radius: 8px;
 
-    font-size: 0.88rem;
-    font-weight: 700;
+    font-size: 0.82rem;
+    font-weight: 600;
     line-height: 1.2;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.005em;
 
     text-align: center;
     white-space: nowrap;
 
     cursor: pointer;
-    overflow: hidden;
-    isolation: isolate;
 
     transition:
-        background var(--dur) var(--ease-out),
-        color var(--dur) var(--ease-out),
-        border-color var(--dur) var(--ease-out),
-        box-shadow var(--dur) var(--ease-out),
-        transform var(--dur) var(--ease-spring);
+        background 0.16s var(--ease-out),
+        color 0.16s var(--ease-out),
+        border-color 0.16s var(--ease-out),
+        box-shadow 0.16s var(--ease-out),
+        transform 0.16s var(--ease-out);
 }
 
 .btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
 .btn:active {
-    transform: translateY(0) scale(0.985);
+    transform: translateY(0);
 }
 
 .btn:disabled,
 .btn[aria-disabled="true"] {
-    opacity: 0.55;
+    opacity: 0.5;
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
@@ -457,77 +453,47 @@ p {
 
 .btn-primary {
     color: #ffffff;
-    background: var(--gradient-brand);
-    background-size: 180% 180%;
-    box-shadow: var(--shadow-primary);
-}
-
-.btn-primary::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: var(--gradient-sheen);
-    transform: translateX(-120%);
-    transition: transform 0.75s var(--ease-out-expo);
-    pointer-events: none;
+    background: var(--primary);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
 }
 
 .btn-primary:hover {
-    background-position: 100% 50%;
-    box-shadow: var(--shadow-primary-lg);
-}
-
-.btn-primary:hover::after {
-    transform: translateX(120%);
+    background: var(--primary-dark);
+    box-shadow: 0 4px 12px -4px rgba(30, 58, 138, 0.5);
 }
 
 /* ---------- Outline ---------- */
 
 .btn-outline {
-    color: var(--primary);
-    border-color: rgba(37, 99, 235, 0.45);
-    background: transparent;
-}
-
-.btn-outline::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: var(--gradient-brand);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.4s var(--ease-out-expo);
+    color: var(--text);
+    border-color: var(--border);
+    background: #ffffff;
 }
 
 .btn-outline:hover {
-    color: #ffffff;
-    border-color: transparent;
-    box-shadow: var(--shadow-primary);
-}
-
-.btn-outline:hover::before {
-    transform: scaleY(1);
+    color: var(--dark);
+    border-color: var(--border-strong);
+    background: var(--surface);
 }
 
 /* ---------- Secondary ---------- */
 
 .btn-secondary {
-    color: var(--ink);
-    background: #eef2f7;
+    color: var(--text);
+    background: var(--surface-2);
     border-color: transparent;
 }
 
 .btn-secondary:hover {
-    background: #e2e8f0;
-    box-shadow: var(--shadow-sm);
+    color: var(--dark);
+    background: var(--surface);
 }
 
 /* ---------- Danger ---------- */
 
 .btn-danger {
     color: var(--danger);
-    border-color: rgba(220, 38, 38, 0.4);
+    border-color: rgba(220, 38, 38, 0.35);
     background: transparent;
 }
 
@@ -535,22 +501,39 @@ p {
     color: #ffffff;
     background: var(--danger);
     border-color: var(--danger);
-    box-shadow: 0 10px 26px -10px rgba(220, 38, 38, 0.6);
 }
 
-/* ---------- Size ---------- */
+/* ---------- Sizes ---------- */
 
 .btn-large {
-    padding: 15px 28px;
-    font-size: 0.95rem;
-    border-radius: var(--radius-md);
+    padding: 11px 20px;
+    font-size: 0.88rem;
+    border-radius: 10px;
 }
 
 .btn-block {
     width: 100%;
 }
 
+/* ---------- Icon alignment ---------- */
 
+.btn svg.icon {
+    width: 14px;
+    height: 14px;
+
+    vertical-align: -1px;
+}
+
+
+/* ---------- Compact variant for cards ---------- */
+
+.card-actions .btn,
+.internship-card-footer .btn,
+.application-card-footer .btn {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+    border-radius: 7px;
+}
 /* =========================================================
    7. NAVBAR
    ========================================================= */

@@ -416,8 +416,7 @@ function handleApplyForVerification() {
             .join(", ");
 
 
-        alert(
-            "Please complete the following before applying:\n\n" +
+        toast.warn("Please complete the following before applying:\n\n" +
             pretty
         );
 

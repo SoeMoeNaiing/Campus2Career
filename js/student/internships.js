@@ -384,7 +384,7 @@ function handleApplyClick(internshipId) {
 
     if (!currentUser) {
 
-        alert("Please login first.");
+        toast.error("Please login first.");
 
         return;
 
@@ -404,7 +404,7 @@ function handleApplyClick(internshipId) {
         !recruiterIsVerified(internshipToApply.recruiterId)
     ) {
 
-        alert(
+        toast.error(
             "This internship is no longer available."
         );
 
@@ -421,8 +421,7 @@ function handleApplyClick(internshipId) {
 
     if (!profile) {
 
-        alert(
-            "Please complete your profile before applying."
+        toast.warn("Please complete your profile before applying."
         );
 
         window.location.href = "profile.html";
@@ -464,8 +463,7 @@ function handleApplyClick(internshipId) {
             .join(", ");
 
 
-        alert(
-            "Please complete the following before applying:\n\n" +
+        toast.warn("Please complete the following before applying:\n\n" +
             pretty
         );
 
@@ -480,8 +478,7 @@ function handleApplyClick(internshipId) {
 
     if (hasApplied(internshipId, currentUser.id)) {
 
-        alert(
-            "You have already applied for this internship."
+        toast.warn("You have already applied for this internship."
         );
 
         return;
@@ -498,7 +495,7 @@ function handleApplyClick(internshipId) {
         );
 
 
-    alert(result.message);
+    toast.success(result.message);
 
 }
 

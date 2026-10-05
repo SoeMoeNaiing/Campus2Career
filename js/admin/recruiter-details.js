@@ -545,8 +545,7 @@ function handleDeleteRecruiter(recruiterId) {
 
     /* 6. Back to the list */
 
-    alert(
-        "Recruiter account and all related data have been deleted."
+    toast.success("Recruiter account and all related data have been deleted."
     );
 
     window.location.href = "recruiters.html";

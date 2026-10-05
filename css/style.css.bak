@@ -1204,11 +1204,99 @@ p {
    12. AUDIENCE
    ========================================================= */
 
+.audience-section {
+    padding: 100px 0;
+    background: #ffffff;
+}
+
+
+.audience-card {
+    display: grid;
+    grid-template-columns: 1fr 0.8fr;
+    gap: 80px;
+    align-items: center;
+}
+
+
+.audience-content h2 {
+    max-width: 600px;
+    margin-bottom: 18px;
+
+    color: var(--dark);
+    font-size: clamp(1.9rem, 3.6vw, 2.8rem);
+    line-height: 1.14;
+}
+
+
+.audience-content p {
+    max-width: 580px;
+    margin-bottom: 25px;
+
+    color: var(--text);
+    line-height: 1.75;
+}
+
+
 /* ---------- Check list ---------- */
+
+.audience-list {
+    display: grid;
+    gap: 15px;
+}
+
+
+.audience-list div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: var(--dark);
+    font-weight: 600;
+
+    transition: transform 0.3s var(--ease-out-expo);
+}
+
+
+.audience-list div:hover {
+    transform: translateX(4px);
+}
+
+
+.audience-list .audience-check {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+
+    color: #ffffff;
+    background: var(--primary);
+
+    box-shadow: 0 4px 12px -4px rgba(30, 58, 138, 0.6);
+}
+
+
+.audience-list .audience-check svg.icon {
+    width: 12px;
+    height: 12px;
+
+    display: block;
+    color: #ffffff;
+    stroke-width: 3;
+}
+
 
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
+
+    .audience-card {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
 
 }
 
@@ -2854,7 +2942,12 @@ p {
         grid-column: 1 / -1;
     }
 
-.recruiter-content {
+    .audience-card {
+        padding: 48px;
+        gap: 45px;
+    }
+
+    .recruiter-content {
         gap: 50px;
     }
 
@@ -2944,12 +3037,17 @@ p {
         animation: none;
     }
 
+    .audience-card,
     .recruiter-content {
         grid-template-columns: 1fr;
         gap: 40px;
     }
 
-.details-layout {
+    .audience-card {
+        padding: 40px 32px;
+    }
+
+    .details-layout {
         grid-template-columns: 1fr;
     }
 
@@ -3000,7 +3098,11 @@ p {
         grid-template-columns: 1fr;
     }
 
-.footer-content {
+    .audience-list {
+        gap: 12px;
+    }
+
+    .footer-content {
         flex-direction: column;
         gap: 40px;
     }
@@ -3947,6 +4049,11 @@ p {
 
 /* ---------- Icon compatibility overrides ---------- */
 
+.audience-list svg.icon {
+    color: #ffffff;
+}
+
+
 .search-input svg.icon {
     color: var(--muted);
 }
@@ -4069,227 +4176,35 @@ p {
    AUDIENCE SECTION — ISOLATION FIX
    ========================================================= */
 
-
-/* =========================================================
-   AUDIENCE SECTION — FINAL
-   ========================================================= */
-
 .audience-section {
-    padding: 100px 0;
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+
     background: #ffffff;
+    overflow: hidden;
 }
 
 
 .audience-card {
-    display: grid;
-    grid-template-columns: 1fr 0.8fr;
-    gap: 80px;
-    align-items: center;
-}
-
-
-.audience-content h2 {
-    max-width: 600px;
-    margin-bottom: 18px;
-
-    color: var(--dark);
-    font-size: clamp(1.9rem, 3.6vw, 2.8rem);
-    line-height: 1.14;
-}
-
-
-.audience-content p {
-    max-width: 580px;
-    margin-bottom: 25px;
-
-    color: var(--text);
-    line-height: 1.75;
-}
-
-
-.audience-list {
-    display: grid;
-    gap: 15px;
-}
-
-
-.audience-list div {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    color: var(--dark);
-    font-weight: 600;
-}
-
-
-.audience-list .audience-check {
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-
-    width: 28px;
-    height: 28px;
-
-    border-radius: 50%;
-
-    color: #ffffff;
-    background: var(--primary);
-
-    box-shadow: 0 4px 12px -4px rgba(30, 58, 138, 0.6);
-}
-
-
-.audience-list .audience-check svg.icon {
-    width: 12px;
-    height: 12px;
-
-    display: block;
-    color: #ffffff;
-    stroke-width: 3;
-}
-
-
-@media (max-width: 900px) {
-
-    .audience-card {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-}
-
-
-/* =========================================================
-   AUTH PAGE — SIMPLIFY BACKGROUND
-   ========================================================= */
-
-.auth-page {
-    background: var(--surface);
-}
-
-/* =========================================================
-   PAGINATION
-   ========================================================= */
-
-.load-more-wrap {
-    display: flex;
-    justify-content: center;
-
-    margin-top: 26px;
-}
-
-
-.load-more-btn {
-    padding: 10px 22px;
-
-    border: 1px solid var(--border);
-    border-radius: var(--radius-full);
+    position: relative;
+    z-index: 2;
+    isolation: isolate;
 
     background: #ffffff;
-    color: var(--text);
-
-    font-size: 0.82rem;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition:
-        color var(--dur) var(--ease-out),
-        border-color var(--dur) var(--ease-out),
-        background var(--dur) var(--ease-out),
-        transform var(--dur) var(--ease-out);
-}
-
-
-.load-more-btn:hover {
-    color: var(--primary);
-    border-color: rgba(30, 58, 138, 0.35);
-    background: var(--brand-soft);
-    transform: translateY(-1px);
-}
-
-
-
-/* =========================================================
-   PAGINATION
-   ========================================================= */
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 6px;
-
-    margin-top: 30px;
-}
-
-
-.page-btn {
-    min-width: 36px;
-    height: 36px;
-
-    padding: 0 10px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: var(--radius-xl);
 
-    background: #ffffff;
-    color: var(--text);
-
-    font-family: inherit;
-    font-size: 0.82rem;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition:
-        color var(--dur) var(--ease-out),
-        border-color var(--dur) var(--ease-out),
-        background var(--dur) var(--ease-out);
+    overflow: hidden;
 }
 
 
-.page-btn:hover:not(:disabled):not(.active) {
-    color: var(--primary);
-    border-color: rgba(30, 58, 138, 0.35);
-    background: var(--brand-soft);
+.audience-card::before {
+    display: none !important;
 }
 
 
-.page-btn.active {
-    color: #ffffff;
-    background: var(--primary);
-    border-color: var(--primary);
-    cursor: default;
-}
-
-
-.page-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-
-.page-prev,
-.page-next {
-    padding: 0 14px;
-    font-weight: 700;
-}
-
-
-.page-ellipsis {
-    min-width: 24px;
-
-    display: inline-flex;
-    justify-content: center;
-
-    color: var(--muted);
-    font-size: 0.9rem;
-    font-weight: 600;
+.audience-card > * {
+    position: relative;
+    z-index: 1;
 }

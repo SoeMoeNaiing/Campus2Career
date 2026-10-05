@@ -601,6 +601,9 @@ const resultsCount =
 const noResults =
     document.getElementById("noResults");
 
+    /* Pagination state */
+
+let internshipPager = null;
 
 /* ================= INITIALIZE LISTING ================= */
 
@@ -617,45 +620,30 @@ if (internshipList) {
 
 function initializeInternshipListing() {
 
+    internshipPager = createPaginatedRenderer({
+        containerId: "internshipList",
+        counterId: "resultsCount",
+        buttonId: "loadMoreInternships",
+        perPage: 3
+    });
+
+
     const internships =
-        filterByVerifiedRecruiter(
-            getInternships()
-        )
-            .filter(
-                internship =>
-                    internship.status === "active"
-            );
+        filterByVerifiedRecruiter(getInternships())
+            .filter(i => i.status === "active");
+
 
     populateFilters(internships);
 
     renderInternshipList(internships);
 
 
-    searchInput.addEventListener(
-        "input",
-        applyFilters
-    );
-
-
-    categoryFilter.addEventListener(
-        "change",
-        applyFilters
-    );
-
-
-    locationFilter.addEventListener(
-        "change",
-        applyFilters
-    );
-
-
-    typeFilter.addEventListener(
-        "change",
-        applyFilters
-    );
+    searchInput.addEventListener("input", applyFilters);
+    categoryFilter.addEventListener("change", applyFilters);
+    locationFilter.addEventListener("change", applyFilters);
+    typeFilter.addEventListener("change", applyFilters);
 
 }
-
 
 /* =========================================================
    FILTER OPTIONS
@@ -820,30 +808,48 @@ function renderInternshipList(internships) {
     }
 
 
-    resultsCount.textContent =
-        `${internships.length} ${internships.length === 1
-            ? "internship"
-            : "internships"
-        }`;
+    const noResults =
+        document.getElementById("noResults");
 
+
+    /* ---------- Empty ---------- */
 
     if (internships.length === 0) {
 
-        internshipList.innerHTML = "";
+        if (internshipPager) {
+            internshipPager.setItems([], createListingCard);
+        }
 
-        noResults.hidden = false;
+        if (noResults) {
+            noResults.hidden = false;
+        }
 
         return;
+
     }
 
 
-    noResults.hidden = true;
+    if (noResults) {
+        noResults.hidden = true;
+    }
 
 
-    internshipList.innerHTML =
-        internships
-            .map(createListingCard)
-            .join("");
+    /* ---------- Newest first + paginate ---------- */
+
+    const sorted =
+        sortByNewest(internships, "postedAt");
+
+
+    if (internshipPager) {
+
+        internshipPager.setItems(sorted, createListingCard);
+
+    } else {
+
+        internshipList.innerHTML =
+            sorted.map(createListingCard).join("");
+
+    }
 
 }
 

@@ -5,6 +5,7 @@
 let allInternshipRows = [];
 
 let currentInternshipFilter = "all";
+let adminInternshipsPager = null;
 
 
 if (!requireRole("admin")) {
@@ -261,20 +262,25 @@ function applyInternshipFilter() {
 
 function renderInternshipList(rows) {
 
-    const container =
-        document.getElementById("internshipList");
-
     const empty =
         document.getElementById("noInternships");
 
-    if (!container) {
-        return;
+
+    if (!adminInternshipsPager) {
+
+        adminInternshipsPager = createPaginatedRenderer({
+            containerId: "internshipList",
+            counterId: null,
+            pagerId: "adminInternshipsPager",
+            perPage: 8
+        });
+
     }
 
 
     if (rows.length === 0) {
 
-        container.innerHTML = "";
+        adminInternshipsPager.setItems([], createInternshipRow);
 
         if (empty) {
             empty.hidden = false;
@@ -290,10 +296,7 @@ function renderInternshipList(rows) {
     }
 
 
-    container.innerHTML =
-        rows
-            .map(createInternshipRow)
-            .join("");
+    adminInternshipsPager.setItems(rows, createInternshipRow);
 
 }
 

@@ -4,7 +4,7 @@
    ========================================================= */
 
 let currentStatusFilter = "all";
-
+let recruiterApplicationsPager = null;
 let currentApplications = [];
 
 let currentInternships = [];
@@ -155,60 +155,50 @@ function applyStatusFilter() {
    RENDER APPLICATIONS
    ========================================================= */
 
-function renderRecruiterApplications(
-    applications,
-    internships
-) {
+function renderRecruiterApplications(applications, internships) {
 
-    const container =
-        document.getElementById(
-            "recruiterApplicationList"
-        );
-
-    const emptyState =
-        document.getElementById(
-            "noRecruiterApplications"
-        );
-
-    const listCount =
-        document.getElementById(
-            "applicationListCount"
-        );
+    const empty =
+        document.getElementById("noRecruiterApplications");
 
 
-    listCount.textContent =
-        `${applications.length} ${
-            applications.length === 1
-                ? "application"
-                : "applications"
-        }`;
+    if (!recruiterApplicationsPager) {
+
+        recruiterApplicationsPager = createPaginatedRenderer({
+            containerId: "recruiterApplicationList",
+            counterId: "applicationListCount",
+            pagerId: "recruiterApplicationsPager",
+            perPage: 6
+        });
+
+    }
+
+
+    const renderRow = function (app) {
+        return createRecruiterApplicationCard(app, internships);
+    };
 
 
     if (applications.length === 0) {
 
-        container.innerHTML = "";
+        recruiterApplicationsPager.setItems([], renderRow);
 
-        emptyState.hidden = false;
+        if (empty) {
+            empty.hidden = false;
+        }
 
         return;
+
     }
 
 
-    emptyState.hidden = true;
+    if (empty) {
+        empty.hidden = true;
+    }
 
 
-    container.innerHTML =
-        applications
-            .map(
-                application =>
-                    createRecruiterApplicationCard(
-                        application,
-                        internships
-                    )
-            )
-            .join("");
+    recruiterApplicationsPager.setItems(applications, renderRow);
+
 }
-
 
 /* =========================================================
    APPLICATION CARD

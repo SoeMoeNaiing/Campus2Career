@@ -17,6 +17,9 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/icons.css">
 </head>
 
 
@@ -33,14 +36,16 @@
             </a>
 
 
-            <button
-                class="mobile-menu-button"
-                id="mobileMenuButton"
-                type="button"
-                aria-label="Open navigation menu"
-            >
-                ☰
-            </button>
+           <button
+    class="mobile-menu-button"
+    id="mobileMenuButton"
+    type="button"
+    aria-label="Open navigation menu"
+>
+    <svg class="icon" width="20" height="20" aria-hidden="true">
+        <use href="#icon-menu"></use>
+    </svg>
+</button>
 
 
             <nav class="main-nav" id="mainNav">
@@ -145,23 +150,28 @@
                             </div>
 
                             <div class="hero-card-icon">
-                                🔎
-                            </div>
-
+    <svg class="icon" width="20" height="20" aria-hidden="true">
+        <use href="#icon-search"></use>
+    </svg>
+</div>
                         </div>
 
 
                         <div class="search-preview">
 
-                            <div class="search-preview-field">
-                                <span>⌕</span>
-                                <span>Software Engineering</span>
-                            </div>
+                           <div class="search-preview-field">
+    <svg class="icon" width="16" height="16" aria-hidden="true">
+        <use href="#icon-search"></use>
+    </svg>
+    <span>Software Engineering</span>
+</div>
 
-                            <div class="search-preview-field">
-                                <span>⌖</span>
-                                <span>Yangon</span>
-                            </div>
+                           <div class="search-preview-field">
+    <svg class="icon" width="16" height="16" aria-hidden="true">
+        <use href="#icon-location"></use>
+    </svg>
+    <span>Yangon</span>
+</div>
 
                             <button type="button">
                                 Search
@@ -254,30 +264,28 @@
 
                 <form class="internship-search" id="internshipSearch">
 
-                    <div class="search-input">
+                   <div class="search-input">
+    <svg class="icon" width="16" height="16" aria-hidden="true">
+        <use href="#icon-search"></use>
+    </svg>
+    <input
+        type="text"
+        id="searchKeyword"
+        placeholder="Job title, skill or keyword"
+    >
+</div>
 
-                        <span>⌕</span>
 
-                        <input
-                            type="text"
-                            id="searchKeyword"
-                            placeholder="Job title, skill or keyword"
-                        >
-
-                    </div>
-
-
-                    <div class="search-input">
-
-                        <span>⌖</span>
-
-                        <input
-                            type="text"
-                            id="searchLocation"
-                            placeholder="Location"
-                        >
-
-                    </div>
+ <div class="search-input">
+    <svg class="icon" width="16" height="16" aria-hidden="true">
+        <use href="#icon-location"></use>
+    </svg>
+    <input
+        type="text"
+        id="searchLocation"
+        placeholder="Location"
+    >
+</div>
 
 
                     <button
@@ -328,9 +336,11 @@
 
                     <article class="feature-card">
 
-                        <div class="feature-icon">
-                            🔎
-                        </div>
+                       <div class="feature-icon">
+    <svg class="icon" width="22" height="22" aria-hidden="true">
+        <use href="#icon-search"></use>
+    </svg>
+</div>
 
                         <h3>
                             Discover Opportunities
@@ -347,9 +357,11 @@
 
                     <article class="feature-card">
 
-                        <div class="feature-icon">
-                            📄
-                        </div>
+                       <div class="feature-icon">
+    <svg class="icon" width="22" height="22" aria-hidden="true">
+        <use href="#icon-file-text"></use>
+    </svg>
+</div>
 
                         <h3>
                             Apply Easily
@@ -366,8 +378,10 @@
                     <article class="feature-card">
 
                         <div class="feature-icon">
-                            📊
-                        </div>
+    <svg class="icon" width="22" height="22" aria-hidden="true">
+        <use href="#icon-bar-chart"></use>
+    </svg>
+</div>  
 
                         <h3>
                             Track Applications
@@ -508,23 +522,39 @@
 
                 <div class="audience-list">
 
-                    <div>
-                        <span>✓</span>
-                        Personalized internship discovery
-                    </div>
+      <div>
+    <span class="audience-check">
+        <svg class="icon" width="12" height="12" aria-hidden="true">
+            <use href="#icon-check"></use>
+        </svg>
+    </span>
+    Personalized internship discovery
+</div>
 
                     <div>
-                        <span>✓</span>
+                        <span class="audience-check">
+        <svg class="icon" width="12" height="12" aria-hidden="true">
+            <use href="#icon-check"></use>
+        </svg>
+    </span>
                         Simple application process
                     </div>
 
                     <div>
-                        <span>✓</span>
+                        <span class="audience-check">
+        <svg class="icon" width="12" height="12" aria-hidden="true">
+            <use href="#icon-check"></use>
+        </svg>
+    </span>
                         Application tracking
                     </div>
 
                     <div>
-                        <span>✓</span>
+                       <span class="audience-check">
+        <svg class="icon" width="12" height="12" aria-hidden="true">
+            <use href="#icon-check"></use>
+        </svg>
+    </span>
                         Student profile
                     </div>
 
@@ -663,6 +693,8 @@
 
 
     <script src="js/app.js"></script>
+    <script src="js/icons.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 

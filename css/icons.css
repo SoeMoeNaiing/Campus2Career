@@ -1,0 +1,17 @@
+/* =========================================================
+   CAMPUS2CAREER — ICON SYSTEM
+   ========================================================= */
+
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+
+    stroke-width: 2;
+
+    /* Inherits color from parent via currentColor */
+}
+.audience-list .audience-check svg.icon {
+    color: #ffffff;
+    stroke-width: 3;
+}

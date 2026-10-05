@@ -322,7 +322,7 @@ function renderInternshipDetails(internship) {
                         onclick="handleSaveClick('${internship.id}')"
                     >
                         ${isInternshipSaved(internship.id)
-                            ? "Saved ✓"
+                            ? icon("check", 14) + " Saved"
                             : "Save Internship"
                         }
                     </button>
@@ -523,8 +523,8 @@ function handleSaveClick(internshipId) {
 
     if (isSaved) {
 
-        saveButton.textContent =
-            "Saved ✓";
+        saveButton.innerHTML =
+            icon("check", 14) + " Saved";
 
         saveButton.classList.add(
             "saved"
@@ -852,18 +852,18 @@ function createListingCard(internship) {
                                 <div class="internship-meta">
 
                     <span>
-                        📍 ${internship.location}
+                        ${icon("location", 14)} ${internship.location}
                     </span>
 
                     <span>
-                        ⏱ ${internship.duration}
+                        ${icon("clock", 14)} ${internship.duration}
                     </span>
 
                     ${
                         internship.deadline
                             ? `
                                 <span>
-                                    ⏰ Apply by
+                                    ${icon("calendar", 14)} Apply by
                                     ${formatCardDate(
                                         internship.deadline
                                     )}
@@ -1021,11 +1021,11 @@ function createSavedInternshipCard(
                 <div class="internship-meta">
 
                     <span>
-                        📍 ${internship.location}
+                        ${icon("location", 14)} ${internship.location}
                     </span>
 
                     <span>
-                        ⏱ ${internship.duration}
+                        ${icon("clock", 14)} ${internship.duration}
                     </span>
 
                 </div>

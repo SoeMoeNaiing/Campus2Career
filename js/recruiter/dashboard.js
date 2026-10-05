@@ -354,18 +354,18 @@ function createRecruiterInternshipCard(internship) {
                                 <div class="internship-meta">
 
                     <span>
-                        📍 ${internship.location}
+                        ${icon("location", 14)} ${internship.location}
                     </span>
 
                     <span>
-                        🗓 ${internship.duration}
+                        ${icon("calendar", 14)} ${internship.duration}
                     </span>
 
                     ${
                         internship.deadline
                             ? `
                                 <span>
-                                    ⏰ Closes
+                                    ${icon("calendar", 14)} Closes
                                     ${formatCardDate(
                                         internship.deadline
                                     )}

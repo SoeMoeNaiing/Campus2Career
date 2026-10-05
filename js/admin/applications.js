@@ -437,7 +437,7 @@ function createApplicationRow(row) {
                     <p class="admin-recruiter-industry">
                         Recruiter: ${row.recruiterName}
                         ·
-                        📅 ${formatAdminDate(row.appliedDate)}
+                        ${icon("calendar", 14)} ${formatAdminDate(row.appliedDate)}
                         ${interviewLine}
                     </p>
 

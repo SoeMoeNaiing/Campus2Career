@@ -314,13 +314,13 @@ function createInternshipRow(row) {
 
     const deadlineLine =
         row.deadline
-            ? `<span>⏰ Closes ${formatAdminDate(row.deadline)}</span>`
+            ? `<span>${icon("calendar", 14)} Closes ${formatAdminDate(row.deadline)}</span>`
             : "";
 
 
     const postedLine =
         row.postedAt
-            ? `<span>📅 ${formatAdminDate(row.postedAt)}</span>`
+            ? `<span>${icon("calendar", 14)} ${formatAdminDate(row.postedAt)}</span>`
             : "";
 
 
@@ -374,7 +374,7 @@ function createInternshipRow(row) {
                     </p>
 
                     <p class="admin-recruiter-industry">
-                        📍 ${row.location}
+                        ${icon("location", 14)} ${row.location}
                         ${postedLine}
                         ${deadlineLine}
                     </p>

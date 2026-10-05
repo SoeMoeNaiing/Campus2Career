@@ -357,7 +357,7 @@ function renderInterviewBadge(interview) {
 
         return `
             <p class="interview-badge interview-badge-success">
-                ✓ Selected
+                ${icon("check", 14)} Selected
             </p>
         `;
     }
@@ -367,7 +367,7 @@ function renderInterviewBadge(interview) {
 
         return `
             <p class="interview-badge interview-badge-failure">
-                ✕ Not Selected
+                ${icon("x", 14)} Not Selected
             </p>
         `;
     }
@@ -377,7 +377,7 @@ function renderInterviewBadge(interview) {
 
         return `
             <p class="interview-badge interview-badge-failure">
-                ⚠ No Show
+                ${icon("alert", 14)} No Show
             </p>
         `;
     }
@@ -389,7 +389,7 @@ function renderInterviewBadge(interview) {
 
         return `
             <p class="interview-badge">
-                🕐 Interview invited — waiting for student
+                ${icon("clock", 14)} Interview invited — waiting for student
             </p>
         `;
     }
@@ -399,7 +399,7 @@ function renderInterviewBadge(interview) {
 
         return `
             <p class="interview-badge">
-                ✓ Interview accepted —
+                ${icon("check", 14)} Interview accepted —
                 ${interview.date} ${interview.time}
             </p>
         `;
@@ -410,7 +410,7 @@ function renderInterviewBadge(interview) {
 
         return `
             <p class="interview-badge">
-                ✕ Interview declined by student
+                ${icon("x", 14)} Interview declined by student
             </p>
         `;
     }
@@ -998,10 +998,10 @@ function renderFinalApplicationActions(
         );
 
 
-    const label =
+       const label =
         application.status === "selected"
-            ? "✓ Selected"
-            : "✕ Not Selected";
+            ? icon("check", 14) + " Selected"
+            : icon("x", 14) + " Not Selected";
 
 
     let noShowNote = "";
@@ -1014,7 +1014,7 @@ function renderFinalApplicationActions(
 
         noShowNote = `
             <p class="interview-detail interview-warning">
-                ⚠ Student did not attend the interview.
+                ${icon("alert", 14)} Student did not attend the interview.
             </p>
         `;
 
@@ -1136,7 +1136,7 @@ container.classList.remove("application-actions-stacked");
         container.innerHTML = `
 
             <span class="application-status">
-                ✓ Interview invitation sent
+                ${icon("check", 14)} Interview invitation sent
             </span>
 
 
@@ -1193,7 +1193,7 @@ container.classList.remove("application-actions-stacked");
 
             attendanceLine = `
                 <p class="interview-detail">
-                    ✓ Student joined the interview at
+                    ${icon("check", 14)} Student joined the interview at
                     ${new Date(interview.attendedAt).toLocaleTimeString()}
                 </p>
             `;
@@ -1202,7 +1202,7 @@ container.classList.remove("application-actions-stacked");
 
             attendanceLine = `
                 <p class="interview-detail interview-warning">
-                    ⚠ Student did not join the interview
+                    ${icon("alert", 14)} Student did not join the interview
                 </p>
             `;
 
@@ -1220,7 +1220,7 @@ container.classList.remove("application-actions-stacked");
         container.innerHTML = `
 
             <span class="application-status">
-                ✓ Student accepted the interview
+                ${icon("check", 14)} Student accepted the interview
             </span>
 
 

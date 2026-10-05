@@ -1,0 +1,168 @@
+/* =========================================================
+   CAMPUS2CAREER — TOAST NOTIFICATIONS
+   ========================================================= */
+
+.toast-container {
+    position: fixed;
+
+    top: 20px;
+    right: 20px;
+
+    z-index: 9999;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    max-width: 380px;
+    width: calc(100vw - 40px);
+
+    pointer-events: none;
+}
+
+
+/* ---------- Toast ---------- */
+
+.toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    padding: 14px 16px;
+
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-left-width: 4px;
+    border-radius: var(--radius-md);
+
+    box-shadow: var(--shadow-lg);
+
+    color: var(--text);
+    font-size: 0.88rem;
+    line-height: 1.5;
+
+    pointer-events: auto;
+
+    opacity: 0;
+    transform: translateX(20px);
+
+    transition:
+        opacity 0.22s var(--ease-out),
+        transform 0.28s var(--ease-out-expo);
+}
+
+
+.toast-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+.toast-leaving {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+
+/* ---------- Variants ---------- */
+
+.toast-success {
+    border-left-color: var(--success);
+}
+
+.toast-success .toast-icon {
+    color: var(--success);
+}
+
+
+.toast-error {
+    border-left-color: var(--danger);
+}
+
+.toast-error .toast-icon {
+    color: var(--danger);
+}
+
+
+.toast-warn {
+    border-left-color: var(--accent);
+}
+
+.toast-warn .toast-icon {
+    color: var(--accent);
+}
+
+
+.toast-info {
+    border-left-color: var(--brand);
+}
+
+.toast-info .toast-icon {
+    color: var(--brand);
+}
+
+
+/* ---------- Parts ---------- */
+
+.toast-icon {
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+
+.toast-message {
+    flex: 1;
+    min-width: 0;
+
+    word-break: break-word;
+}
+
+
+.toast-close {
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    width: 22px;
+    height: 22px;
+
+    border: none;
+    border-radius: var(--radius-xs);
+
+    background: transparent;
+    color: var(--muted);
+
+    cursor: pointer;
+
+    transition:
+        background var(--dur-fast) var(--ease-out),
+        color var(--dur-fast) var(--ease-out);
+}
+
+
+.toast-close:hover {
+    background: var(--surface-2);
+    color: var(--dark);
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 480px) {
+
+    .toast-container {
+        top: 12px;
+        right: 12px;
+        left: 12px;
+
+        max-width: none;
+        width: auto;
+    }
+
+    .toast {
+        padding: 12px 14px;
+        font-size: 0.84rem;
+    }
+
+}

@@ -270,7 +270,7 @@ function renderVerificationSection(profile) {
 
         badgeHTML = `
             <span class="verification-badge badge-verified">
-                ✓ Verified
+                ${icon("check", 14)} Verified
             </span>
         `;
 
@@ -303,7 +303,7 @@ function renderVerificationSection(profile) {
 
         badgeHTML = `
             <span class="verification-badge badge-rejected">
-                ✕ Rejected
+                ${icon("x", 14)} Rejected
             </span>
         `;
 

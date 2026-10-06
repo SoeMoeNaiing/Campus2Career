@@ -177,7 +177,7 @@ function renderInternshipDetails(internship) {
 
             </div>
 
-
+            </div>
         <div class="details-layout">
 
 

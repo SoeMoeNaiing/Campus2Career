@@ -137,11 +137,35 @@ function renderInternshipDetails(internship) {
             </div>
 
 
-            <div class="details-title">
+                        <div class="details-title">
 
-                <span class="details-category">
-                    ${internship.category}
-                </span>
+                <div class="details-meta-row">
+
+                    <span class="details-category">
+                        ${internship.category}
+                    </span>
+
+                    ${
+                        internship.paid === "paid"
+                            ? `
+                                <span class="badge badge-paid">
+                                    ${icon("check", 12)} Paid
+                                </span>
+                            `
+                            : ""
+                    }
+
+                    ${
+                        internship.paid === "unpaid"
+                            ? `
+                                <span class="badge badge-unpaid">
+                                    Unpaid
+                                </span>
+                            `
+                            : ""
+                    }
+
+                </div>
 
                 <h1>
                     ${internship.title}
@@ -152,8 +176,6 @@ function renderInternshipDetails(internship) {
                 </p>
 
             </div>
-
-        </div>
 
 
         <div class="details-layout">

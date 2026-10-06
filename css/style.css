@@ -4293,3 +4293,31 @@ p {
     font-size: 0.9rem;
     font-weight: 600;
 }
+
+
+/* =========================================================
+   PAID / UNPAID BADGES
+   ========================================================= */
+
+.badge-paid {
+    background: var(--success-bg);
+    color: var(--success);
+    text-transform: none;
+}
+
+
+.badge-unpaid {
+    background: var(--surface-2);
+    color: var(--muted);
+    text-transform: none;
+}
+
+
+.details-meta-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-bottom: 6px;
+}

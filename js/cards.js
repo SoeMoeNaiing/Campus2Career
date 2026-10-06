@@ -136,6 +136,29 @@ function renderCardBadges(internship, showVerified) {
     const badges = [];
 
 
+    /* Paid / Unpaid */
+
+    if (internship.paid === "paid") {
+
+        badges.push(`
+            <span class="badge badge-paid">
+                ${icon("check", 12)} Paid
+            </span>
+        `);
+
+    } else if (internship.paid === "unpaid") {
+
+        badges.push(`
+            <span class="badge badge-unpaid">
+                Unpaid
+            </span>
+        `);
+
+    }
+
+
+    /* New */
+
     if (isNewPosting(internship.postedAt || internship.postedDate)) {
 
         badges.push(`
@@ -144,6 +167,8 @@ function renderCardBadges(internship, showVerified) {
 
     }
 
+
+    /* Verified */
 
     if (
         showVerified &&

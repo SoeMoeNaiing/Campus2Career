@@ -397,6 +397,10 @@ function handleCreateInternshipSubmit(event) {
         document.getElementById(
             "durationInput"
         ).value.trim();
+            const paid =
+        document.getElementById(
+            "paidInput"
+        ).value;
             const deadline =
         document.getElementById(
             "deadlineInput"
@@ -489,6 +493,7 @@ function handleCreateInternshipSubmit(event) {
         category: internshipData.category,
 
         duration: internshipData.duration,
+                paid: paid || "unpaid",
 
         skills: internshipData.skills,
 
@@ -498,7 +503,7 @@ function handleCreateInternshipSubmit(event) {
                 deadline: deadline || "",
 
       
-
+        
         postedDate: new Date().toISOString(),
 
         status: "active"
@@ -639,6 +644,9 @@ function loadInternshipIntoEditForm(
     document.getElementById(
         "durationInput"
     ).value = internship.duration || "";
+        document.getElementById(
+        "paidInput"
+    ).value = internship.paid || "unpaid";
     document.getElementById(
         "deadlineInput"
     ).value = internship.deadline || "";
@@ -741,6 +749,10 @@ function handleEditInternshipSubmit(event) {
         document.getElementById(
             "durationInput"
         ).value.trim();
+        const paid =
+        document.getElementById(
+            "paidInput"
+        ).value;
     const deadline =
         document.getElementById(
             "deadlineInput"
@@ -819,7 +831,8 @@ function handleEditInternshipSubmit(event) {
                 skills,
                 description,
                 requirements,
-                 deadline: deadline || ""
+                 deadline: deadline || "",
+                 paid: paid || "unpaid"
             }
         );
 

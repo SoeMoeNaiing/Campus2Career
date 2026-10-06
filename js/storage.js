@@ -172,34 +172,7 @@ function initializeInternships() {
     }
 
 }
-function updateInternshipSeedData() {
 
-    const internships = getInternships();
-
-    if (internships.length === 0) {
-        return;
-    }
-
-    const updatedInternships = internships.map(internship => {
-
-        const seedInternship =
-            seedInternships.find(
-                seed => seed.id === internship.id
-            );
-
-        if (!seedInternship) {
-            return internship;
-        }
-
-        return {
-            ...internship,
-            recruiterId: seedInternship.recruiterId,
-            status: seedInternship.status
-        };
-    });
-
-    saveInternships(updatedInternships);
-}
 
 
 

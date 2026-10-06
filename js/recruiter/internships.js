@@ -88,7 +88,7 @@ function initializeRecruiterInternships() {
 
     initializeInternships();
 
-    updateInternshipSeedData();
+  
 
     const currentUser = getCurrentUser();
 

@@ -31,7 +31,7 @@ function isCurrentRecruiterVerified() {
 function initializeRecruiterDashboard() {
 
    initializeInternships();
-updateInternshipSeedData();
+
     const currentUser = getCurrentUser();
 
     if (!currentUser) {

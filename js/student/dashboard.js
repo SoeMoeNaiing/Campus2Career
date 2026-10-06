@@ -38,12 +38,7 @@ if (studentName && currentUser) {
 
 /* ================= DASHBOARD DATA ================= */
 
-/*
-    Applications and saved internships will be connected
-    to their real storage structures in later iterations.
 
-    For now, the dashboard starts with zero values.
-*/
 
 const applications =
     getStudentApplications(currentUser.id);

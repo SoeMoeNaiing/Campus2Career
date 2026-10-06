@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details | Admin | Campus2Career</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/admin.css">
+    <link rel="stylesheet" href="../../css/icons.css">
+</head>
+
+<body class="admin-body">
+
+    <div class="admin-layout">
+
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-header">
+                <a href="dashboard.html" class="logo">
+                    Campus<span>2</span>Career
+                </a>
+                <span class="role-tag">Admin Console</span>
+            </div>
+
+            <nav class="admin-sidebar-nav">
+                <div class="admin-nav-group">
+                    <p class="admin-nav-label">Overview</p>
+                    <a href="dashboard.html" class="admin-nav-item">
+                        <span class="nav-icon">
+                            <svg class="icon" width="16" height="16"><use href="#icon-layout"></use></svg>
+                        </span>
+                        Dashboard
+                    </a>
+                </div>
+
+                <div class="admin-nav-group">
+                    <p class="admin-nav-label">Management</p>
+                    <a href="recruiters.html" class="admin-nav-item">
+                        <span class="nav-icon"><svg class="icon" width="16" height="16"><use href="#icon-building"></use></svg></span>
+                        Recruiters
+                        <span id="pendingBadge" class="admin-nav-badge"></span>
+                    </a>
+                    <a href="students.html" class="admin-nav-item active">
+                        <span class="nav-icon"><svg class="icon" width="16" height="16"><use href="#icon-graduation-cap"></use></svg></span>
+                        Students
+                    </a>
+                    <a href="internships.html" class="admin-nav-item">
+                        <span class="nav-icon"><svg class="icon" width="16" height="16"><use href="#icon-file-text"></use></svg></span>
+                        Internships
+                    </a>
+                    <a href="applications.html" class="admin-nav-item">
+                        <span class="nav-icon"><svg class="icon" width="16" height="16"><use href="#icon-send"></use></svg></span>
+                        Applications
+                    </a>
+                </div>
+            </nav>
+
+            <div class="admin-sidebar-footer">
+                <div class="admin-avatar" id="adminInitial">A</div>
+                <div class="admin-user-info">
+                    <strong id="adminName">Admin</strong>
+                    <span>Administrator</span>
+                </div>
+                <button type="button" class="admin-logout" onclick="logout()">Logout</button>
+            </div>
+        </aside>
+
+
+        <main class="admin-main">
+
+            <header class="admin-topbar">
+                <div>
+                    <a href="students.html" class="back-link">
+                        ← Back to Students
+                    </a>
+                    <h1>Student Details</h1>
+                    <p class="admin-breadcrumb">
+                        Full profile and application history
+                    </p>
+                </div>
+            </header>
+
+            <section class="admin-content">
+
+                <div id="studentDetails" class="admin-panel"></div>
+
+                <div id="studentNotFound" class="admin-panel" hidden>
+                    <p class="admin-empty">Student not found.</p>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="../../data/seed.js"></script>
+    <script src="../../js/icons.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/pagination.js"></script>
+    <script src="../../js/admin/student-details.js"></script>
+
+</body>
+
+</html>

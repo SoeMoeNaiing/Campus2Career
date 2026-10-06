@@ -316,7 +316,14 @@ function createStudentRow(row) {
             </div>
 
 
-            <div class="admin-recruiter-actions">
+                      <div class="admin-recruiter-actions">
+
+                <a
+                    href="student-details.html?id=${row.userId}"
+                    class="btn btn-outline"
+                >
+                    View Details
+                </a>
 
                 <button
                     type="button"
